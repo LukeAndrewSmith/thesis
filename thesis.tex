@@ -1,0 +1,196 @@
+\documentclass[a4paper,twoside,12pt,chapterprefix=false]{scrbook}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[footnotesize,sl,SL,hang,tight]{subfigure}  % helpful package for aligning figures next to each other
+\usepackage{longtable} % tables over several pages
+\usepackage[font={small,sl},hang,labelfont=bf]{caption} % configure captions
+%\usepackage{captcont} % continue sufigures over several pages
+\usepackage{booktabs} % publication quality tables for LaTeX
+%\usepackage{showkeys} % shows the labels above the references for easier development
+
+\ifpdfoutput{%
+	\usepackage[pdftex]{graphicx}
+	\usepackage[]{pdfpages} %for including full pdf pages
+}{%
+	\usepackage{graphicx}
+}
+\usepackage{rotating} % rotate figures
+
+\usepackage{scrlayer-scrpage}
+\KOMAoptions{headinclude}
+
+% Font packages:
+\usepackage{times}
+\usepackage{helvet}   % sets sans serif font
+\usepackage[T1]{fontenc}
+
+%PDF hyperref config
+\ifpdfoutput{%
+	\usepackage[pdftex,
+		bookmarks,
+		bookmarksopen=true,
+		bookmarksnumbered=true,
+		pdfauthor={Luke Smith},
+		pdftitle={Motion Priors for Pose Estimation and Animation Workflows},
+		colorlinks,
+		linkcolor=black,
+		citecolor=black,
+		filecolor=black,
+		urlcolor=black,
+		anchorcolor=black,
+		menucolor=black,
+		breaklinks=true,
+		pageanchor=true,
+		plainpages=false,
+		pdfpagelabels=true]{hyperref}
+}{}
+
+\ifpdfoutput{%
+	\pdfcompresslevel=9
+	\pdfoutput=1
+	\DeclareGraphicsExtensions{.pdf,.png}
+}{}
+
+\bibliographystyle{alpha}
+
+% Uncomment the chapter / section you are working on.
+%
+%\includeonly{figures}
+%\includeonly{tables}
+%\includeonly{data-analysis}
+%\includeonly{conclusion}
+%\includeonly{appendix}
+
+%\pagestyle{useheadings}
+
+% A4
+%
+\topmargin -0.5in
+\textheight 9.3in
+\textwidth 6.3in
+\oddsidemargin 0.18in
+\evensidemargin -0.22in
+\parskip 0.1in
+\parindent 0in
+
+\renewcommand{\arraystretch}{1.5}
+\renewcommand{\baselinestretch}{1}
+
+\input{Preamble/preamble}
+
+\begin{document}
+
+%% Define leading chapter pages
+%
+\input{Helpers/studchapter}
+\newpagestyle{mychapterpagestyle}{{\protect\mychpstyleintl}{\protect\mychpstyleintl}}{}
+\newpagestyle{myappendixpagestyle}{{\protect\mychpstyleintl}{\protect\mychpstyleintl}}{}
+%%
+
+%% macros e.g.
+\newcommand{\mfytext}[0]{my fancy text}
+
+%refs
+\newcommand{\chpref}[1]{Chapter \ref{#1}}
+\newcommand{\secref}[1]{Section \ref{#1}}
+%\newcommand{\equref}[1]{Equation \ref{#1}} %better use builtin \eqref{}
+\newcommand{\figref}[1]{Figure \ref{#1}}
+\newcommand{\tabref}[1]{Table \ref{#1}}
+\newcommand{\apxref}[1]{Appendix \ref{#1}}
+%%
+
+\hypersetup{pageanchor=false} % disabling anchors for title page to avoid warning
+
+%% Replace this by your own design of a title page
+%
+%\title{Thesis Title}
+%\author{My Name}
+%\date{September 2042}
+%\maketitle
+%\clearemptydoublepage
+% --- selfmade version ----
+\begin{titlepage}
+	\topmargin 1.0cm
+	\oddsidemargin 0.0cm
+	\evensidemargin 0.0cm
+	%\textwidth 6.5in
+	\centering
+	\Huge
+	\vspace{3.0cm}
+	\textbf{\textsf{Motion Priors for Pose Estimation and Animation Workflows}} \\[2.0cm]
+	%\includegraphics*[width=0.4\textwidth]{Figures/titlefigure} \\[4.0cm]
+	\vspace{5.0cm}
+	\sffamily
+	\Large
+	Luke Smith
+	\\[0.8cm]
+	\large
+	Master Thesis
+	\\
+	April 2022
+	\\[1.3cm]
+	Prof. Dr. Robert W. Sumner
+	\vfill
+	\includegraphics*[width=0.3\textwidth]{Figures/ETH_logo} \hfill
+	\includegraphics*[width=0.3\textwidth]{Figures/CGL_logo}
+	\vspace{3.4cm}
+\end{titlepage}
+\clearemptydoublepage
+%%
+
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\include{Preamble/abstract.tex}
+
+%include task description here:
+\cleardoublepage
+%\includegraphics[viewport=3cm 0cm 20cm 27.5cm]{task_description} %better use includepdf below!
+%\includepdf{task_description}
+\cleardoublepage
+
+%include acknowledgment here:
+%\include{acknowledgment}
+
+\tableofcontents
+\cleardoublepage
+
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\cleardoublepage
+
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\cleardoublepage
+
+\pagenumbering{arabic}
+\renewcommand*{\chapterpagestyle}{mychapterpagestyle}
+\renewcommand*{\chapterformat}{} % show chapter titles only (no numbers)
+% \setchapterpreamble[o]{...}  unfortunately does not move the \chapter output downwards
+
+
+% ---- MAIN PART ----
+
+\include{Chapters/1_intro/include.tex}
+\include{Chapters/2_related/include.tex}
+\include{Chapters/3_main/include.tex}
+\include{Chapters/4_conclusion/include.tex}
+
+% ---- END MAIN PART ----
+
+
+\appendix
+\clearpage
+\renewcommand*{\chapterpagestyle}{myappendixpagestyle}
+
+\include{Postamble/appendix}
+
+\clearpage
+\renewcommand*{\chapterpagestyle}{empty}
+
+%\nocite{*}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}
+
+\end{document}
