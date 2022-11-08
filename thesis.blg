@@ -1,52 +1,54 @@
-This is BibTeX, Version 0.99d (TeX Live 2022)
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+This is BibTeX, Version 0.99d (TeX Live 2019)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: thesis.aux
 The style file: alpha.bst
-A level-1 auxiliary file: Preamble/abstract.aux
-A level-1 auxiliary file: Chapters/1_intro/include.aux
-A level-1 auxiliary file: Chapters/2_related/include.aux
-A level-1 auxiliary file: Chapters/3_main/include.aux
-A level-1 auxiliary file: Chapters/4_conclusion/include.aux
+A level-1 auxiliary file: Preamble/abstract.tex.aux
+A level-1 auxiliary file: Chapters/1_intro/include.tex.aux
+A level-1 auxiliary file: Chapters/2_related/include.tex.aux
+A level-1 auxiliary file: Chapters/3_main/include.tex.aux
+A level-1 auxiliary file: Chapters/4_conclusion/include.tex.aux
 A level-1 auxiliary file: Postamble/appendix.aux
+I found no \citation commands---while reading file thesis.aux
 Database file #1: bibliography.bib
-You've used 2 entries,
+You've used 0 entries,
             2543 wiz_defined-function locations,
-            575 strings with 5079 characters,
-and the built_in function-call counts, 932 in all, are:
-= -- 78
-> -- 75
+            564 strings with 4624 characters,
+and the built_in function-call counts, 24 in all, are:
+= -- 0
+> -- 0
 < -- 0
-+ -- 28
-- -- 28
-* -- 75
-:= -- 176
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 19
-chr.to.int$ -- 2
-cite$ -- 2
-duplicate$ -- 30
-empty$ -- 52
-format.name$ -- 28
-if$ -- 174
++ -- 0
+- -- 0
+* -- 2
+:= -- 10
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 2
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 2
-newline$ -- 14
-num.names$ -- 6
-pop$ -- 21
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
 preamble$ -- 1
-purify$ -- 21
+purify$ -- 0
 quote$ -- 0
-skip$ -- 22
+skip$ -- 2
 stack$ -- 0
-substring$ -- 14
-swap$ -- 3
+substring$ -- 0
+swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
+type$ -- 0
 warning$ -- 0
-while$ -- 6
-width$ -- 3
-write$ -- 27
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There was 1 error message)
