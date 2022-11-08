@@ -127,16 +127,16 @@ INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Maste
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/preamble.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
 OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.aux
@@ -195,11 +195,12 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvr8r.tfm
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex.aux
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
@@ -221,64 +222,116 @@ INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.toc
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lof
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lof
 OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lof
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lot
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lot
 OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.lot
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex.aux
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex.aux
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex.aux
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex.aux
-OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/1.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/1.tex
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvro8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/1.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/1.tex
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmbo8t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmbo8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmbo8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/1.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/1.tex
+OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.bbl
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.bbl
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex.aux
-INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Preamble/abstract.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/1_intro/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.aux
+INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.out
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.out
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb

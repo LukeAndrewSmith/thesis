@@ -7,4 +7,29 @@ The existing pipeline for 2D pose estimation is based on Open Pose \cite{openPos
 
 \section{Motion Priors}
 
-The authors of HuMoR \cite{rempe2021humor} presented a novel approach for dealing with ... , they learn a VAE for ...
+The authors of HuMoR \cite{rempe2021humor} presented a novel approach for learning and using a plausible motion prior. They train a conditional VAE that learns a distribution over latent transitions, in a canonical reference frame, between states that consist of a root translation, joint positions, joint angles, and the respective velocities. They (primarily?) use this model as a prior in a 'test time optimisation', which generates plausible sequence motions optimising for an initial state and a sequence of transitions starting from frame by frame estimates (2D/3D joints or points clouds). This optimisation includes, alongside others, a motion prior term based upon the conditional distribution $p(z_t|x_{t-1})$ that encourages plausible motion for the learned sequence. Note that the CVAE decoder also predicts ground plan contact alongside change in state, which are used in regularisers during their main use case 'test time optimisation'.
+
+HuMoR discussions:
+\begin{itemize}
+    \item They consider extending the method to include body shape parameters in the state an important direction for improved generalisation.
+    \item They claim normalising flows and neural ODEs show potential but they only link to papers explaining these concepts and not actually using them for this purpose so not sure (Normalising flow: map to a simple distribution with an invertible function => tractable marginal likelihood (unlike with VAEs where we have to deal with an ELBO), but I'm not sure we care about the marginal likelihood in this case)
+    \item 'MVAE' does not work well
+    \item The SMPL regularisation and the learned contional prior are important during training
+    \item Assumptions:
+    \begin{itemize}
+        \item The method necessitates knowledge of the ground plane, which is presently needed (empirical observation) for convergence during training (as the dataset is of motions with a flat ground), and thus also at test time even though it is not conceptually necessary
+        \item Assumes static camera
+    \end{itemize}
+    \item Limitations:
+    \begin{itemize}
+        \item Single person formulation
+    \end{itemize}
+\end{itemize}
+
+
+The authors of HuMoR \cite{rempe2021humor} were inspired by the Motion VAE \cite{TODO} paper. This paper uses an Conditional VAE (with assumed standard normal prior conditioning (vs. NN in HuMoR)) that directly outputs the next state (rather than the change in state in HuMoR). The model is used Autoregressively to predict motion (rather than the main presented use of HuMoR which is to fit motion to a sequence of existing 2D/3D joint predictions, though HuMoR can equally well be used autoregressively), and is trained with the typical ELBO.
+Some notes to self about MotionVAE
+\begin{itemize}
+    \item MotionVAE is used with Deep RL with the action space taken to be the latent space of the CVAE, with a reward function that defines goals of a character, the control policy walks through the actions space to guide the generative model in accordance with these goals. Could be interesting for interactive character animation
+    \item Contains a nice overview of motion prediction methods
+\end{itemize}

@@ -1,3 +1,17 @@
-\begin{thebibliography}{}
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{RBH{\etalchar{+}}21}
+
+\bibitem[CHS{\etalchar{+}}19]{openPose}
+Z.~{Cao}, G.~{Hidalgo Martinez}, T.~{Simon}, S.~{Wei}, and Y.~A. {Sheikh}.
+\newblock Openpose: Realtime multi-person 2d pose estimation using part
+  affinity fields.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  2019.
+
+\bibitem[RBH{\etalchar{+}}21]{rempe2021humor}
+Davis Rempe, Tolga Birdal, Aaron Hertzmann, Jimei Yang, Srinath Sridhar, and
+  Leonidas~J. Guibas.
+\newblock Humor: 3d human motion model for robust pose estimation.
+\newblock In {\em International Conference on Computer Vision (ICCV)}, 2021.
 
 \end{thebibliography}
