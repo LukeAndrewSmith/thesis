@@ -99,23 +99,4 @@ We are most interested in models that learn plausible, task independent, human m
 \end{itemize}
 
 
-\subsection{General notes}
-Training VAEs:
-\begin{itemize}
-    \item Posterior collapse
-    \begin{itemize}
-        \item Decoder ignores latent variable and overfits to the training sequences
-        \item MVAE: input latent variable at each stage of the decoder
-        \item Weighting of $\beta$-VAE
-    \end{itemize}
-    \item Quality vs. generalisation
-    \begin{itemize}
-        \item Depends on weighting of KL and Reconstructions Losses
-        \item MVAE find empirically that: $\textit{MVAE reconstruction and KL losses being within one order of magnitude of eachother is a good proxy to balance}$
-    \end{itemize}
-    \item Stable sequence prediction
-    \begin{itemize}
-        \item Not sure we care so much as we probably won't be extrapolating new sequences
-        \item MAVE: Scheduled sampling during training - model progressively learns to deal with it's own predictions
-    \end{itemize}
-\end{itemize}
+The other possibility relates more to 
