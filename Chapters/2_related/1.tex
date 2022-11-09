@@ -16,7 +16,7 @@ HuMoR discussions:
 \begin{itemize}
     \item They consider extending the method to include body shape parameters in the state an important direction for improved generalisation.
     \item They claim normalising flows and neural ODEs show potential but they only link to papers explaining these concepts and not actually using them for this purpose so not sure (Normalising flow: map to a simple distribution with an invertible function => tractable marginal likelihood (unlike with VAEs where we have to deal with an ELBO), but I'm not sure we care about the marginal likelihood in this case)
-    \item 'MVAE' does not work well
+    \item They claim 'MVAE' does not work well
     \item The SMPL regularisation and the learned contional prior are important during training
     \item Assumptions:
     \begin{itemize}
@@ -62,12 +62,16 @@ Some notes to self about MotionVAE
 
 
 \subsection{Overview of Approaches}
+We are most interested in models that learn plausible, task independent, human motion. These are refered to by \cite{MVAE} as $\textit{Motion-then-control}$ models. We limit our scope to parametric models.
 \begin{itemize}
     \item MVAE \cite{humor}
     \begin{itemize}
         \item Standard normal CVAE
         \item Outputs next pose
         \item Decoder is mixture of networks
+        \item Trained with rollout and scheduled sampling
+        \item State positions referenced to root projection onto ground
+        \item Nice investigation into using RL in the latent space for character control
     \end{itemize}
     \item HuMoR \cite{humor}
     \begin{itemize}
@@ -75,7 +79,23 @@ Some notes to self about MotionVAE
         \item Outputs change in state and person ground contacts
         \item SMPL regularisers (a subset of their state parametrises the SMPL model)
         \item Motion learned in a canonical reference frame (TODO: not sure about MVAE)
+        \item Trained without rollout (I beleive?) 
+        \item State positions referenced as in SMPL model (to $(0,0)$?)
     \end{itemize}
+
+    \item $\textbf{TODO: Things I haven't looked into so deeply}$
+    \item Mixture-density network RNNs (MDN-RNNS)
+    \begin{itemize}
+        \item Referenced in \cite{MVAE}
+        \item Output a distribution as a gaussian mixture model
+    \end{itemize}
+    \item Time-convolutional autoencoders
+    \begin{itemize}
+        \item Referenced in \cite{MVAE}
+        \item Learns a latent motion manifold
+        \item Followup paper also referenced
+    \end{itemize}
+    \item Humor claims normalising flows and neural ODEs show potential but they only link to papers explaining these concepts and not actually using them for this purpose so not sure
 \end{itemize}
 
 

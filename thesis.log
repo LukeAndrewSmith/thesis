@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.17)  9 NOV 2022 10:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.17)  9 NOV 2022 10:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -704,7 +704,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 64.
  [5]
-Overfull \hbox (284.02429pt too wide) in paragraph at lines 94--95
+Overfull \hbox (284.02429pt too wide) in paragraph at lines 114--115
 []\T1/ptm/m/n/12 MVAE find em-pir-i-cally that: $[]$ 
  []
 
@@ -721,12 +721,12 @@ chapter 3.
 ]
 LaTeX Font Info:    Font shape `T1/ptm/bx/sl' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/sl' tried instead on input line 30.
-<Figures/IgeaNarrowBand.png, id=170, 752.8125pt x 577.40718pt>
+<Figures/IgeaNarrowBand.png, id=174, 752.8125pt x 577.40718pt>
 File: Figures/IgeaNarrowBand.png Graphic file (type png)
 <use Figures/IgeaNarrowBand.png>
 Package pdftex.def Info: Figures/IgeaNarrowBand.png  used on input line 40.
 (pdftex.def)             Requested size: 221.73146pt x 170.06932pt.
-<Figures/voldiff_ui.png, id=171, 1015.795pt x 707.64375pt>
+<Figures/voldiff_ui.png, id=175, 1015.795pt x 707.64375pt>
 File: Figures/voldiff_ui.png Graphic file (type png)
 <use Figures/voldiff_ui.png>
 Package pdftex.def Info: Figures/voldiff_ui.png  used on input line 41.
@@ -781,18 +781,18 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
  ) 
 Here is how much of TeX's memory you used:
- 13877 strings out of 492616
- 279206 string characters out of 6129481
+ 13883 strings out of 492616
+ 279271 string characters out of 6129481
  513222 words of memory out of 5000000
- 17468 multiletter control sequences out of 15000+600000
- 70495 words of font info for 75 fonts, out of 8000000 for 9000
+ 17473 multiletter control sequences out of 15000+600000
+ 73887 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,37n,77p,9186b,677s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.pdf" (29 pages, 471177 bytes).
+Output written on "/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.pdf" (29 pages, 479837 bytes).
 PDF statistics:
- 337 PDF objects out of 1000 (max. 8388607)
- 282 compressed objects within 3 object streams
- 59 named destinations out of 1000 (max. 500000)
+ 341 PDF objects out of 1000 (max. 8388607)
+ 286 compressed objects within 3 object streams
+ 60 named destinations out of 1000 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 
