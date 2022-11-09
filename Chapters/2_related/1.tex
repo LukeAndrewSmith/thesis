@@ -7,7 +7,10 @@ The existing pipeline for 2D pose estimation is based on Open Pose \cite{openPos
 
 \section{Motion Priors}
 
-The authors of HuMoR \cite{rempe2021humor} presented a novel approach for learning and using a plausible motion prior. They train a conditional VAE that learns a distribution over latent transitions, in a canonical reference frame, between states that consist of a root translation, joint positions, joint angles, and the respective velocities. They (primarily?) use this model as a prior in a 'test time optimisation', which generates plausible sequence motions optimising for an initial state and a sequence of transitions starting from frame by frame estimates (2D/3D joints or points clouds). This optimisation includes, alongside others, a motion prior term based upon the conditional distribution $p(z_t|x_{t-1})$ that encourages plausible motion for the learned sequence. Note that the CVAE decoder also predicts ground plan contact alongside change in state, which are used in regularisers during their main use case 'test time optimisation'.
+The authors of HuMoR \cite{humor} presented a novel approach for learning and using a plausible motion prior. They train a conditional VAE that learns a distribution over latent transitions, in a canonical reference frame, between $\textit{states}$ that consist of a root translation, 3D joint positions, joint angles, and the respective velocities. They most notably use this model as a prior in a 'test time optimisation', which generates plausible sequence motions optimising for an initial state and a sequence of transitions starting from frame by frame estimates (2D/3D joints or points clouds). This optimisation includes, alongside others, a motion prior term based upon the conditional distribution $p(z_t|x_{t-1})$ that encourages plausible motion for the learned sequence. Note that the CVAE decoder also predicts ground plan contact alongside change in state, which are used as regularisers during their main use case 'test time optimisation'. The test time optimisation can operate on many modalities, 2D/3D joints, point clouds, etc., as the optimisation contains a Data Term $\epsilon_{data}$ that can be tailored to the modality as the HuMoR state is information rich, containing 3D joints (hence can fit to 2D joints through projection or directly to 3D) and can parametrise the SMPL model (hence the SMPL mesh can be correlated to point clouds).
+
+I would see the success of HuMoR in occlusion situations to be largly due to the SMPL prior.
+
 
 HuMoR discussions:
 \begin{itemize}
@@ -27,9 +30,72 @@ HuMoR discussions:
 \end{itemize}
 
 
-The authors of HuMoR \cite{rempe2021humor} were inspired by the Motion VAE \cite{TODO} paper. This paper uses an Conditional VAE (with assumed standard normal prior conditioning (vs. NN in HuMoR)) that directly outputs the next state (rather than the change in state in HuMoR). The model is used Autoregressively to predict motion (rather than the main presented use of HuMoR which is to fit motion to a sequence of existing 2D/3D joint predictions, though HuMoR can equally well be used autoregressively), and is trained with the typical ELBO.
+The authors of HuMoR \cite{humor} were inspired by the Motion VAE \cite{TODO} paper. This paper uses an Conditional VAE (with assumed standard normal prior conditioning (vs. NN in HuMoR)) that directly outputs the next state (rather than the change in state in HuMoR). The model is used Autoregressively to predict motion (rather than the main presented use of HuMoR which is to fit motion to a sequence of existing 2D/3D joint predictions, though HuMoR can equally well be used autoregressively), and is trained with the typical ELBO in a supervised manner.
 Some notes to self about MotionVAE
 \begin{itemize}
     \item MotionVAE is used with Deep RL with the action space taken to be the latent space of the CVAE, with a reward function that defines goals of a character, the control policy walks through the actions space to guide the generative model in accordance with these goals. Could be interesting for interactive character animation
+    \item Their state representation has some differences to HuMoR, notably that the root position his projected onto the ground.
     \item Contains a nice overview of motion prediction methods
+    \item Latent dimension size: 32 (typical physics based humanoid degrees of freedom)
+    \item Some notes about things they mention in the related work section:
+    \begin{itemize}
+        \item They cite [Wang et al. 2019] who train a stochastic generative model with output $\textit{processed by a refiner network to remove foot skating and add robustness}$.
+    \end{itemize}
+    \item Main differences to HuMoR
+    \begin{itemize}
+        \item c.f discussion section in HuMoR
+        \item Conditional prior
+        \item Predict change in motion
+        \item Predict ground contacts
+        \item Much additional regularisation in training
+        \item Difference state representation
+        \item Use of SMPL by HuMoR
+        \item Difference in network architectures
+        \begin{itemize}
+            \item HuMoR just uses MLPs and MVAE decoder is a 'MANN-style mixture-of-expert neural network' (6 networks, gating network weighting their outputs)
+            \item RELU in HuMoR, ELU in MVAE
+            \item MVAE decoder has latent variable input at each layer (not sure about HuMoR)
+        \end{itemize}
+        \item 
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Overview of Approaches}
+\begin{itemize}
+    \item MVAE \cite{humor}
+    \begin{itemize}
+        \item Standard normal CVAE
+        \item Outputs next pose
+        \item Decoder is mixture of networks
+    \end{itemize}
+    \item HuMoR \cite{humor}
+    \begin{itemize}
+        \item Parametrised conditional prior CVAE
+        \item Outputs change in state and person ground contacts
+        \item SMPL regularisers (a subset of their state parametrises the SMPL model)
+        \item Motion learned in a canonical reference frame (TODO: not sure about MVAE)
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{General notes}
+Training VAEs:
+\begin{itemize}
+    \item Posterior collapse
+    \begin{itemize}
+        \item Decoder ignores latent variable and overfits to the training sequences
+        \item MVAE: input latent variable at each stage of the decoder
+        \item Weighting of $\beta$-VAE
+    \end{itemize}
+    \item Quality vs. generalisation
+    \begin{itemize}
+        \item Depends on weighting of KL and Reconstructions Losses
+        \item MVAE find empirically that: $\textit{MVAE reconstruction and KL losses being within one order of magnitude of eachother is a good proxy to balance}$
+    \end{itemize}
+    \item Stable sequence prediction
+    \begin{itemize}
+        \item Not sure we care so much as we probably won't be extrapolating new sequences
+        \item MAVE: Scheduled sampling during training - model progressively learns to deal with it's own predictions
+    \end{itemize}
 \end{itemize}

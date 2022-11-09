@@ -4,6 +4,7 @@
 What data do we have to train on?
 - Their method relies on the SMPL body model for training and regularisation
     - They also show that the SMPL regulariser is an important component in the evaluation section
+- Their state contains root position, joint angles, joint locations, and importantly the **velocities** of the former, does our data have this?
 
 Do we care about the speed of the system?
 - Their main use case is, given a time series of 2D/3D joint locations, to optimise and fit an initial state and sequence of transformations that describe the motion, which is a slow process as it's not a direct prediction. But it does seem similar to our desired usecase.

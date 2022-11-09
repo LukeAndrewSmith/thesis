@@ -250,22 +250,30 @@ INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Maste
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/1.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/1.tex
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
-INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmbo8t.tfm
@@ -281,14 +289,10 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8t.tfm
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmbo8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmbo8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmro8t.vf
@@ -301,7 +305,6 @@ INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Maste
 OUTPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.aux
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.bbl

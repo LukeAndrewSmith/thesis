@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.17)  8 NOV 2022 18:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.17)  9 NOV 2022 10:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -688,40 +688,45 @@ chapter 2.
 (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/2_related/1.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 4.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 14.
+ [3]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 17.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
- [3]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 20.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 23.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Warning: Citation `TODO' on page 4 undefined on input line 30.
+ [4]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 64.
+ [5]
+Overfull \hbox (284.02429pt too wide) in paragraph at lines 94--95
+[]\T1/ptm/m/n/12 MVAE find em-pir-i-cally that: $[]$ 
+ []
 
-)) [4]
+)) [6]
 \openout2 = `Chapters/3_main/include.aux'.
 
  (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/include.tex
 chapter 3.
-(/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex [5
+(/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/3_main/1.tex [7
 
 
 
 
 ]
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 9.
 LaTeX Font Info:    Font shape `T1/ptm/bx/sl' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/sl' tried instead on input line 30.
-<Figures/IgeaNarrowBand.png, id=151, 752.8125pt x 577.40718pt>
+<Figures/IgeaNarrowBand.png, id=170, 752.8125pt x 577.40718pt>
 File: Figures/IgeaNarrowBand.png Graphic file (type png)
 <use Figures/IgeaNarrowBand.png>
 Package pdftex.def Info: Figures/IgeaNarrowBand.png  used on input line 40.
 (pdftex.def)             Requested size: 221.73146pt x 170.06932pt.
-<Figures/voldiff_ui.png, id=152, 1015.795pt x 707.64375pt>
+<Figures/voldiff_ui.png, id=171, 1015.795pt x 707.64375pt>
 File: Figures/voldiff_ui.png Graphic file (type png)
 <use Figures/voldiff_ui.png>
 Package pdftex.def Info: Figures/voldiff_ui.png  used on input line 41.
@@ -734,12 +739,12 @@ File: Figures/voldiff_ui.png Graphic file (type png)
 <use Figures/voldiff_ui.png>
 Package pdftex.def Info: Figures/voldiff_ui.png  used on input line 58.
 (pdftex.def)             Requested size: 136.59175pt x 95.14986pt.
- [6])) [7 </Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png> </Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png>] [8]
+ [8])) [9 </Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/IgeaNarrowBand.png> </Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Figures/voldiff_ui.png>] [10]
 \openout2 = `Chapters/4_conclusion/include.aux'.
 
  (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/include.tex
 chapter 4.
-(/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/1.tex)) [9
+(/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Chapters/4_conclusion/1.tex)) [11
 
 
 
@@ -747,7 +752,7 @@ chapter 4.
 ]
 \openout2 = `Postamble/appendix.aux'.
 
- (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex [10
+ (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/Postamble/appendix.tex [12
 
 
 
@@ -755,13 +760,13 @@ chapter 4.
 
 ]
 chapter A.
-[11]
+[13]
 Underfull \vbox (badness 10000) detected at line 55
  []
 
-[12] [13]) [14] (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.bbl)
+[14] [15]) [16] (/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
- [15
+ [17
 
 
 
@@ -773,25 +778,21 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 196.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 196.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 196.
  ) 
 Here is how much of TeX's memory you used:
- 13865 strings out of 492616
- 279090 string characters out of 6129481
- 512222 words of memory out of 5000000
- 17461 multiletter control sequences out of 15000+600000
- 65427 words of font info for 72 fonts, out of 8000000 for 9000
+ 13877 strings out of 492616
+ 279206 string characters out of 6129481
+ 513222 words of memory out of 5000000
+ 17468 multiletter control sequences out of 15000+600000
+ 70495 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,37n,77p,9186b,685s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,37n,77p,9186b,677s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.pdf" (27 pages, 468512 bytes).
+Output written on "/Users/lukesmith/Documents/Academic/University/ETHZ/Masters/3rd_year/Master's Thesis/Disney/thesis/thesis.pdf" (29 pages, 471177 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
- 261 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
- 169 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 337 PDF objects out of 1000 (max. 8388607)
+ 282 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 
