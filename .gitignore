@@ -1,3 +1,14 @@
 
 # Ignore LaTeX build files
-**/*.{aux,fdb_latexmk,fls,out,synctex,gz,toc,bbl,blg,lof,lot,tcp}
+**/*.aux
+**/*.fdb_latexmk
+**/*.fls
+**/*.out
+**/*.synctex
+**/*.gz
+**/*.toc
+**/*.bbl
+**/*.blg
+**/*.lof
+**/*.lot
+**/*.tcp
