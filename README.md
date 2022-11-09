@@ -1,2 +1,2 @@
-# Thesis: TODO-TITLE
-This repo contains my Master's thesis
+# Master Thesis: Motion Priors for Pose Estimation and Animation Workflows
+This repo contains the Master Thesis paper and running notes.
