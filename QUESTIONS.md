@@ -27,9 +27,3 @@ Main issues of HuMoR (and a little on our method) (should be useful in determini
 Not sure if good:
 - Reliance on SMPL?
 - Lot's of hand tuned regularisers?
-
-Main benefits of humor
-- Distribution over change in state
-- Simple model: CVAE
-- Nice state modelling 
-    - Joint positions etc. + their velocities. The velocities nicely encode a context of the current state (they serve as a memory of the previous states)

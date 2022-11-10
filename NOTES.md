@@ -1,5 +1,14 @@
 # Some general notes
 
+## Common paper elements
+- Dataset section
+- Ablation studies
+    - Removing parts of the architecture to see what has the biggest impact
+- Latent space investigation
+    - Visualisation
+    - Investigation of how semantically similar things are related in latent space
+- Explicit VAE comparison
+
 ## Training VAEs:
 - Posterior collapse
     - Decoder ignores latent variable and overfits to the training sequences

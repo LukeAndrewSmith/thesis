@@ -8,7 +8,9 @@
 }
 
 
+######################################################
 # Pose estimation
+######################################################
 @article{openPose,
   author = {Z. {Cao} and G. {Hidalgo Martinez} and T. {Simon} and S. {Wei} and Y. A. {Sheikh}},
   journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
@@ -16,8 +18,25 @@
   year = {2019}
 }
 
+@misc{HULC,
+  doi = {10.48550/ARXIV.2205.05677},
+  url = {https://arxiv.org/abs/2205.05677},
+  author = {Shimada, Soshi and Golyanik, Vladislav and Li, Zhi and Pérez, Patrick and Xu, Weipeng and Theobalt, Christian},
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Human-Computer Interaction (cs.HC), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {HULC: 3D Human Motion Capture with Pose Manifold Sampling and Dense Contact Guidance},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
 
-# Motion priors
+
+
+######################################################
+# Human motion modelling
+######################################################
+
+##############
+# Focus on Motion Priors
 @inproceedings{humor,
     author={Rempe, Davis and Birdal, Tolga and Hertzmann, Aaron and Yang, Jimei and Sridhar, Srinath and Guibas, Leonidas J.},
     title={HuMoR: 3D Human Motion Model for Robust Pose Estimation},
@@ -39,5 +58,126 @@
   eprint    = {2103.14274},
   timestamp = {Wed, 07 Apr 2021 15:31:46 +0200},
   biburl    = {https://dblp.org/rec/journals/corr/abs-2103-14274.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{DeepPhase,
+author = {Starke, Sebastian and Mason, Ian and Komura, Taku},
+title = {DeepPhase: Periodic Autoencoders for Learning Motion Phase Manifolds},
+year = {2022},
+issue_date = {July 2022},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {41},
+number = {4},
+issn = {0730-0301},
+url = {https://doi.org/10.1145/3528223.3530178},
+doi = {10.1145/3528223.3530178},
+abstract = {Learning the spatial-temporal structure of body movements is a fundamental problem for character motion synthesis. In this work, we propose a novel neural network architecture called the Periodic Autoencoder that can learn periodic features from large unstructured motion datasets in an unsupervised manner. The character movements are decomposed into multiple latent channels that capture the non-linear periodicity of different body segments while progressing forward in time. Our method extracts a multi-dimensional phase space from full-body motion data, which effectively clusters animations and produces a manifold in which computed feature distances provide a better similarity measure than in the original motion space to achieve better temporal and spatial alignment. We demonstrate that the learned periodic embedding can significantly help to improve neural motion synthesis in a number of tasks, including diverse locomotion skills, style-based movements, dance motion synthesis from music, synthesis of dribbling motions in football, and motion query for matching poses within large animation databases.},
+journal = {ACM Trans. Graph.},
+month = {jul},
+articleno = {136},
+numpages = {13},
+keywords = {character interactions, character animation, neural networks, character control, deep learning, human motion}
+}
+
+@article{MEVA,
+  author    = {Zhengyi Luo and
+               S. Alireza Golestaneh and
+               Kris M. Kitani},
+  title     = {3D Human Motion Estimation via Motion Compression and Refinement},
+  journal   = {CoRR},
+  volume    = {abs/2008.03789},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2008.03789},
+  eprinttype = {arXiv},
+  eprint    = {2008.03789},
+  timestamp = {Wed, 02 Sep 2020 19:16:21 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2008-03789.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+##############
+# Focus on inbetweening
+
+# Very similar to MVAE
+@article{learnedInbetweening,
+	doi = {10.1145/3528223.3530090},
+	url = {https://doi.org/10.1145%2F3528223.3530090},
+	year = 2022,
+	month = {jul},
+	publisher = {Association for Computing Machinery ({ACM})},
+	volume = {41},
+	number = {4},
+	pages = {1--10},
+	author = {Xiangjun Tang and He Wang and Bo Hu and Xu Gong and Ruifan Yi and Qilong Kou and Xiaogang Jin},
+	title = {Real-time controllable motion transition for characters},
+	journal = {{ACM} Transactions on Graphics}
+}
+
+@article{structured4Dlatentspace,
+  author    = {Mathieu Marsot and
+               Stefanie Wuhrer and
+               Jean{-}S{\'{e}}bastien Franco and
+               Stephane Durocher},
+  title     = {Multi-frame sequence generator of 4D human body motion},
+  journal   = {CoRR},
+  volume    = {abs/2106.04387},
+  year      = {2021},
+  url       = {https://arxiv.org/abs/2106.04387},
+  eprinttype = {arXiv},
+  eprint    = {2106.04387},
+  timestamp = {Fri, 11 Jun 2021 11:04:16 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-04387.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+# Example RNN
+@article{RobustMotionInbetweening,
+  title={Robust motion in-betweening},
+  author={F{\'e}lix G. Harvey and Mike Yurick and Derek Nowrouzezahrai and Christopher Joseph Pal},
+  journal={ACM Transactions on Graphics (TOG)},
+  year={2020},
+  volume={39},
+  pages={60:1 - 60:12}
+}
+
+##############
+# Other approaches that identify motion as important
+@article{VIBE,
+  author    = {Muhammed Kocabas and
+               Nikos Athanasiou and
+               Michael J. Black},
+  title     = {{VIBE:} Video Inference for Human Body Pose and Shape Estimation},
+  journal   = {CoRR},
+  volume    = {abs/1912.05656},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1912.05656},
+  eprinttype = {arXiv},
+  eprint    = {1912.05656},
+  timestamp = {Thu, 02 Jan 2020 18:08:18 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1912-05656.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+######################################################
+# Pose completion
+######################################################
+@article{protores,
+  author    = {Boris N. Oreshkin and
+               Florent Bocquelet and
+               F{\'{e}}lix G. Harvey and
+               Bay Raitt and
+               Dominic Laflamme},
+  title     = {ProtoRes: Proto-Residual Architecture for Deep Modeling of Human Pose},
+  journal   = {CoRR},
+  volume    = {abs/2106.01981},
+  year      = {2021},
+  url       = {https://arxiv.org/abs/2106.01981},
+  eprinttype = {arXiv},
+  eprint    = {2106.01981},
+  timestamp = {Tue, 15 Jun 2021 11:31:43 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-01981.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
