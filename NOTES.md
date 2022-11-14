@@ -1,5 +1,18 @@
 # Some general notes
 
+## Humor TestOps
+- Split video sequence up into overlapping 3s clips
+- fit_rgb_demo_no_split.py and fit_rgb_demo_use_split.py seem to take a similar amount of time, on the order of 20mins...
+    - Should time them both to check
+    - Actually I think the batch size in this case is 2s (60frames at 30Hz) hence 2 batches with 10frame overlap doesn't change much I presume...
+    - Trying much smaller batch
+- TODO: 
+    - Check the gpu is actually being used properly
+    - Understand the overlap_loss better
+    - Understand the rollout
+    - Finish reading the run_fitting.py file
+
+
 ## Common paper elements (should probably have in my final thesis)
 - Dataset section
 - Ablation studies
