@@ -3,12 +3,8 @@
 - Reading
     - Find papers related to humor, read and summarize
         - MotionVAE, MEVA papers have good references
-    - Humor
-        - Find out how they initialise the ground plane
-    - DeepPhase
-        - Get a better understanding of the latent space in DeepPhase
-        - Why is phase periodic over a motion sequence (Fig. 3)
 - Get HuMoR code downloaded and running
+    - Why is it so slow?
 
 
 ## Potential things to investigate
