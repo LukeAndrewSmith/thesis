@@ -3,23 +3,74 @@
 - Reading
     - Find papers related to humor, read and summarize
         - MotionVAE, MEVA papers have good references
+    - Humor
+        - Find out how they initialise the ground plane
     - DeepPhase
         - Get a better understanding of the latent space in DeepPhase
         - Why is phase periodic over a motion sequence (Fig. 3)
 - Get HuMoR code downloaded and running
+
 
 ## Potential things to investigate
 - HuMoR
     - Why is it so slow?
         - Rollout over the whole sequence (c.f HuMoR appendix)?
     - Can we train a CVAE on plain mocap data rather than AMASS?
+    - How does it handle structural noise
+        - e.g big jumps, left/right arm/leg flipping (left leg suddenly becomes right leg), 
 - Where is the motion prior best used
     - Optimising on 2D or 3D joint sequences to output more realistic motion
-        - Directly optimising in latent space like HuMoR
-        - Input sequence of joints, output sequence of joints in the latent space, we are essentially projecting the sequence of joints we found onto the latent space of our model
-        - Note: We have more confidence in our 2D joints
-    - No direct latent space optimisation (Jakob's idea)
-        - Use the latent space as an extra loss term when optimising something else
-        - TODO: don't have a clear/concrete idea about this
-- Data augmentation
-    - Anything extra on top of what is in the MEVA paper?
+    - Soft vs. hard latent space constraint
+        - Hard: Directly optimising in latent space like HuMoR
+            - Input sequence of joints, output sequence of joints in the latent space, we are essentially projecting the sequence of joints we found onto the latent space of our model
+            - Note: We have more confidence in our 2D joints
+        - Soft: No direct latent space optimisation (Jakob's idea)
+            - Use the latent space as an extra loss term when optimising something else
+            - Reprojection error of latent space
+    - Using as a detector for inconsistencies
+- Data
+    - DataSets
+        - Not just train on AMASS? try to train directly on mocap data not smpl?
+        - PoseEstimationBenchmarking has lots of datasets
+    - Data augmentation
+        - Anything extra on top of what is in the MEVA paper?
+        - PoseEstimationBenchmarking presents some extra augmentation, like artificial occlusions etc. though might just be relevant for pose estimation not motion prior learning
+- Operating on motion sequences rather than pairs of poses
+    - Can we handle variable length sequences? is that even sensible?
+        - If not how to optimise to fix an existing sequence that is not equal in length to the sequence length we learned in the prior
+    - c.f TransformeVAEPrior/ConvAutoEnv2015
+    - Problems
+        - Limits the training data?
+        - Might be asking the model to learn too much? as it's a more complex problem
+- Throw a transformer at it? seems to be the popular 
+    - c.f TransformeVAEPrior
+
+## Ideas I like
+- Humor
+    - Predicting change in pose
+    - Learned prior
+    - Have velocities in state (input to VAE)
+    - Predicting ground contacts
+    - TestOps: projecting existing sequence of pose estimates onto the VAE prior
+- MEVA
+    - Data augmentation techniques specifically for motion data
+- DeepPhase
+    - Forcing structure in latent space -> periodic motion through sinusoidal functions
+- TransformeVAEPrior
+    - Operating directly on sequences of motions, rather than pair of poses
+        - Fixing motion could be faster as you just need to project the whole sequence onto the latent space, rather than posing a large optimisation problem like humor that has to jointly optimise the pairwise projections
+    - TODO: Not clear though
+        - Length of input sequence
+        - If operating on motion sequences means worse generalisation as sequences are even sparser in the datasets than movement between two poses
+- ConvAutoEnv2015
+    - Operates on sequences (like TransformeVAEPrior)
+    - Training through 'Denoising Autoencoding', corrupting the input sequences and inputting to the encoder, then using the uncorrupted sequence in the loss
+- Using a network with more structure in the encoder/decoder of VAE
+    - e.g. a graph NN to emphasise local correlation (sometimes the global correlation is too strong, like if you move an arm the leg starts moving)
+- Not 100% sure but like
+    - MEVA
+        - Separating coarse motion VAE and fine grain optimisation
+    - Gating networks
+        - Gating networks for expert pools seem to pop up a bunch (learnedInbetweenings, motionVAE, + others e.g 'Neural State Machine for Character-Scene Interactions')
+    - Transformers
+        - Seems the popular thing to do these days, take an old problem and throw a transformer at it

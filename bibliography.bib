@@ -29,11 +29,43 @@
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 
+# Classic paper
+@article{EndToEndPose,
+  author    = {Angjoo Kanazawa and
+               Michael J. Black and
+               David W. Jacobs and
+               Jitendra Malik},
+  title     = {End-to-end Recovery of Human Shape and Pose},
+  journal   = {CoRR},
+  volume    = {abs/1712.06584},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1712.06584},
+  eprinttype = {arXiv},
+  eprint    = {1712.06584},
+  timestamp = {Mon, 13 Aug 2018 16:49:07 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1712-06584.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
 
 
 ######################################################
 # Human motion modelling
 ######################################################
+
+##############
+# Reviews
+@misc{PoseEstimationBenchmarking,
+  doi = {10.48550/ARXIV.2209.10529},
+  url = {https://arxiv.org/abs/2209.10529},
+  author = {Pang, Hui En and Cai, Zhongang and Yang, Lei and Zhang, Tianwei and Liu, Ziwei},
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {Benchmarking and Analyzing 3D Human Pose and Shape Estimation Beyond Algorithms},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {Creative Commons Attribution 4.0 International}
+}
+
 
 ##############
 # Focus on Motion Priors
@@ -44,7 +76,7 @@
     year={2021}
 }
 
-@article{MVAE,
+@article{MotionVAE,
   author    = {Hung Yu Ling and
                Fabio Zinno and
                George Cheng and
@@ -97,10 +129,61 @@ keywords = {character interactions, character animation, neural networks, charac
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
+@misc{TransformerVAEPrior,
+  doi = {10.48550/ARXIV.2210.15134},
+  url = {https://arxiv.org/abs/2210.15134},
+  author = {Chen, Xin and Su, Zhuo and Yang, Lingbo and Cheng, Pei and Xu, Lan and Fu, Bin and Yu, Gang},
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences, I.4.8},
+  title = {Learning Variational Motion Prior for Video-based Motion Capture},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {Creative Commons Attribution Share Alike 4.0 International}
+}
+
+
+@inproceedings{ConvAutoEnv2015,
+  author = {Holden,
+            Daniel and Saito,
+            Jun and Komura,
+            Taku and Joyce,
+            Thomas},
+  title = {Learning Motion Manifolds with Convolutional Autoencoders},
+  year = {2015},
+  isbn = {9781450339308},
+  publisher = {Association for Computing Machinery},
+  address = {New York,NY,USA},
+  url = {https://doi.org/10.1145/2820903.2820918},
+  doi = {10.1145/2820903.2820918},
+  booktitle = {SIGGRAPH Asia 2015 Technical Briefs},
+  articleno = {18},
+  numpages = {4},
+}
+
+@article{ConvAutoEnv2016,
+author = {Holden, Daniel and Saito, Jun and Komura, Taku},
+title = {A Deep Learning Framework for Character Motion Synthesis and Editing},
+year = {2016},
+issue_date = {July 2016},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {35},
+number = {4},
+issn = {0730-0301},
+url = {https://doi.org/10.1145/2897824.2925975},
+doi = {10.1145/2897824.2925975},
+abstract = {We present a framework to synthesize character movements based on high level parameters, such that the produced movements respect the manifold of human motion, trained on a large motion capture dataset. The learned motion manifold, which is represented by the hidden units of a convolutional autoencoder, represents motion data in sparse components which can be combined to produce a wide range of complex movements. To map from high level parameters to the motion manifold, we stack a deep feedforward neural network on top of the trained autoencoder. This network is trained to produce realistic motion sequences from parameters such as a curve over the terrain that the character should follow, or a target location for punching and kicking. The feedforward control network and the motion manifold are trained independently, allowing the user to easily switch between feedforward networks according to the desired interface, without re-training the motion manifold. Once motion is generated it can be edited by performing optimization in the space of the motion manifold. This allows for imposing kinematic constraints, or transforming the style of the motion, while ensuring the edited motion remains natural. As a result, the system can produce smooth, high quality motion sequences without any manual pre-processing of the training data.},
+journal = {ACM Trans. Graph.},
+month = {jul},
+articleno = {138},
+numpages = {11},
+keywords = {character animation, human motion, convolutional neural networks, manifold learning, autoencoder, deep learning}
+}
+
+
 ##############
 # Focus on inbetweening
 
-# Very similar to MVAE
+# Very similar to MotionVAE
 @article{learnedInbetweening,
 	doi = {10.1145/3528223.3530090},
 	url = {https://doi.org/10.1145%2F3528223.3530090},
@@ -143,7 +226,7 @@ keywords = {character interactions, character animation, neural networks, charac
 }
 
 ##############
-# Other approaches that identify motion as important
+# Other approaches that identify motion as important aspect for pose estimation
 @article{VIBE,
   author    = {Muhammed Kocabas and
                Nikos Athanasiou and
@@ -157,6 +240,56 @@ keywords = {character interactions, character animation, neural networks, charac
   eprint    = {1912.05656},
   timestamp = {Thu, 02 Jan 2020 18:08:18 +0100},
   biburl    = {https://dblp.org/rec/journals/corr/abs-1912-05656.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{3DDynamicsFromVideo,
+  author    = {Angjoo Kanazawa and
+               Jason Y. Zhang and
+               Panna Felsen and
+               Jitendra Malik},
+  title     = {Learning 3D Human Dynamics from Video},
+  journal   = {CoRR},
+  volume    = {abs/1812.01601},
+  year      = {2018},
+  url       = {http://arxiv.org/abs/1812.01601},
+  eprinttype = {arXiv},
+  eprint    = {1812.01601},
+  timestamp = {Wed, 10 Jun 2020 08:58:02 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1812-01601.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Unified3DHumanMotionSynthesis,
+  title={A Unified 3D Human Motion Synthesis Model via Conditional Variational Auto-Encoder∗},
+  author={Yujun Cai and Yiwei Wang and Yiheng Zhu and Tat-Jen Cham and Jianfei Cai and Junsong Yuan and Jun Liu and Chuanxia Zheng and Sijie Yan and Henghui Ding and Xiaohui Shen and Ding Liu and Nadia Magnenat Thalmann},
+  journal={2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year={2021},
+  pages={11625-11635}
+}
+
+@article{ActionConditionedTransformer,
+  title={Action-Conditioned 3D Human Motion Synthesis with Transformer VAE},
+  author={Mathis Petrovich and Michael J. Black and G{\"u}l Varol},
+  journal={2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year={2021},
+  pages={10965-10975}
+}
+
+@article{MoGlow,
+  author    = {Gustav Eje Henter and
+               Simon Alexanderson and
+               Jonas Beskow},
+  title     = {MoGlow: Probabilistic and controllable motion synthesis using normalising
+               flows},
+  journal   = {CoRR},
+  volume    = {abs/1905.06598},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1905.06598},
+  eprinttype = {arXiv},
+  eprint    = {1905.06598},
+  timestamp = {Tue, 28 May 2019 12:48:08 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1905-06598.bib},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
