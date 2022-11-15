@@ -1,16 +1,4 @@
-
-
-# Commands
-## Gpu stuff
- 
-Info about gpu
-```nvidia-smi```   
-Make sure the cuda compiler driver is available
-```nvcc -V```
-
-
-
-## Bugfixes
+# Bugfixes
 
 ### LibGL issues
 Error: ```pyglet.gl.ContextException: Could not create GL context``` when running ```python humor/fitting/viz_fitting_rgb.py```

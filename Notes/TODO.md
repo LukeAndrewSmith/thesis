@@ -1,10 +1,9 @@
 # TODO
-
 - Reading
     - Find papers related to humor, read and summarize
         - MotionVAE, MEVA papers have good references
-- Get HuMoR code downloaded and running
-    - Why is it so slow?
+- HuMoR investigation
+    - c.f HUMOR_NOTES.py
 
 
 ## Potential things to investigate
@@ -13,7 +12,8 @@
         - Rollout over the whole sequence (c.f HuMoR appendix)?
     - Can we train a CVAE on plain mocap data rather than AMASS?
     - How does it handle structural noise
-        - e.g big jumps, left/right arm/leg flipping (left leg suddenly becomes right leg), 
+        - e.g big jumps, left/right arm/leg flipping (left leg suddenly becomes right leg)
+    - Instead of rollout, can we just use the data from the last timestep
 - Where is the motion prior best used
     - Optimising on 2D or 3D joint sequences to output more realistic motion
     - Soft vs. hard latent space constraint
