@@ -1,14 +1,17 @@
 
 
 # TODO: 
+**Bold**: currently working on it
 - Did they directly evaluate the VAE?
 - Understand the overlap_loss better
 - Understand the rollout
     - humor_model.roll_out()
 - Finish reading the run_fitting.py file
 - Speed testing
-    - Try smaller video for test
-    - See smaller sequence length
+    - **Try smaller video for test**
+    - **Try example with much smaller sequence length**
+        - What is the difference between batch size and sequence length?
+        - What batch size should it be?
 - Make notes on the stages
     - **What is stage III initialisation doing and why is it so bad?**
         - Understand how it works better to see why it's bad?
@@ -16,7 +19,8 @@
             1. we estimate the states $x_{1:T}$ through the poses we find and through finite differences to estimate the velocities
             2. We project each pair $(x_t, x_{t-1})$ through the encoder to a $z_t$
             3. We rollout $z_{1:T}$
-            - Which has no guarantee of globally consistent motion as we are stacking locally consistent latent vatriables
+            - Which has no guarantee of globally consistent motion as we are stacking locally consistent latent variables
+            - 
     - Try the example run_fitting.py on an occluded video and see what the stage 2/3 looks like 
     - Make some pseudocode out of what they're doing
 - Think of how to evaluate changes in the optimisation sequence length
@@ -24,6 +28,12 @@
 ```python
 TODO: pseudocode
 ```
+- **Jakob's Idea**
+    - Understand and formulate better - c.f iamge
+    - Aim: avoid rollout
+    - Find $z_{t}^{iteration_{s}}$ based on running $x_{t-1}^{iteration_{s-1}}$ then run through decoder to find $x_{t}^{iteration_{s}}$ used for the next iteration step
+        - Idea: rather than propagating consistency through rollout during a single iteration the influence of the $z_{t's}$ propagates through the iterations, and we can have many more iteration as this would be a much quicker process
+    - Implementation: this would require modifying the function ```stage3_testop```
 
 
 ## Humor TestOps
