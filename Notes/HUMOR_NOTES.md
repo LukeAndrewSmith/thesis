@@ -2,41 +2,72 @@
 
 # TODO: 
 **Bold**: currently working on it
-- Did they directly evaluate the VAE?
-- Understand the overlap_loss better
-- Understand the rollout
-    - humor_model.roll_out()
-- Finish reading the run_fitting.py file
-- Speed testing
-    - **Try smaller video for test**
-    - **Try example with much smaller sequence length**
-        - What is the difference between batch size and sequence length?
-        - What batch size should it be?
-- Make notes on the stages
-    - **What is stage III initialisation doing and why is it so bad?**
-        - Understand how it works better to see why it's bad?
-        - I beleive:
-            1. we estimate the states $x_{1:T}$ through the poses we find and through finite differences to estimate the velocities
-            2. We project each pair $(x_t, x_{t-1})$ through the encoder to a $z_t$
-            3. We rollout $z_{1:T}$
-            - Which has no guarantee of globally consistent motion as we are stacking locally consistent latent variables
-            - 
+- **Comparison optimisation methods**
+    - If we implement a new optimisation method, we need some way of comparing it to the old one
+        - We also need a way of easliy plugging in a different optimiser and generating the whole suite of evaluations
+        - **Smaller video for development**
+    1. Quantitative
+        - Errors computed in the paper over whole datasets
+        - **Downloading datasets**
+            - Finish downloading PROX
+    2. Qualitative
+        - Visualisations of convergences to the final state (like the one from yesterday) for a selection of videos, e.g with specific cases we care about like occlusions
+            - **Take the final optimisation x's as ground truth and compare the x's during optimisation to the 'ground truth' x's to see how they are converging**
+                - Why is the $x_0$ so high at the beginnning
+        - Videos of how certain states changes over the iterations
+        - Plots of their losses over time
+    - Optimisations to try out
+        - **Try example with much smaller sequence length**
+            - What is the difference between batch size and sequence length?
+            - What batch size should it be?
+        - Try jakobs optimisation strategy
+- Lower priority
     - Try the example run_fitting.py on an occluded video and see what the stage 2/3 looks like 
+    - Did they directly evaluate the VAE?
     - Make some pseudocode out of what they're doing
-- Think of how to evaluate changes in the optimisation sequence length
-    - We'd like to know if relying on overlap loss and having a small sequence length significantly reduces the quality of the predictions
-```python
-TODO: pseudocode
-```
+    - Code Details
+        - Understand the overlap_loss better
+        - Understand the rollout
+            - humor_model.roll_out()
+
+
 - **Jakob's Idea**
-    - Understand and formulate better - c.f iamge
+    - Understand and formulate better - c.f photo on phone
     - Aim: avoid rollout
     - Find $z_{t}^{iteration_{s}}$ based on running $x_{t-1}^{iteration_{s-1}}$ then run through decoder to find $x_{t}^{iteration_{s}}$ used for the next iteration step
-        - Idea: rather than propagating consistency through rollout during a single iteration the influence of the $z_{t's}$ propagates through the iterations, and we can have many more iteration as this would be a much quicker process
+        - Idea: rather than propagating consistency through rollout during a single iteration the influence of the $z_{t's}$ propagates through the iterations, and we can have many more iterations as this would be a much quicker process
     - Implementation: this would require modifying the function ```stage3_testop```
 
 
 ## Humor TestOps
+### Optimisation overview
+1. $\textsf{Stage 1}$
+2. $\textsf{Stage 2}$
+3. $\textsf{Stage 3}$ (c.f iPad notes for a graphical overview of the optimisation steps)
+    1. $\textsf{Init}$
+        1. $x_{1:T} \gets \textsf{estimate\_x}(\theta)$ (joints from poses, velocities from finite differences)
+        2. $z_t \gets \textsf{encoder}(x_t, x_{t-1})$
+            - No guarantee of globally consistent motion as we are stacking locally consistent latent variables
+            - i.e Rollout on init look **bad**, lots of drift
+    2. $\textsf{Optimisation}$
+        1. $\textsf{lbfgs\_max\_iter} \gets 20$
+        1. $\textsf{For } 1...30$
+            1. $\textsf{rollout}(z_{1:15})$
+            2. $\textsf{lbfgs.step}()$ for ${\bf x_0, z_{1:15}}, g, \beta$
+        1. $\textsf{Freeze } x_0$
+        1. $\textsf{For } 1...25$
+            1. $\textsf{rollout}(z_{1:T})$
+            2. $\textsf{lbfgs.step}()$ for ${\bf z_{1:T}}, g, \beta$
+        1. $\textsf{Unfreeze } x_0$
+        1. $\textsf{For } 1...15$
+            1. $\textsf{rollout}(z_{1:T})$
+            2. $\textsf{lbfgs.step}()$ for ${\bf x_0, z_{1:T}}, g, \beta$
+
+### Other notes
+- Optimisation objective
+    - Usage of prior
+        - Prior is included as a loss term in the optimisation
+            - We sum the log probabilites of $z_t$ given $x_{t-1}$ where $x_{t-1}$ is given by the rollout up to that point
 - Split video sequence up into overlapping 3s clips
 - fit_rgb_demo_no_split.py and fit_rgb_demo_use_split.py seem to take a similar amount of time, on the order of 20mins...
     - Should time them both to check
