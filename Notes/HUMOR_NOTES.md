@@ -3,47 +3,33 @@
 # TODO Humor: 
 ## Current
 - Next
-    - Visualisations
-        - Frame evolution
-            - Double check it works with new intermediate_results
-        - Loss
-        - Convergence
-    - Question
+    - General setup
+        - Correct python install
+        - Pass optimiser as argument to the functions in stage3 file rather than installing the functions as class functions 
+        - Install black code formatter
+    - Visualise the contacts
+        - '--viz-contacts' as argument in viz_main() call
+    - Implement the new optimiser
+        - Redraw the computation graph
+    - Investigation
         - How does the prior deal with out of distribution motion
             - Issue, openpose has too many errors with e.g rolling. so we can't evaluate the prior properly
             - **Solution: dataset with labeled 2d joints (or run on amass and visualise just the motion without video)**
-        - Take new video with occlusions
-        - Want this to be done by the weekend so we can run over the weekend
+    - Quantitative evaluation
+        - What videos with ground truth do we actually have?
+            - They evaluate on i3DB and PROX, seem to have ground truth 3D that overlaps with smpl
+        - **Solution: dataset with labeled 2d joints (or run on amass and visualise just the motion without video)**
+        - To check:
+            - **i3db what is ground truth?**
+        - ffmpeg tile stage2, openpose stage3
 
-- Losses
-    - Can we comment out the ground-plane loss function for videos where the ground plane is definitely not useful, e.g not on the stairs
+- Lower priority
+    - Ground plane
+        - Can we comment out the ground-plane loss function for videos where the ground plane is definitely not useful, e.g not on the stairs
+        - Did they directly evaluate the VAE?
+    - Camera intrincs
+        - How they are estimated
 
-- Create visualisations
-    - Losses and intermediate info
-    - Progression of certain states over time
-    - Run the model on a bunch of examples and see where it breaks
-        - TODO: check all the videos are 30fps
-- Ground truth
-    - What exactly is the ground truth?
-    - Anything like fraser_lying_floor
-- **Understand how they batch in more detail**
-    - Look exaclt at dimensions of everything
-    - Notes on batching
-        - To account for videos with not exactly a multiple of the 
-            - They increase the overlap size?
-            - c.f RGBVideoDataset
-
-- How to speed up optimiser, does adam work?
-- Steup vpn and ssh for ubuntu so I can login to the machine from home and check things over the weekend
-
-- Other parameters to make notes on
-    - Camera intrincs - how they are estimated
-
-### Batching Notes
-* To understand
-    * In the batch rollout, they seem to rollout the batches together, how do we deal with overlap?
-    * Is there overlap within the batches? yes right? so are we optimising the same variable multiple times? if so how is it aggregated? which ones do we take?
-    * **The overlaps within a batch could be just references to the same variables, double check this**
 
 ## Eventually
 - Comparison optimisation methods: **Eventually**
@@ -54,12 +40,12 @@
         - Errors computed in the paper over whole datasets
             - See what they're based on, might just be the i3DB stuff
     2. Qualitative
-        - Visualisations of convergences to the final state (like the one from yesterday) for a selection of videos, e.g with specific cases we care about like occlusions
-            - **Take the final optimisation x's as ground truth and compare the x's during optimisation to the 'ground truth' x's to see how they are converging**
-                - Why is the $x_0$ so high at the beginnning
+        - Visualisations of convergences to the final state for a selection of videos
+            - Why is the $x_0$ so high at the beginnning?
         - Videos of how certain states changes over the iterations
         - Plots of their losses over time
     - Optimisations to try out
+        - **Try with Adam, not lbfgs**
         - **Try example with much smaller sequence length**
             - What is the difference between batch size and sequence length?
             - What batch size should it be?
@@ -68,13 +54,6 @@
             - Find $z_{t}^{iteration_{s}}$ based on running $x_{t-1}^{iteration_{s-1}}$ then run through decoder to find $x_{t}^{iteration_{s}}$ used for the next iteration step
                 - Idea: rather than propagating consistency through rollout during a single iteration the influence of the $z_{t's}$ propagates through the iterations, and we can have many more iterations as this would be a much quicker process
             - Implementation: this would require modifying the function ```stage3_testop```
-- Lower priority
-    - Did they directly evaluate the VAE?
-    - Code Details
-        - Understand the overlap_loss better
-        - Understand the rollout
-            - humor_model.roll_out()
-
 
 
 
@@ -106,6 +85,15 @@
             1. $\textsf{rollout}(z_{1:T})$
             2. $\textsf{lbfgs.step}()$ for ${\bf x_0, z_{1:T}}, g, \beta$
 
+
+## Batching Notes
+* The video is split up into overlapping sequences in the DataSet
+* A number of overlapping sequences (max 4 on my gpu) are joined into a batch and processed together, by the DataLoader
+    * There is an overlap loss between batches, and within a batch (in 'fitting_loss.py')
+        * Between batches: look for 'rgb_overlap_consist'  
+        * In batch: look for 'seq_interval'
+
+
 ## Other notes
 - Optimisation objective
     - Usage of prior
@@ -129,18 +117,20 @@
 
 
 
-# Thoughts
-Main issues of HuMoR (and a little on our method) (should be useful in determining the future directions of the work)
-- Ground plane reliance 
-    - Used for rescaling of the pose to a canonical reference frame, in which the prior is trained
-    - Won't generalise well to many real world situations (we might not care?) where the ground plane cannot be accurately estimated
-    - And the method we estimate the ground plane is questionable
+# HuMoR Problems
+Main issues of HuMoR
+### VAE
 - Missing useful motion data
     - The data sets don't describe some motions that might be important to us, like lying down, and motions like this would mess with our existing method for finding the ground plane
 - Simplistic contact model
     - in our current pipeline and in HuMoR
+### TestOps
+- Ground plane reliance 
+    - Used for rescaling of the pose to a canonical reference frame, in which the prior is trained
+    - Won't generalise well to many real world situations (we might not care?) where the ground plane cannot be accurately estimated
+    - And the method we estimate the ground plane is questionable
 - Slow motion generation (TestOps)
     - Optimisation rather than direct prediction, could be a problem
-Not sure if good:
+- Does not recover if a single frame is missing a prediction
 - Reliance on SMPL?
 - Lot's of hand tuned regularisers?
