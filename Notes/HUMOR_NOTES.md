@@ -3,14 +3,10 @@
 # TODO Humor: 
 ## Current
 - Next
-    - General setup
-        - Correct python install
-        - Pass optimiser as argument to the functions in stage3 file rather than installing the functions as class functions 
-        - Install black code formatter
     - Visualise the contacts
         - '--viz-contacts' as argument in viz_main() call
     - Implement the new optimiser
-        - Redraw the computation graph
+        - ```infer_latent_motion```: refactor and create ```get_x_seq``` function that returns ```seq_dict``` (sequence of x's), this should be an optimisation variable,  
     - Investigation
         - How does the prior deal with out of distribution motion
             - Issue, openpose has too many errors with e.g rolling. so we can't evaluate the prior properly
