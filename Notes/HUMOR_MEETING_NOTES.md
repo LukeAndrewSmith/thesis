@@ -1,0 +1,62 @@
+## To discuss with Jakob
+- Copy over each iteration approach
+    - Each update supposedly improves a given x_t, which you then copy for input at the next iteration, but that new x_t may be worse for the new z_t+1 and so in turn actually make x_t+1 worse.
+        - This is my explanation for the divergence I see in practice
+        - No information flow backwards
+- Velocities note
+    - We thought estimating the velocities each iteration rather than optimising over them might help keep them sensible and not overfit to the data
+        - I beleive however that the same issue in as in the copy over approach arises, the z's are tuned at each iteration to some x's, we then change those x's by modifying the velocities, and so the z's might no longer produce a sensible result with the new x's
+- Effect of losses (discuss notes)
+- Bugs in their code?
+    - They get their initial z's from some x's where the velocities were estimated in 'root' coordinates. Then for the rollout they recreate the initial x_0 and estimate it's velocities in camera coordinates.
+        - In original code:
+            - Rollout: motion_optimiser.py line 375, vel_trans/vel_root_orient are not actually used in estimate_velocity
+            - Infer latent: motion_optimiser.infer_latent_motion line 825, the prior coordinates trans/root_orient are used
+        - Might contribute to why the initial rollout is so bad?
+- How to approach improving the optimiser?
+    - Previous discussion:
+        - General aproach
+            - Make it simple (single loss), and check if it's doing what you want
+                - Start with 2d
+                - Add temporal consistency
+                - Add losses and see what improves
+            - Good visualisations
+    - Any other tips?
+    - What I've done
+        - Made the output of our method match the humor to sanity check
+        - Taken their final optimised state and looked at the effect in our optimiser
+        - Produced a set of visualisations
+        - Started simple, and added losses
+            - Admittidely I didn't keep a good enough record of what I've done, I kept deleting things as I was running out of memory but should've kept some record...
+        - Put losses high to see their effect in the extreme and build my intuition
+        - I'm not sure where to go from here...
+            - Could set up some sort of search over the parameters and leave it running for a while and then see what worked best
+        - Main issue I'm having
+            - I'm not 100% sure what to do so I find I can loose a lot of time just changing things without a clear goal, I think I need to step back more and think what my goals are ('duck' debugging)
+
+## Effect of losses
+- Effect of losses (in the extreme)
+    - Latent motion likelihood
+        - The next pose is not necessarily the most likely given the previous, hence setting this very high ends up decorrelating the frames and jittering
+    - Contact height/velocity
+        - if unbalanced, produces unrealistic motion/poses to force the feet above the ground, also predicts less and less contacts
+    - x consistency (decoded vs optimised)
+        - If we set this high at the beginning then the latent motion doesn't move much, as it was already initialised with the stage2 x_t, x_t-1 it already decodes an x_t' that matches rather well the x_t, hence doesn't need to move much.
+    - Temporal consistency latent motion
+        - NOT CLEAR
+    - Floor reg
+        - NOT CLEAR
+    - Temporal consitency position/velocity
+        - As expected
+    - Reprojection
+        - As expected
+    - joint_consistency_decoded (decoded joints vs implicitely decoded smpl joints)
+        - Effect not obvious to me but intuitively should be keeping the z's more sensible
+    - init_motion_prior
+        - As expected
+
+# Note on using humor final state
+- Use humor final state
+    - Duplicating latent motion
+    - Floor plane optimised per sequence in humor
+    - Velocities not saved

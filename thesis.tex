@@ -1,14 +1,15 @@
 \documentclass[a4paper,twoside,12pt,chapterprefix=false]{scrbook}
 
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage[footnotesize,sl,SL,hang,tight]{subfigure}  % helpful package for aligning figures next to each other
+% \usepackage[footnotesize,sl,SL,hang,tight]{subfigure}  % helpful package for aligning figures next to each other
 \usepackage{longtable} % tables over several pages
 \usepackage[font={small,sl},hang,labelfont=bf]{caption} % configure captions
 %\usepackage{captcont} % continue sufigures over several pages
 \usepackage{booktabs} % publication quality tables for LaTeX
 %\usepackage{showkeys} % shows the labels above the references for easier development
+\usepackage{subfig}
 
-\ifpdfoutput{%
+\Ifpdfoutput{%
 	\usepackage[pdftex]{graphicx}
 	\usepackage[]{pdfpages} %for including full pdf pages
 }{%
@@ -23,9 +24,10 @@
 \usepackage{times}
 \usepackage{helvet}   % sets sans serif font
 \usepackage[T1]{fontenc}
+\usepackage{xcolor}
 
 %PDF hyperref config
-\ifpdfoutput{%
+\Ifpdfoutput{%
 	\usepackage[pdftex,
 		bookmarks,
 		bookmarksopen=true,
@@ -45,7 +47,7 @@
 		pdfpagelabels=true]{hyperref}
 }{}
 
-\ifpdfoutput{%
+\Ifpdfoutput{%
 	\pdfcompresslevel=9
 	\pdfoutput=1
 	\DeclareGraphicsExtensions{.pdf,.png}
@@ -89,6 +91,7 @@
 
 %% macros e.g.
 \newcommand{\mfytext}[0]{my fancy text}
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
 
 %refs
 \newcommand{\chpref}[1]{Chapter \ref{#1}}
