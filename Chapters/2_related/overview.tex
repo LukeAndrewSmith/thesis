@@ -192,14 +192,68 @@ We are most interested in models that learn plausible, task independent, human m
 \end{itemize}
 
 
-\subsection{Pose Completion}
-The other possibile research direction related more to pose completion (or motion completion (though I assume motion completion would use similar methods to what was mentioned before)) in an animation setting.
+\subsection{Motion Diffusion}
+The next direction we would like to explore is motion diffusion.
+c.f diffusion.md for notes
 
-\begin{itemize}
-    \item Protores \cite{protores}
-    \begin{itemize}
-        \item Learned inverse kinematics solution
-        \item Variable number of effector inputs processed and then mixed with a 'Proto' layer in the encoder
-        \item Decoder takes the pose embedding and decodes the full pose (contains several blocks to separate the semantically different parts of the decoding process)
-    \end{itemize}
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Diffusion}
+%     \item Avatars grow legs (sparse to complete diffusion) \cite{AvatarsGrowLegs}
+%     \begin{itemize}
+%         \item denoising sequence of SMPL params conditioned by sparse tracking inputs
+%         \begin{itemize}
+%             \item Sparse input per frame is concatenated onto the corresponding denoised frame
+%         \end{itemize}
+%         \item input: sparse tracking inputs (orientation/translation of headset and two hand controllers)
+%         \item output: SMPL root orientation/translation, pose parameters
+%         \item Fixed input/output sequence length
+%         \item Architecture
+%         \begin{itemize}
+%             \item 12 layer MLP
+%             \item Feature sizes: N x 512
+%             \item Timestep embedding: add to each block
+%             \item Skeleten: S = 22 x 6
+%             \item Num Frames: N = 196
+%         \end{itemize}
+%     \end{itemize}
+
+%     \item PhysDiff \cite{PhysDiff}
+%     \begin{itemize}
+%         \item denoising sequence poses conditioned on promt, e.g 'walking round a bend'
+%         \item Goal: create sequence of motion from promt
+%         \item Physics-based motion projection step in the diffusion
+%         \begin{itemize}
+%             \item Achieved using a motion imitation policy to control a character in a
+%             physics simulator
+%         \end{itemize}
+%         \item Architecture
+%         \begin{itemize}
+%             \item TODO
+%         \end{itemize}
+%     \end{itemize}
+
+%     \item EDGE \cite{EDGE}
+%     \begin{itemize}
+%         \item Denoising sequence poses conditioned on music features
+%         \item Describes inpainting which could be useful to us
+%         \item Architecture
+%         \begin{itemize}
+%             \item Transformer based
+%         \end{itemize}
+%     \end{itemize}
+% \end{itemize}
+
+
+
+
+% \subsection{Pose Completion}
+% The other possibile research direction related more to pose completion (or motion completion (though I assume motion completion would use similar methods to what was mentioned before)) in an animation setting.
+
+% \begin{itemize}
+%     \item Protores \cite{protores}
+%     \begin{itemize}
+%         \item Learned inverse kinematics solution
+%         \item Variable number of effector inputs processed and then mixed with a 'Proto' layer in the encoder
+%         \item Decoder takes the pose embedding and decodes the full pose (contains several blocks to separate the semantically different parts of the decoding process)
+%     \end{itemize}
+% \end{itemize}
