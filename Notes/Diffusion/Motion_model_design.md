@@ -82,12 +82,4 @@ What I've learned from the code so far
     - Monads for loss function
         - Store json of all the losses internally
 
-
-TO UNDERSTAND:
-https://arxiv.org/pdf/2209.14916.pdf
-- The model tries to denoise the sequence directly in 1 step
-    - For sampling (Figure 2. right), we predict the denoised sequence then add a little noise back and repeat
-    - Question: during training do we really build a whole chain each time from T to 0 and let the gradients flow all the way back, or do we, like in the image diffusers, randomly sample a state and just perform an update on that
-        - May need to look at code to find the answer
-    
 - What is ddim sampling?
