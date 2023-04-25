@@ -2,41 +2,63 @@
 # Pose estimation
 ######################################################
 @article{openPose,
-  author = {Z. {Cao} and G. {Hidalgo Martinez} and T. {Simon} and S. {Wei} and Y. A. {Sheikh}},
+  author  = {Z. {Cao} and G. {Hidalgo Martinez} and T. {Simon} and S. {Wei} and Y. A. {Sheikh}},
   journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  title = {OpenPose: Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields},
-  year = {2019}
+  title   = {OpenPose: Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields},
+  year    = {2019}
 }
 
 @misc{HULC,
-  doi = {10.48550/ARXIV.2205.05677},
-  url = {https://arxiv.org/abs/2205.05677},
-  author = {Shimada, Soshi and Golyanik, Vladislav and Li, Zhi and Pérez, Patrick and Xu, Weipeng and Theobalt, Christian},
-  keywords = {Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Human-Computer Interaction (cs.HC), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {HULC: 3D Human Motion Capture with Pose Manifold Sampling and Dense Contact Guidance},
+  doi       = {10.48550/ARXIV.2205.05677},
+  url       = {https://arxiv.org/abs/2205.05677},
+  author    = {Shimada, Soshi and Golyanik, Vladislav and Li, Zhi and Pérez, Patrick and Xu, Weipeng and Theobalt, Christian},
+  keywords  = {Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Human-Computer Interaction (cs.HC), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title     = {HULC: 3D Human Motion Capture with Pose Manifold Sampling and Dense Contact Guidance},
   publisher = {arXiv},
-  year = {2022},
+  year      = {2022},
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 
 # Classic paper
 @article{EndToEndPose,
-  author    = {Angjoo Kanazawa and
-               Michael J. Black and
-               David W. Jacobs and
-               Jitendra Malik},
-  title     = {End-to-end Recovery of Human Shape and Pose},
-  journal   = {CoRR},
-  volume    = {abs/1712.06584},
-  year      = {2017},
-  url       = {http://arxiv.org/abs/1712.06584},
+  author     = {Angjoo Kanazawa and
+                Michael J. Black and
+                David W. Jacobs and
+                Jitendra Malik},
+  title      = {End-to-end Recovery of Human Shape and Pose},
+  journal    = {CoRR},
+  volume     = {abs/1712.06584},
+  year       = {2017},
+  url        = {http://arxiv.org/abs/1712.06584},
   eprinttype = {arXiv},
-  eprint    = {1712.06584},
-  timestamp = {Mon, 13 Aug 2018 16:49:07 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1712-06584.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {1712.06584},
+  timestamp  = {Mon, 13 Aug 2018 16:49:07 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-1712-06584.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
+
+######################################################
+# General deep learning
+######################################################
+##############
+@misc{bank2021_autoencoders,
+  title         = {Autoencoders},
+  author        = {Dor Bank and Noam Koenigstein and Raja Giryes},
+  year          = {2021},
+  eprint        = {2003.05991},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+
+@misc{kingma2022_VAE,
+  title         = {Auto-Encoding Variational Bayes},
+  author        = {Diederik P Kingma and Max Welling},
+  year          = {2022},
+  eprint        = {1312.6114},
+  archiveprefix = {arXiv},
+  primaryclass  = {stat.ML}
+}
 
 
 ######################################################
@@ -46,148 +68,257 @@
 ##############
 # Reviews
 @misc{PoseEstimationBenchmarking,
-  doi = {10.48550/ARXIV.2209.10529},
-  url = {https://arxiv.org/abs/2209.10529},
-  author = {Pang, Hui En and Cai, Zhongang and Yang, Lei and Zhang, Tianwei and Liu, Ziwei},
-  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {Benchmarking and Analyzing 3D Human Pose and Shape Estimation Beyond Algorithms},
+  doi       = {10.48550/ARXIV.2209.10529},
+  url       = {https://arxiv.org/abs/2209.10529},
+  author    = {Pang, Hui En and Cai, Zhongang and Yang, Lei and Zhang, Tianwei and Liu, Ziwei},
+  keywords  = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title     = {Benchmarking and Analyzing 3D Human Pose and Shape Estimation Beyond Algorithms},
   publisher = {arXiv},
-  year = {2022},
+  year      = {2022},
   copyright = {Creative Commons Attribution 4.0 International}
 }
 
+##############
+# Motion matching
+@article{early_motion_matching,
+  author    = {D. J. Wiley and J. K. Hahn},
+  journal   = {IEEE Computer Graphics and Applications},
+  title     = {Interpolation Synthesis of Articulated Figure Motion},
+  year      = {1997},
+  volume    = {17},
+  number    = {06},
+  issn      = {1558-1756},
+  pages     = {39-45},
+  doi       = {10.1109/38.626968},
+  publisher = {IEEE Computer Society},
+  address   = {Los Alamitos, CA, USA},
+  month     = {nov}
+}
+
+@online{clavet_motion_matching,
+  title        = {Motion matching and the road to next-gen animation},
+  author       = {Simon Clavet},
+  organization = {Ubisoft Montreal},
+  url          = {https://www.gdcvault.com/play/1023280/Motion-Matching-and-The-Road}
+}
+
+@article{holden_motion_matching,
+  author     = {Holden, Daniel and Kanoun, Oussama and Perepichka, Maksym and Popa, Tiberiu},
+  title      = {Learned Motion Matching},
+  year       = {2020},
+  issue_date = {August 2020},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {39},
+  number     = {4},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/3386569.3392440},
+  doi        = {10.1145/3386569.3392440},
+  abstract   = {In this paper we present a learned alternative to the Motion Matching algorithm which retains the positive properties of Motion Matching but additionally achieves the scalability of neural-network-based generative models. Although neural-network-based generative models for character animation are capable of learning expressive, compact controllers from vast amounts of animation data, methods such as Motion Matching still remain a popular choice in the games industry due to their flexibility, predictability, low preprocessing time, and visual quality - all properties which can sometimes be difficult to achieve with neural-network-based methods. Yet, unlike neural networks, the memory usage of such methods generally scales linearly with the amount of data used, resulting in a constant trade-off between the diversity of animation which can be produced and real world production budgets. In this work we combine the benefits of both approaches and, by breaking down the Motion Matching algorithm into its individual steps, show how learned, scalable alternatives can be used to replace each operation in turn. Our final model has no need to store animation data or additional matching meta-data in memory, meaning it scales as well as existing generative models. At the same time, we preserve the behavior of Motion Matching, retaining the quality, control, and quick iteration time which are so important in the industry.},
+  journal    = {ACM Trans. Graph.},
+  month      = {aug},
+  articleno  = {53},
+  numpages   = {13},
+  keywords   = {neural networks, generative models, character animation, animation, motion matching}
+}
+
+##############
+# Machine learning methods
+@article{temporal_convolutions,
+  author     = {Holden, Daniel and Saito, Jun and Komura, Taku},
+  title      = {A Deep Learning Framework for Character Motion Synthesis and Editing},
+  year       = {2016},
+  issue_date = {July 2016},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {35},
+  number     = {4},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/2897824.2925975},
+  doi        = {10.1145/2897824.2925975},
+  abstract   = {We present a framework to synthesize character movements based on high level parameters, such that the produced movements respect the manifold of human motion, trained on a large motion capture dataset. The learned motion manifold, which is represented by the hidden units of a convolutional autoencoder, represents motion data in sparse components which can be combined to produce a wide range of complex movements. To map from high level parameters to the motion manifold, we stack a deep feedforward neural network on top of the trained autoencoder. This network is trained to produce realistic motion sequences from parameters such as a curve over the terrain that the character should follow, or a target location for punching and kicking. The feedforward control network and the motion manifold are trained independently, allowing the user to easily switch between feedforward networks according to the desired interface, without re-training the motion manifold. Once motion is generated it can be edited by performing optimization in the space of the motion manifold. This allows for imposing kinematic constraints, or transforming the style of the motion, while ensuring the edited motion remains natural. As a result, the system can produce smooth, high quality motion sequences without any manual pre-processing of the training data.},
+  journal    = {ACM Trans. Graph.},
+  month      = {jul},
+  articleno  = {138},
+  numpages   = {11},
+  keywords   = {manifold learning, autoencoder, deep learning, character animation, human motion, convolutional neural networks}
+}
+
+@article{recurrent_harvey_2020,
+  doi       = {10.1145/3386569.3392480},
+  url       = {https://doi.org/10.1145%2F3386569.3392480},
+  year      = 2020,
+  month     = {aug},
+  publisher = {Association for Computing Machinery ({ACM})},
+  volume    = {39},
+  number    = {4},
+  author    = {F{\'{e}}lix G. Harvey and Mike Yurick and Derek Nowrouzezahrai and Christopher Pal},
+  title     = {Robust motion in-betweening},
+  journal   = {{ACM} Transactions on Graphics}
+}
+
+@article{rl_cho,
+  author     = {Cho, Kyungmin and Kim, Chaelin and Park, Jungjin and Park, Joonkyu and Noh, Junyong},
+  title      = {Motion Recommendation for Online Character Control},
+  year       = {2021},
+  issue_date = {December 2021},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {40},
+  number     = {6},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/3478513.3480512},
+  doi        = {10.1145/3478513.3480512},
+  abstract   = {Reinforcement learning (RL) has been proven effective in many scenarios, including environment exploration and motion planning. However, its application in data-driven character control has produced relatively simple motion results compared to recent approaches that have used large complex motion data without RL. In this paper, we provide a real-time motion control method that can generate high-quality and complex motion results from various sets of unstructured data while retaining the advantage of using RL, which is the discovery of optimal behaviors by trial and error. We demonstrate the results for a character achieving different tasks, from simple direction control to complex avoidance of moving obstacles. Our system works equally well on biped/quadruped characters, with motion data ranging from 1 to 48 minutes, without any manual intervention. To achieve this, we exploit a finite set of discrete actions, where each action represents full-body future motion features. We first define a subset of actions that can be selected in each state and store these pieces of information in databases during the preprocessing step. The use of this subset of actions enables the effective learning of control policy even from a large set of motion data. To achieve interactive performance at run-time, we adopt a proposal network and a k-nearest neighbor action sampler.},
+  journal    = {ACM Trans. Graph.},
+  month      = {dec},
+  articleno  = {196},
+  numpages   = {16},
+  keywords   = {motion control, data-driven animation}
+}
+@inproceedings{CVAE,
+  author    = {Sohn, Kihyuk and Lee, Honglak and Yan, Xinchen},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {C. Cortes and N. Lawrence and D. Lee and M. Sugiyama and R. Garnett},
+  pages     = {},
+  publisher = {Curran Associates, Inc.},
+  title     = {Learning Structured Output Representation using Deep Conditional Generative Models},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2015/file/8d55a249e6baa5c06772297520da2051-Paper.pdf},
+  volume    = {28},
+  year      = {2015}
+}
 
 ##############
 # Focus on Motion Priors
 @inproceedings{humor,
-    author={Rempe, Davis and Birdal, Tolga and Hertzmann, Aaron and Yang, Jimei and Sridhar, Srinath and Guibas, Leonidas J.},
-    title={HuMoR: 3D Human Motion Model for Robust Pose Estimation},
-    booktitle={International Conference on Computer Vision (ICCV)},
-    year={2021}
+  author    = {Rempe, Davis and Birdal, Tolga and Hertzmann, Aaron and Yang, Jimei and Sridhar, Srinath and Guibas, Leonidas J.},
+  title     = {HuMoR: 3D Human Motion Model for Robust Pose Estimation},
+  booktitle = {International Conference on Computer Vision (ICCV)},
+  year      = {2021}
 }
 
 @article{MotionVAE,
-  author    = {Hung Yu Ling and
-               Fabio Zinno and
-               George Cheng and
-               Michiel van de Panne},
-  title     = {Character Controllers Using Motion VAEs},
-  journal   = {CoRR},
-  volume    = {abs/2103.14274},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2103.14274},
+  author     = {Hung Yu Ling and
+                Fabio Zinno and
+                George Cheng and
+                Michiel van de Panne},
+  title      = {Character Controllers Using Motion VAEs},
+  journal    = {CoRR},
+  volume     = {abs/2103.14274},
+  year       = {2021},
+  url        = {https://arxiv.org/abs/2103.14274},
   eprinttype = {arXiv},
-  eprint    = {2103.14274},
-  timestamp = {Wed, 07 Apr 2021 15:31:46 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2103-14274.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2103.14274},
+  timestamp  = {Wed, 07 Apr 2021 15:31:46 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2103-14274.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 @article{DeepPhase,
-author = {Starke, Sebastian and Mason, Ian and Komura, Taku},
-title = {DeepPhase: Periodic Autoencoders for Learning Motion Phase Manifolds},
-year = {2022},
-issue_date = {July 2022},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-volume = {41},
-number = {4},
-issn = {0730-0301},
-url = {https://doi.org/10.1145/3528223.3530178},
-doi = {10.1145/3528223.3530178},
-abstract = {Learning the spatial-temporal structure of body movements is a fundamental problem for character motion synthesis. In this work, we propose a novel neural network architecture called the Periodic Autoencoder that can learn periodic features from large unstructured motion datasets in an unsupervised manner. The character movements are decomposed into multiple latent channels that capture the non-linear periodicity of different body segments while progressing forward in time. Our method extracts a multi-dimensional phase space from full-body motion data, which effectively clusters animations and produces a manifold in which computed feature distances provide a better similarity measure than in the original motion space to achieve better temporal and spatial alignment. We demonstrate that the learned periodic embedding can significantly help to improve neural motion synthesis in a number of tasks, including diverse locomotion skills, style-based movements, dance motion synthesis from music, synthesis of dribbling motions in football, and motion query for matching poses within large animation databases.},
-journal = {ACM Trans. Graph.},
-month = {jul},
-articleno = {136},
-numpages = {13},
-keywords = {character interactions, character animation, neural networks, character control, deep learning, human motion}
+  author     = {Starke, Sebastian and Mason, Ian and Komura, Taku},
+  title      = {DeepPhase: Periodic Autoencoders for Learning Motion Phase Manifolds},
+  year       = {2022},
+  issue_date = {July 2022},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {41},
+  number     = {4},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/3528223.3530178},
+  doi        = {10.1145/3528223.3530178},
+  abstract   = {Learning the spatial-temporal structure of body movements is a fundamental problem for character motion synthesis. In this work, we propose a novel neural network architecture called the Periodic Autoencoder that can learn periodic features from large unstructured motion datasets in an unsupervised manner. The character movements are decomposed into multiple latent channels that capture the non-linear periodicity of different body segments while progressing forward in time. Our method extracts a multi-dimensional phase space from full-body motion data, which effectively clusters animations and produces a manifold in which computed feature distances provide a better similarity measure than in the original motion space to achieve better temporal and spatial alignment. We demonstrate that the learned periodic embedding can significantly help to improve neural motion synthesis in a number of tasks, including diverse locomotion skills, style-based movements, dance motion synthesis from music, synthesis of dribbling motions in football, and motion query for matching poses within large animation databases.},
+  journal    = {ACM Trans. Graph.},
+  month      = {jul},
+  articleno  = {136},
+  numpages   = {13},
+  keywords   = {character interactions, character animation, neural networks, character control, deep learning, human motion}
 }
 
 @article{MEVA,
-  author    = {Zhengyi Luo and
-               S. Alireza Golestaneh and
-               Kris M. Kitani},
-  title     = {3D Human Motion Estimation via Motion Compression and Refinement},
-  journal   = {CoRR},
-  volume    = {abs/2008.03789},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2008.03789},
+  author     = {Zhengyi Luo and
+                S. Alireza Golestaneh and
+                Kris M. Kitani},
+  title      = {3D Human Motion Estimation via Motion Compression and Refinement},
+  journal    = {CoRR},
+  volume     = {abs/2008.03789},
+  year       = {2020},
+  url        = {https://arxiv.org/abs/2008.03789},
   eprinttype = {arXiv},
-  eprint    = {2008.03789},
-  timestamp = {Wed, 02 Sep 2020 19:16:21 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2008-03789.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2008.03789},
+  timestamp  = {Wed, 02 Sep 2020 19:16:21 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2008-03789.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 
 @misc{TransformerVAEPrior,
-  doi = {10.48550/ARXIV.2210.15134},
-  url = {https://arxiv.org/abs/2210.15134},
-  author = {Chen, Xin and Su, Zhuo and Yang, Lingbo and Cheng, Pei and Xu, Lan and Fu, Bin and Yu, Gang},
-  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences, I.4.8},
-  title = {Learning Variational Motion Prior for Video-based Motion Capture},
+  doi       = {10.48550/ARXIV.2210.15134},
+  url       = {https://arxiv.org/abs/2210.15134},
+  author    = {Chen, Xin and Su, Zhuo and Yang, Lingbo and Cheng, Pei and Xu, Lan and Fu, Bin and Yu, Gang},
+  keywords  = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences, I.4.8},
+  title     = {Learning Variational Motion Prior for Video-based Motion Capture},
   publisher = {arXiv},
-  year = {2022},
+  year      = {2022},
   copyright = {Creative Commons Attribution Share Alike 4.0 International}
 }
 
 
 @inproceedings{ConvAutoEnv2015,
-  author = {Holden,
-            Daniel and Saito,
-            Jun and Komura,
-            Taku and Joyce,
-            Thomas},
-  title = {Learning Motion Manifolds with Convolutional Autoencoders},
-  year = {2015},
-  isbn = {9781450339308},
+  author    = {Holden,
+               Daniel and Saito,
+               Jun and Komura,
+               Taku and Joyce,
+               Thomas},
+  title     = {Learning Motion Manifolds with Convolutional Autoencoders},
+  year      = {2015},
+  isbn      = {9781450339308},
   publisher = {Association for Computing Machinery},
-  address = {New York,NY,USA},
-  url = {https://doi.org/10.1145/2820903.2820918},
-  doi = {10.1145/2820903.2820918},
+  address   = {New York,NY,USA},
+  url       = {https://doi.org/10.1145/2820903.2820918},
+  doi       = {10.1145/2820903.2820918},
   booktitle = {SIGGRAPH Asia 2015 Technical Briefs},
   articleno = {18},
-  numpages = {4},
+  numpages  = {4}
 }
 
 @article{ConvAutoEnv2016,
-author = {Holden, Daniel and Saito, Jun and Komura, Taku},
-title = {A Deep Learning Framework for Character Motion Synthesis and Editing},
-year = {2016},
-issue_date = {July 2016},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-volume = {35},
-number = {4},
-issn = {0730-0301},
-url = {https://doi.org/10.1145/2897824.2925975},
-doi = {10.1145/2897824.2925975},
-abstract = {We present a framework to synthesize character movements based on high level parameters, such that the produced movements respect the manifold of human motion, trained on a large motion capture dataset. The learned motion manifold, which is represented by the hidden units of a convolutional autoencoder, represents motion data in sparse components which can be combined to produce a wide range of complex movements. To map from high level parameters to the motion manifold, we stack a deep feedforward neural network on top of the trained autoencoder. This network is trained to produce realistic motion sequences from parameters such as a curve over the terrain that the character should follow, or a target location for punching and kicking. The feedforward control network and the motion manifold are trained independently, allowing the user to easily switch between feedforward networks according to the desired interface, without re-training the motion manifold. Once motion is generated it can be edited by performing optimization in the space of the motion manifold. This allows for imposing kinematic constraints, or transforming the style of the motion, while ensuring the edited motion remains natural. As a result, the system can produce smooth, high quality motion sequences without any manual pre-processing of the training data.},
-journal = {ACM Trans. Graph.},
-month = {jul},
-articleno = {138},
-numpages = {11},
-keywords = {character animation, human motion, convolutional neural networks, manifold learning, autoencoder, deep learning}
+  author     = {Holden, Daniel and Saito, Jun and Komura, Taku},
+  title      = {A Deep Learning Framework for Character Motion Synthesis and Editing},
+  year       = {2016},
+  issue_date = {July 2016},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {35},
+  number     = {4},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/2897824.2925975},
+  doi        = {10.1145/2897824.2925975},
+  abstract   = {We present a framework to synthesize character movements based on high level parameters, such that the produced movements respect the manifold of human motion, trained on a large motion capture dataset. The learned motion manifold, which is represented by the hidden units of a convolutional autoencoder, represents motion data in sparse components which can be combined to produce a wide range of complex movements. To map from high level parameters to the motion manifold, we stack a deep feedforward neural network on top of the trained autoencoder. This network is trained to produce realistic motion sequences from parameters such as a curve over the terrain that the character should follow, or a target location for punching and kicking. The feedforward control network and the motion manifold are trained independently, allowing the user to easily switch between feedforward networks according to the desired interface, without re-training the motion manifold. Once motion is generated it can be edited by performing optimization in the space of the motion manifold. This allows for imposing kinematic constraints, or transforming the style of the motion, while ensuring the edited motion remains natural. As a result, the system can produce smooth, high quality motion sequences without any manual pre-processing of the training data.},
+  journal    = {ACM Trans. Graph.},
+  month      = {jul},
+  articleno  = {138},
+  numpages   = {11},
+  keywords   = {character animation, human motion, convolutional neural networks, manifold learning, autoencoder, deep learning}
 }
 
 @article{HierarchicalMotionVAE,
-  author    = {Jiaman Li and
-               Ruben Villegas and
-               Duygu Ceylan and
-               Jimei Yang and
-               Zhengfei Kuang and
-               Hao Li and
-               Yajie Zhao},
-  title     = {Task-Generic Hierarchical Human Motion Prior using VAEs},
-  journal   = {CoRR},
-  volume    = {abs/2106.04004},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2106.04004},
+  author     = {Jiaman Li and
+                Ruben Villegas and
+                Duygu Ceylan and
+                Jimei Yang and
+                Zhengfei Kuang and
+                Hao Li and
+                Yajie Zhao},
+  title      = {Task-Generic Hierarchical Human Motion Prior using VAEs},
+  journal    = {CoRR},
+  volume     = {abs/2106.04004},
+  year       = {2021},
+  url        = {https://arxiv.org/abs/2106.04004},
   eprinttype = {arXiv},
-  eprint    = {2106.04004},
-  timestamp = {Thu, 10 Jun 2021 16:34:18 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-04004.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2106.04004},
+  timestamp  = {Thu, 10 Jun 2021 16:34:18 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2106-04004.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 ##############
@@ -195,152 +326,112 @@ keywords = {character animation, human motion, convolutional neural networks, ma
 
 # Very similar to MotionVAE
 @article{learnedInbetweening,
-	doi = {10.1145/3528223.3530090},
-	url = {https://doi.org/10.1145%2F3528223.3530090},
-	year = 2022,
-	month = {jul},
-	publisher = {Association for Computing Machinery ({ACM})},
-	volume = {41},
-	number = {4},
-	pages = {1--10},
-	author = {Xiangjun Tang and He Wang and Bo Hu and Xu Gong and Ruifan Yi and Qilong Kou and Xiaogang Jin},
-	title = {Real-time controllable motion transition for characters},
-	journal = {{ACM} Transactions on Graphics}
+  doi       = {10.1145/3528223.3530090},
+  url       = {https://doi.org/10.1145%2F3528223.3530090},
+  year      = 2022,
+  month     = {jul},
+  publisher = {Association for Computing Machinery ({ACM})},
+  volume    = {41},
+  number    = {4},
+  pages     = {1--10},
+  author    = {Xiangjun Tang and He Wang and Bo Hu and Xu Gong and Ruifan Yi and Qilong Kou and Xiaogang Jin},
+  title     = {Real-time controllable motion transition for characters},
+  journal   = {{ACM} Transactions on Graphics}
 }
 
 @article{structured4Dlatentspace,
-  author    = {Mathieu Marsot and
-               Stefanie Wuhrer and
-               Jean{-}S{\'{e}}bastien Franco and
-               Stephane Durocher},
-  title     = {Multi-frame sequence generator of 4D human body motion},
-  journal   = {CoRR},
-  volume    = {abs/2106.04387},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2106.04387},
+  author     = {Mathieu Marsot and
+                Stefanie Wuhrer and
+                Jean{-}S{\'{e}}bastien Franco and
+                Stephane Durocher},
+  title      = {Multi-frame sequence generator of 4D human body motion},
+  journal    = {CoRR},
+  volume     = {abs/2106.04387},
+  year       = {2021},
+  url        = {https://arxiv.org/abs/2106.04387},
   eprinttype = {arXiv},
-  eprint    = {2106.04387},
-  timestamp = {Fri, 11 Jun 2021 11:04:16 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-04387.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2106.04387},
+  timestamp  = {Fri, 11 Jun 2021 11:04:16 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2106-04387.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 # Example RNN
 @article{RobustMotionInbetweening,
-  title={Robust motion in-betweening},
-  author={F{\'e}lix G. Harvey and Mike Yurick and Derek Nowrouzezahrai and Christopher Joseph Pal},
-  journal={ACM Transactions on Graphics (TOG)},
-  year={2020},
-  volume={39},
-  pages={60:1 - 60:12}
+  title   = {Robust motion in-betweening},
+  author  = {F{\'e}lix G. Harvey and Mike Yurick and Derek Nowrouzezahrai and Christopher Joseph Pal},
+  journal = {ACM Transactions on Graphics (TOG)},
+  year    = {2020},
+  volume  = {39},
+  pages   = {60:1 - 60:12}
 }
-
-##############
-# Motion prediction etc.
-@misc{AvatarsGrowLegs,
-  author    = {Yuming Du and
-               Robin Kips and
-               Albert Pumarola and
-               Subastian Starke and
-               Ali Thabet and
-               Artsiom Sanakeyeu},
-  title     = {Avatars Grow Legs: Generating Smooth Human Motion from Sparse Tracking Inputs with Diffusion Model},
-  publisher = {arXiv},
-  year      = {2023},
-  url       = {https://scontent-zrh1-1.xx.fbcdn.net/v/t39.8562-6/10000000_707343567764424_591871020741452428_n.pdf?_nc_cat=111&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=7XcbQbQS8NUAX87DleR&_nc_ht=scontent-zrh1-1.xx&oh=00_AfCKePnKqKwcWgoBuVzuzdKQhFLFd__h_rEUy4Y8Hp0e6g&oe=63D51EF0},
-  eprinttype = {arXiv}
-}
-
-@misc{PhysDiff,
-  doi = {10.48550/ARXIV.2212.02500},
-  url = {https://arxiv.org/abs/2212.02500},
-  author = {Yuan, Ye and Song, Jiaming and Iqbal, Umar and Vahdat, Arash and Kautz, Jan},
-  keywords = {Computer Vision and Pattern Recognition (cs.CV), Artificial Intelligence (cs.AI), Graphics (cs.GR), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {PhysDiff: Physics-Guided Human Motion Diffusion Model},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {arXiv.org perpetual, non-exclusive license}
-}
-
-@misc{EDGE,
-  doi = {10.48550/ARXIV.2211.10658},
-  url = {https://arxiv.org/abs/2211.10658},
-  author = {Tseng, Jonathan and Castellon, Rodrigo and Liu, C. Karen},
-  keywords = {Sound (cs.SD), Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Audio and Speech Processing (eess.AS), FOS: Computer and information sciences, FOS: Computer and information sciences, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering},
-  title = {EDGE: Editable Dance Generation From Music},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {Creative Commons Attribution 4.0 International}
-}
-
-
 
 ##############
 # Other approaches that identify motion as important aspect for pose estimation
 @article{VIBE,
-  author    = {Muhammed Kocabas and
-               Nikos Athanasiou and
-               Michael J. Black},
-  title     = {{VIBE:} Video Inference for Human Body Pose and Shape Estimation},
-  journal   = {CoRR},
-  volume    = {abs/1912.05656},
-  year      = {2019},
-  url       = {http://arxiv.org/abs/1912.05656},
+  author     = {Muhammed Kocabas and
+                Nikos Athanasiou and
+                Michael J. Black},
+  title      = {{VIBE:} Video Inference for Human Body Pose and Shape Estimation},
+  journal    = {CoRR},
+  volume     = {abs/1912.05656},
+  year       = {2019},
+  url        = {http://arxiv.org/abs/1912.05656},
   eprinttype = {arXiv},
-  eprint    = {1912.05656},
-  timestamp = {Thu, 02 Jan 2020 18:08:18 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1912-05656.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {1912.05656},
+  timestamp  = {Thu, 02 Jan 2020 18:08:18 +0100},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-1912-05656.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 @article{3DDynamicsFromVideo,
-  author    = {Angjoo Kanazawa and
-               Jason Y. Zhang and
-               Panna Felsen and
-               Jitendra Malik},
-  title     = {Learning 3D Human Dynamics from Video},
-  journal   = {CoRR},
-  volume    = {abs/1812.01601},
-  year      = {2018},
-  url       = {http://arxiv.org/abs/1812.01601},
+  author     = {Angjoo Kanazawa and
+                Jason Y. Zhang and
+                Panna Felsen and
+                Jitendra Malik},
+  title      = {Learning 3D Human Dynamics from Video},
+  journal    = {CoRR},
+  volume     = {abs/1812.01601},
+  year       = {2018},
+  url        = {http://arxiv.org/abs/1812.01601},
   eprinttype = {arXiv},
-  eprint    = {1812.01601},
-  timestamp = {Wed, 10 Jun 2020 08:58:02 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1812-01601.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {1812.01601},
+  timestamp  = {Wed, 10 Jun 2020 08:58:02 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-1812-01601.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 @article{Unified3DHumanMotionSynthesis,
-  title={A Unified 3D Human Motion Synthesis Model via Conditional Variational Auto-Encoder∗},
-  author={Yujun Cai and Yiwei Wang and Yiheng Zhu and Tat-Jen Cham and Jianfei Cai and Junsong Yuan and Jun Liu and Chuanxia Zheng and Sijie Yan and Henghui Ding and Xiaohui Shen and Ding Liu and Nadia Magnenat Thalmann},
-  journal={2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year={2021},
-  pages={11625-11635}
+  title   = {A Unified 3D Human Motion Synthesis Model via Conditional Variational Auto-Encoder∗},
+  author  = {Yujun Cai and Yiwei Wang and Yiheng Zhu and Tat-Jen Cham and Jianfei Cai and Junsong Yuan and Jun Liu and Chuanxia Zheng and Sijie Yan and Henghui Ding and Xiaohui Shen and Ding Liu and Nadia Magnenat Thalmann},
+  journal = {2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year    = {2021},
+  pages   = {11625-11635}
 }
 
 @article{ActionConditionedTransformer,
-  title={Action-Conditioned 3D Human Motion Synthesis with Transformer VAE},
-  author={Mathis Petrovich and Michael J. Black and G{\"u}l Varol},
-  journal={2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
-  year={2021},
-  pages={10965-10975}
+  title   = {Action-Conditioned 3D Human Motion Synthesis with Transformer VAE},
+  author  = {Mathis Petrovich and Michael J. Black and G{\"u}l Varol},
+  journal = {2021 IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year    = {2021},
+  pages   = {10965-10975}
 }
 
 @article{MoGlow,
-  author    = {Gustav Eje Henter and
-               Simon Alexanderson and
-               Jonas Beskow},
-  title     = {MoGlow: Probabilistic and controllable motion synthesis using normalising
-               flows},
-  journal   = {CoRR},
-  volume    = {abs/1905.06598},
-  year      = {2019},
-  url       = {http://arxiv.org/abs/1905.06598},
+  author     = {Gustav Eje Henter and
+                Simon Alexanderson and
+                Jonas Beskow},
+  title      = {MoGlow: Probabilistic and controllable motion synthesis using normalising
+                flows},
+  journal    = {CoRR},
+  volume     = {abs/1905.06598},
+  year       = {2019},
+  url        = {http://arxiv.org/abs/1905.06598},
   eprinttype = {arXiv},
-  eprint    = {1905.06598},
-  timestamp = {Tue, 28 May 2019 12:48:08 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-1905-06598.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {1905.06598},
+  timestamp  = {Tue, 28 May 2019 12:48:08 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-1905-06598.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 
@@ -348,21 +439,21 @@ keywords = {character animation, human motion, convolutional neural networks, ma
 # Pose completion
 ######################################################
 @article{protores,
-  author    = {Boris N. Oreshkin and
-               Florent Bocquelet and
-               F{\'{e}}lix G. Harvey and
-               Bay Raitt and
-               Dominic Laflamme},
-  title     = {ProtoRes: Proto-Residual Architecture for Deep Modeling of Human Pose},
-  journal   = {CoRR},
-  volume    = {abs/2106.01981},
-  year      = {2021},
-  url       = {https://arxiv.org/abs/2106.01981},
+  author     = {Boris N. Oreshkin and
+                Florent Bocquelet and
+                F{\'{e}}lix G. Harvey and
+                Bay Raitt and
+                Dominic Laflamme},
+  title      = {ProtoRes: Proto-Residual Architecture for Deep Modeling of Human Pose},
+  journal    = {CoRR},
+  volume     = {abs/2106.01981},
+  year       = {2021},
+  url        = {https://arxiv.org/abs/2106.01981},
   eprinttype = {arXiv},
-  eprint    = {2106.01981},
-  timestamp = {Tue, 15 Jun 2021 11:31:43 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2106-01981.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2106.01981},
+  timestamp  = {Tue, 15 Jun 2021 11:31:43 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2106-01981.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 
@@ -370,52 +461,149 @@ keywords = {character animation, human motion, convolutional neural networks, ma
 # Other
 ######################################################
 @misc{aa_6d_angles,
-  doi = {10.48550/ARXIV.1812.07035},
-  url = {https://arxiv.org/abs/1812.07035},
-  author = {Zhou, Yi and Barnes, Connelly and Lu, Jingwan and Yang, Jimei and Li, Hao},
-  keywords = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {On the Continuity of Rotation Representations in Neural Networks},
+  doi       = {10.48550/ARXIV.1812.07035},
+  url       = {https://arxiv.org/abs/1812.07035},
+  author    = {Zhou, Yi and Barnes, Connelly and Lu, Jingwan and Yang, Jimei and Li, Hao},
+  keywords  = {Machine Learning (cs.LG), Machine Learning (stat.ML), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title     = {On the Continuity of Rotation Representations in Neural Networks},
   publisher = {arXiv},
-  year = {2018},
+  year      = {2018},
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 
 @article{SMPL,
-author = {Loper, Matthew and Mahmood, Naureen and Romero, Javier and Pons-Moll, Gerard and Black, Michael J.},
-title = {SMPL: A Skinned Multi-Person Linear Model},
-year = {2015},
-issue_date = {November 2015},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-volume = {34},
-number = {6},
-issn = {0730-0301},
-url = {https://doi.org/10.1145/2816795.2818013},
-doi = {10.1145/2816795.2818013},
-abstract = {We present a learned model of human body shape and pose-dependent shape variation that is more accurate than previous models and is compatible with existing graphics pipelines. Our Skinned Multi-Person Linear model (SMPL) is a skinned vertex-based model that accurately represents a wide variety of body shapes in natural human poses. The parameters of the model are learned from data including the rest pose template, blend weights, pose-dependent blend shapes, identity-dependent blend shapes, and a regressor from vertices to joint locations. Unlike previous models, the pose-dependent blend shapes are a linear function of the elements of the pose rotation matrices. This simple formulation enables training the entire model from a relatively large number of aligned 3D meshes of different people in different poses. We quantitatively evaluate variants of SMPL using linear or dual-quaternion blend skinning and show that both are more accurate than a Blend-SCAPE model trained on the same data. We also extend SMPL to realistically model dynamic soft-tissue deformations. Because it is based on blend skinning, SMPL is compatible with existing rendering engines and we make it available for research purposes.},
-journal = {ACM Trans. Graph.},
-month = {nov},
-articleno = {248},
-numpages = {16},
-keywords = {soft-tissue, blendshapes, body shape, skinning}
+  author     = {Loper, Matthew and Mahmood, Naureen and Romero, Javier and Pons-Moll, Gerard and Black, Michael J.},
+  title      = {SMPL: A Skinned Multi-Person Linear Model},
+  year       = {2015},
+  issue_date = {November 2015},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {34},
+  number     = {6},
+  issn       = {0730-0301},
+  url        = {https://doi.org/10.1145/2816795.2818013},
+  doi        = {10.1145/2816795.2818013},
+  abstract   = {We present a learned model of human body shape and pose-dependent shape variation that is more accurate than previous models and is compatible with existing graphics pipelines. Our Skinned Multi-Person Linear model (SMPL) is a skinned vertex-based model that accurately represents a wide variety of body shapes in natural human poses. The parameters of the model are learned from data including the rest pose template, blend weights, pose-dependent blend shapes, identity-dependent blend shapes, and a regressor from vertices to joint locations. Unlike previous models, the pose-dependent blend shapes are a linear function of the elements of the pose rotation matrices. This simple formulation enables training the entire model from a relatively large number of aligned 3D meshes of different people in different poses. We quantitatively evaluate variants of SMPL using linear or dual-quaternion blend skinning and show that both are more accurate than a Blend-SCAPE model trained on the same data. We also extend SMPL to realistically model dynamic soft-tissue deformations. Because it is based on blend skinning, SMPL is compatible with existing rendering engines and we make it available for research purposes.},
+  journal    = {ACM Trans. Graph.},
+  month      = {nov},
+  articleno  = {248},
+  numpages   = {16},
+  keywords   = {soft-tissue, blendshapes, body shape, skinning}
 }
 
 @article{STAR,
-  author    = {Ahmed A. A. Osman and
-               Timo Bolkart and
-               Michael J. Black},
-  title     = {{STAR:} Sparse Trained Articulated Human Body Regressor},
-  journal   = {CoRR},
-  volume    = {abs/2008.08535},
-  year      = {2020},
-  url       = {https://arxiv.org/abs/2008.08535},
+  author     = {Ahmed A. A. Osman and
+                Timo Bolkart and
+                Michael J. Black},
+  title      = {{STAR:} Sparse Trained Articulated Human Body Regressor},
+  journal    = {CoRR},
+  volume     = {abs/2008.08535},
+  year       = {2020},
+  url        = {https://arxiv.org/abs/2008.08535},
   eprinttype = {arXiv},
-  eprint    = {2008.08535},
-  timestamp = {Fri, 21 Aug 2020 15:05:50 +0200},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2008-08535.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  eprint     = {2008.08535},
+  timestamp  = {Fri, 21 Aug 2020 15:05:50 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2008-08535.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
 }
 
 @misc{SMPL_op_joints,
-  url={https://github.com/vchoutas/smplx/blob/main/smplx/vertex_ids.py}
+  url = {https://github.com/vchoutas/smplx/blob/main/smplx/vertex_ids.py}
+}
+
+
+########################################################################################
+# Diffusion
+########################################################################################
+
+############################################
+# Image diffusion
+
+# Stable diffusion
+@article{diffusion_beats_gans,
+  author     = {Prafulla Dhariwal and
+                Alex Nichol},
+  title      = {Diffusion Models Beat GANs on Image Synthesis},
+  journal    = {CoRR},
+  volume     = {abs/2105.05233},
+  year       = {2021},
+  url        = {https://arxiv.org/abs/2105.05233},
+  eprinttype = {arXiv},
+  eprint     = {2105.05233},
+  timestamp  = {Fri, 14 May 2021 12:13:30 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2105-05233.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{stable_diffusion,
+  title         = {High-Resolution Image Synthesis with Latent Diffusion Models},
+  author        = {Robin Rombach and Andreas Blattmann and Dominik Lorenz and Patrick Esser and Björn Ommer},
+  year          = {2021},
+  eprint        = {2112.10752},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CV}
+}
+
+@article{ddpm,
+  author     = {Jonathan Ho and
+                Ajay Jain and
+                Pieter Abbeel},
+  title      = {Denoising Diffusion Probabilistic Models},
+  journal    = {CoRR},
+  volume     = {abs/2006.11239},
+  year       = {2020},
+  url        = {https://arxiv.org/abs/2006.11239},
+  eprinttype = {arXiv},
+  eprint     = {2006.11239},
+  timestamp  = {Tue, 23 Jun 2020 17:57:22 +0200},
+  biburl     = {https://dblp.org/rec/journals/corr/abs-2006-11239.bib},
+  bibsource  = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{diffusion_review,
+  title         = {Diffusion Models: A Comprehensive Survey of Methods and Applications},
+  author        = {Ling Yang and Zhilong Zhang and Yang Song and Shenda Hong and Runsheng Xu and Yue Zhao and Wentao Zhang and Bin Cui and Ming-Hsuan Yang},
+  year          = {2023},
+  eprint        = {2209.00796},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+
+############################################
+# Motion diffusion
+
+@misc{AvatarsGrowLegs,
+  author     = {Yuming Du and
+                Robin Kips and
+                Albert Pumarola and
+                Subastian Starke and
+                Ali Thabet and
+                Artsiom Sanakeyeu},
+  title      = {Avatars Grow Legs: Generating Smooth Human Motion from Sparse Tracking Inputs with Diffusion Model},
+  publisher  = {arXiv},
+  year       = {2023},
+  url        = {https://scontent-zrh1-1.xx.fbcdn.net/v/t39.8562-6/10000000_707343567764424_591871020741452428_n.pdf?_nc_cat=111&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=7XcbQbQS8NUAX87DleR&_nc_ht=scontent-zrh1-1.xx&oh=00_AfCKePnKqKwcWgoBuVzuzdKQhFLFd__h_rEUy4Y8Hp0e6g&oe=63D51EF0},
+  eprinttype = {arXiv}
+}
+
+@misc{PhysDiff,
+  doi       = {10.48550/ARXIV.2212.02500},
+  url       = {https://arxiv.org/abs/2212.02500},
+  author    = {Yuan, Ye and Song, Jiaming and Iqbal, Umar and Vahdat, Arash and Kautz, Jan},
+  keywords  = {Computer Vision and Pattern Recognition (cs.CV), Artificial Intelligence (cs.AI), Graphics (cs.GR), Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title     = {PhysDiff: Physics-Guided Human Motion Diffusion Model},
+  publisher = {arXiv},
+  year      = {2022},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
+@misc{EDGE,
+  doi       = {10.48550/ARXIV.2211.10658},
+  url       = {https://arxiv.org/abs/2211.10658},
+  author    = {Tseng, Jonathan and Castellon, Rodrigo and Liu, C. Karen},
+  keywords  = {Sound (cs.SD), Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Audio and Speech Processing (eess.AS), FOS: Computer and information sciences, FOS: Computer and information sciences, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering},
+  title     = {EDGE: Editable Dance Generation From Music},
+  publisher = {arXiv},
+  year      = {2022},
+  copyright = {Creative Commons Attribution 4.0 International}
 }

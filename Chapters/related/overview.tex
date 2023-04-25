@@ -1,0 +1,259 @@
+\section{Overview of Approaches}
+
+\subsection{Motion Priors}
+We are most interested in models that learn plausible, task independent, human motion. These are refered to by \cite{MotionVAE} as $\textit{Motion-then-control}$ models. We limit our scope to parametric models.
+\begin{itemize}
+    \item \textbf{Motion Priors}
+    \item MotionVAE \cite{humor}
+    \begin{itemize}
+        \item Standard normal CVAE
+        \item Outputs next pose
+        \item Decoder is mixture of networks
+        \item Trained with rollout and scheduled sampling
+        \item State positions referenced to root projection onto ground
+        \item Nice investigation into using RL in the latent space for character control
+        \item NOTE: Latent dimension size: 32 (typical physics based humanoid degrees of freedom).
+        \item The state having velocities and the decoder predicting change in pose seems to implicitly model the time aspect of the motion, rather than explicitly modelling it like in \cite{structured4Dlatentspace}.
+    \end{itemize}
+    \item HuMoR \cite{humor}
+    \begin{itemize}
+        \item Parametrised conditional prior CVAE
+        \item Outputs change in state and person ground contacts
+        \item SMPL regularisers (a subset of their state parametrises the SMPL model)
+        \item Motion learned in a canonical reference frame (TODO: not sure about MotionVAE)
+        \item Trained without rollout (I beleive?) 
+        \item State positions referenced as in SMPL model (to $(0,0)$?)
+        \item Ground plane initialized with RCNN
+        \item Very nice feature of having velocities in the state and of predicting change in motion, this implicitly captures the direction of motion in time as well as in space 
+    \end{itemize}
+    \item Learned-inbetweenings paper \cite{learnedInbetweening}
+    \begin{itemize}
+        \item Bascially MotionVAE but outputs change in state like HuMoR
+    \end{itemize}
+    \item Structed latent space for 4D motion \cite{structured4Dlatentspace}
+    \begin{itemize}
+        \item VAE operating on a fixed number of frames but with 'varying duration' by including a timestamp per frame (hence with wider spacing in the timestamp the movement is over a longer duration)
+        \item Conditions decoder with SMPL shape
+        \item It encorporates the timestamp to distinguish the direction of motion (i.e to avoid having you sample backwards in time when you walk the latent space. It's a direct next pose prediction and so would cluster close poses in the latent space regardless of time (I beleive))
+        \item They perform a comparison to other reconstruction methods to directly evaluate the VAE, not sure other papers did that much
+        \item Didn't find the paper so interesting
+    \end{itemize}
+    \item DeepPhase \cite{DeepPhase}
+    \begin{itemize}
+        \item Autoencoder operating on fixed length sequences of 3D joint velocities
+        \item Latent space enforced to match sinusoidal functions that represent periodic motion
+        \item Periodic functions can change over the length of the sequence thus shift between periodic motions and represent non-periodic motions
+    \end{itemize}
+    \item MEVA \cite{MEVA}
+    \begin{itemize}
+        \item Separates pipeline into learning coarse motion VAE and refining this prediction (they postulate the VAE can only learn smooth motion, then use a SMPL regressor to refine the predictions from temporally correlated features)
+        \item VAE operates on features extracted with temporal convolutions directly from the image rather than on SMPL/joint position/velocity based state
+        \item Presents nice augmentation techniques for AMASS, speed variation, mirroring and root rotations
+        \item Nice related work and dataset sections
+    \end{itemize}
+    \item TransformerVAEPrior \cite{TransformerVAEPrior}
+    \begin{itemize}
+        \item Learns a latent space using AMASS, then has another network (transformer based) to project to this latent space directly from video, decodes straight to a motion sequence
+        \item Operates on a \textbf{sequence} level, rather than just between 2 poses like HuMoR, latent code represents an entire sequence so the sequence can be decoded in one step => faster
+        \item Also uses AMASS
+        \item Can also be used as a motion rectifier like Humor, they say it's faster as it's a direct prediction of sequence
+        \item TODO: not sure about the length of the input sequence
+    \end{itemize}
+    \item \cite{ConvAutoEnv2015}
+    \begin{itemize}
+        \item Old paper but relevant ideas
+        \item Simple autoencoder (not variational), CNN based
+        \item Operates on sequence level, like TransformerVAEPrior
+        \item Denoising Autoencoding training (corrupting inputs with noise and recovering uncorrupted version), might be helpful for us as we want to de-corrupt data essentially
+        \item ConvAutoEnv2016 \cite{ConvAutoEnv2016} improves the architecture a little I beleive?
+    \end{itemize}
+    \item Hierarchical Motion Model VAE \cite{HierarchicalMotionVAE}
+    \begin{itemize}
+        \item Skeletal aware convolutions/pooling/unpooling
+        \item Fixed length motion sequence, but describes a sliding window method for using their latent space to refine longer sequences 
+        \begin{itemize}
+            \item Project onto latent space and decode, take center frame, move window one step forward, repeat
+            \item Not sure what they do at the beginning and the end of the sequence
+            \item 
+        \end{itemize}
+        \item 2 latent vectors?? local and global??
+    \end{itemize}
+
+    \item \textbf{Diffusion}
+    \item Avatars grow legs (sparse to complete diffusion) \cite{AvatarsGrowLegs}
+    \begin{itemize}
+        \item denoising sequence of SMPL params conditioned by sparse tracking inputs
+        \begin{itemize}
+            \item Sparse input per frame is concatenated onto the corresponding denoised frame
+        \end{itemize}
+        \item input: sparse tracking inputs (orientation/translation of headset and two hand controllers)
+        \item output: SMPL root orientation/translation, pose parameters
+        \item Fixed input/output sequence length
+        \item Architecture
+        \begin{itemize}
+            \item MLP
+        \end{itemize}
+    \end{itemize}
+
+    \item PhysDiff \cite{PhysDiff}
+    \begin{itemize}
+        \item denoising sequence poses conditioned on promt, e.g 'walking round a bend'
+        \item Goal: create sequence of motion from promt
+        \item Physics-based motion projection step in the diffusion
+        \begin{itemize}
+            \item Achieved using a motion imitation policy to control a character in a
+            physics simulator
+        \end{itemize}
+        \item Architecture
+        \begin{itemize}
+            \item TODO
+        \end{itemize}
+    \end{itemize}
+
+    \item EDGE \cite{EDGE}
+    \begin{itemize}
+        \item Denoising sequence poses conditioned on music features
+        \item Describes inpainting which could be useful to us
+        \item Architecture
+        \begin{itemize}
+            \item Transformer based
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Motion aware but not focused on prior}
+    \item VIBE
+    \begin{itemize}
+        \item Operates directly on video
+        \item CNN features processed by GRUs (gated reccurence unit) to temporally correlate the features
+        \item Features fed into a NN regressor to estimate SMPL params as in \cite{EndToEndPose}
+        \item Discriminator network jointly trained to introduce an extra loss to encourage plausible motion
+    \end{itemize}
+    \item 3DDynamicsFromVideo \cite{3DDynamicsFromVideo}
+    \begin{itemize}
+        \item Operates directly on video sequences
+        \item PRedicts pose at t-1,t,t+1 from all image features during training and also jointly trains a NN that predicts t-1,t,t+1 from just image at t
+    \end{itemize}
+    \item Some more historic RGB methods presented in HuMoR \cite{humor} if needed
+    \item Optimisation methods that refine predictions presented in HuMoR \cite{humor}, e.g with smoothness priors or scene contact info
+
+    \item \textbf{Pose estimation}
+    \item HULC
+    \begin{itemize}
+        \item Uses a scene point cloud to help generate dense contact estimation labels that are used to guide pose manifold sampling 
+    \end{itemize}
+    \item VPoser
+    \begin{itemize}
+        \item Not actually a motion prior, it's a pose prior
+        \item Is used in Humor to help initialise the sequence of states
+        \item VPoser is used by optimising pose directly in the latent space, the latent space is trained to be a normal distribution hence if you penalise the norm of the latent vector you are encouraging it to be close to what you've learned to be viable human poses (i.e close to the normal dist)
+    \end{itemize}
+
+    \item \textbf{TODO: Things I haven't looked into so deeply}
+    \item RNNS
+    \begin{itemize}
+        \item RNNs seem to be commonly used for generating future motion condition on control variable
+        \item Mixture-density network RNNs (MDN-RNNS)
+        \begin{itemize}
+            \item Referenced in \cite{MotionVAE}
+            \item Output a distribution as a gaussian mixture model
+        \end{itemize}
+        \item SpatioTemporalRNN
+        \begin{itemize}
+            \item (https://arxiv.org/pdf/1908.07214.pdf) cited by  learned-inbetweening paper \cite{learnedInbetweening}
+            \item Learns a manifold through encoder/decoder
+            \item Separates 'spatial' and 'temporal' in encoder and decoder??
+            \item Predicts in batches with RNN, they claim this forces the model to capture mid and long term connections (I beleive the explicit velocity modelling in HuMoR should do the same thing)
+        \end{itemize}
+        \item Deep latent variable model
+        \begin{itemize}
+            \item https://dl.acm.org/doi/pdf/10.1111/cgf.14116
+        \end{itemize}
+    \end{itemize}
+    \item Other VAE motion prediction
+    \begin{itemize}
+        \item Unified3DHumanMotionSynthesis
+        \item ActionConditionedTransformer
+        \begin{itemize}
+            \item Throw a transformer at the problem
+            \item Direct pose sequence prediction
+            \item Condition on action
+        \end{itemize}
+    \end{itemize}
+    \item Time-convolutional autoencoders
+    \begin{itemize}
+        \item Referenced in \cite{MotionVAE}
+        \item Learns a latent motion manifold
+    \end{itemize}
+    \item Humor claims normalising flows and neural ODEs show potential but then only links to papers explaining these concepts and not actually using them for this purpose so not sure
+    \begin{itemize}
+        \item (Normalising flow: map to a simple distribution with an invertible function => tractable marginal likelihood (unlike with VAEs where we have to deal with an ELBO), but I'm not sure we care about the marginal likelihood in this case)
+        \item \cite{MoGlow} MoGlow referenced, it predicts next pose directly by sampling from a simple fixed distribution and then transforming to a pose via a normalising flow conditioned on conditioning variables and pose histories that are updated and introduced through a hidden lstm in the flow.
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Motion Diffusion}
+The next direction we would like to explore is motion diffusion.
+c.f diffusion.md for notes
+
+% \begin{itemize}
+%     \item \textbf{Diffusion}
+%     \item Avatars grow legs (sparse to complete diffusion) \cite{AvatarsGrowLegs}
+%     \begin{itemize}
+%         \item denoising sequence of SMPL params conditioned by sparse tracking inputs
+%         \begin{itemize}
+%             \item Sparse input per frame is concatenated onto the corresponding denoised frame
+%         \end{itemize}
+%         \item input: sparse tracking inputs (orientation/translation of headset and two hand controllers)
+%         \item output: SMPL root orientation/translation, pose parameters
+%         \item Fixed input/output sequence length
+%         \item Architecture
+%         \begin{itemize}
+%             \item 12 layer MLP
+%             \item Feature sizes: N x 512
+%             \item Timestep embedding: add to each block
+%             \item Skeleten: S = 22 x 6
+%             \item Num Frames: N = 196
+%         \end{itemize}
+%     \end{itemize}
+
+%     \item PhysDiff \cite{PhysDiff}
+%     \begin{itemize}
+%         \item denoising sequence poses conditioned on promt, e.g 'walking round a bend'
+%         \item Goal: create sequence of motion from promt
+%         \item Physics-based motion projection step in the diffusion
+%         \begin{itemize}
+%             \item Achieved using a motion imitation policy to control a character in a
+%             physics simulator
+%         \end{itemize}
+%         \item Architecture
+%         \begin{itemize}
+%             \item TODO
+%         \end{itemize}
+%     \end{itemize}
+
+%     \item EDGE \cite{EDGE}
+%     \begin{itemize}
+%         \item Denoising sequence poses conditioned on music features
+%         \item Describes inpainting which could be useful to us
+%         \item Architecture
+%         \begin{itemize}
+%             \item Transformer based
+%         \end{itemize}
+%     \end{itemize}
+% \end{itemize}
+
+
+
+
+% \subsection{Pose Completion}
+% The other possibile research direction related more to pose completion (or motion completion (though I assume motion completion would use similar methods to what was mentioned before)) in an animation setting.
+
+% \begin{itemize}
+%     \item Protores \cite{protores}
+%     \begin{itemize}
+%         \item Learned inverse kinematics solution
+%         \item Variable number of effector inputs processed and then mixed with a 'Proto' layer in the encoder
+%         \item Decoder takes the pose embedding and decodes the full pose (contains several blocks to separate the semantically different parts of the decoding process)
+%     \end{itemize}
+% \end{itemize}

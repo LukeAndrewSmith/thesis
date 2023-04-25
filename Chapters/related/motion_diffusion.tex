@@ -1,0 +1,5 @@
+\section{Motion Diffusion}
+
+With the notable success of diffusion models in the image generation literature \cite{ddpm} \cite{diffusion_beats_gans} \cite{stable_diffusion}, diffusion models have begun to spread into many other fields within machine learning \cite{diffusion_review}, and this also holds true of the task of human motion modelling.
+
+The authors of Avatars grow legs \cite{AvatarsGrowLegs} denoise a sequence of SMPL \cite{SMPL} parameters condition on sparse tracking inputs, notably taking the form of the orientation/translation of a headset and two hand controllers. They show that plausible motion can be generate from very sparse signals, thus indicating to us that the use of diffusion models in the rectification of occluded motion sequences is promising. Next, PhysDiff \cite{PhysDiff} provides a text conditioned diffusion model with the unique use of a physics based motion projection step in the difussion process that helps to ensure physical plausibility of the generated motion. The authors of EDGE \cite{EDGE} propose a simple 

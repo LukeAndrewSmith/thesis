@@ -1,0 +1,8 @@
+The study of synthesising human motion has a long history motivated largely by the desire to create realistic and captivating media in the gaming and film industries. Early adaptive methods rely on motion matching \cite{early_motion_matching} \cite{clavet_motion_matching} in which interpolation between similar motions from a database of captured motion is performed. This however does not scale well to out of database motion and often generates generic, non stylized motion, though efforts have been made to introduce learned aspects to such methods \cite{holden_motion_matching} to improve upon their shortcomings.
+
+\TODO{MORE?}
+% Classical methods are presented in \cite{DeepPhase}, the involve matching/interpolating from existing databases.
+
+More recent branches of motion modelling commonly base themselves upon the use of machine learning techniques, notably deep learning, to learn a prior over plausible motion. This is a more general approach that can be applied to a wider range of tasks, and shows promise in overcoming some of the issues of motion inbetweening, as such systems can learn to better generalise to out of distribution motion sequences.
+
+Within the area of deep learning, many techniques have been investigated, temporal convolutions \cite{temporal_convolutions}, recurrent models \cite{recurrent_harvey_2020}, and reinforcement learning \cite{rl_cho} are but a few examples.
