@@ -52,6 +52,11 @@ Questions:
 
 ## TODO
 
+- Afternoon
+    - Continue trying to visualise the training pipeline for the stuck root
+        - Check the pipeline is matching the training one
+        - Currently: need to move the camera frame, not sure where the gt is
+
 - Try to get the baseline running with the contacts
     - i.e without all the root to body frame stuff
     - Like the first version that was working, just with contacts loss as well
@@ -67,31 +72,17 @@ Questions:
             - Mix the edge frames into the inbetweened motion
             - Have a 'slurp node' to do this, checks for the final iteration
 
-- Morning
-    - Sanity check the model that is training
-    - Update all the pipelines if it works
-    - Launch the other trainings (no contacts, no body frame)
-
 - Note
     - There was a bug with the calculated velocity losses before, I was doing a finite difference along the batch dimensions
         - I'm surprised the model managed to learn something...
-    - Also all tje trainings were missing orientations fk loss...
+    - Also all the trainings were missing orientations fk loss...
 
-- Monday
-    - Orientations_vel not included in state of models training over weekend...
-    - UPDATE ALL PIPELINES, NOT JUST TRAINING PIPELINES
 - Random inpainting
     - Pipelines for random inpainting with replace_random_mask_each_denoise_step=FALSE
 
 - Refactor
     - Some of the parameters I put in json are bools but I used strings, jsons accept bools though... 
 
-- Contacts
-    - Check
-        - Every sequence should have a root that starts at 0?
-    - Bugfix
-        - Contacts model doesn't want to touch the ground...
-            - Probably something wrong with the loss...
 - Evaluate
     - earlier models
         - root__orient__vel__full_data/1000_denoise_steps__epoch_150
@@ -111,7 +102,6 @@ Questions:
     - Why root is bad, and positions noise is so high?
     - How to improve inpainting random (cf above...)
     - Why eval goes up during training
-
 - Contacts
     - Improve contacts prediction
     - Visualise contacts during eval
