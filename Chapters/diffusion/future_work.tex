@@ -1,0 +1,20 @@
+\section{Future Work}
+\label{sec:future_work}
+
+\subsection{Model}
+- conditioning
+    - for Inpainting
+    - for Autocomplete
+
+
+
+\subsection{Model use}
+- Inpainting
+    - We notice that the target changes often, even in the last steps
+    - Maybe change the schedule to repeat the last steps a number of times to allow more time for the process to converge
+
+
+
+\subsection{Data}
+\TODO{Cite some paper that says data is more important that anything}
+We note that our dataset, with \TODO{X} minutes of motion spanning \TODO{X} subjects is significantly smaller than the AMASS \cite{amass} dataset that contains more that 40hours of motion data spanning 300 subjects. We therefore expect that our model will generalise less well for than if it were trained on the AMASS dataset. We also note however that this is not possible due to the licensing restrictions on the AMASS dataset limiting it to non-commercial use, and so if any of the models we explored in this thesis or in subsequent follow up work are to be productionized, it would be prudent to obtain a larger dataset of motion, especially considering that the use cases in which such a system would be most helpful to an animator might well be those that are furthest from the data distribution we currently have, as the more obscure and intricate the motion sequence the harder it would be to animate.

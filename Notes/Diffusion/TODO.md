@@ -1,6 +1,4 @@
 # TODO
-
-
 ## For Jakob
 What I did while he was away:
 - Contacts
@@ -51,6 +49,8 @@ Questions:
             - Inbetweening between separate motion clips (karate to sitting)
 
 ## TODO
+- refactor
+    - rename {normalize/denormalize}_all to {}_all_features to make it more explicit
 
 - Afternoon
     - Continue trying to visualise the training pipeline for the stuck root
@@ -71,18 +71,14 @@ Questions:
         - Postprocessing
             - Mix the edge frames into the inbetweened motion
             - Have a 'slurp node' to do this, checks for the final iteration
-
-- Note
+- Note on a bug
     - There was a bug with the calculated velocity losses before, I was doing a finite difference along the batch dimensions
         - I'm surprised the model managed to learn something...
     - Also all the trainings were missing orientations fk loss...
-
 - Random inpainting
     - Pipelines for random inpainting with replace_random_mask_each_denoise_step=FALSE
-
 - Refactor
     - Some of the parameters I put in json are bools but I used strings, jsons accept bools though... 
-
 - Evaluate
     - earlier models
         - root__orient__vel__full_data/1000_denoise_steps__epoch_150
@@ -135,9 +131,6 @@ Questions:
             - Good for tracking (longer inbetweening) or just inbetweening animation (shorter sequences)?
 
 ## TODOs
-- **Update presentation**
-    - Make for mid April
-
 - **Motion**
     - Look into how much noise on positions
         - There seems to be too much

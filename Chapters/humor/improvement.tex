@@ -11,7 +11,7 @@ Realising that the main speed limitations are due to the concept of rollout over
 
 The HuMoR TestOps rollout is presented graphically in \figref{fig:humor_rollout_graph}. $x$ is the state, and $z$ are the latent variables, the optimised variabels are highlighted in pink, and the losses are coloured, gray x's indicate they are calculated during the optimisation from the optimised variables. As can be seen, first all the states are autoregressed from the initial state and the latent variables, and then the losses are applied. This can be seen to result in very long range dependencies in the computation graph, thus making the gradients time consuming to calculate. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/computation_graph_humor.png}
     \caption{TestOps Computation Graph}
@@ -38,7 +38,7 @@ The most obvious way to break this autogregression is to maintain and optimise a
 
 All decoding steps can now be performed in parrallel, rather than sequentially, which greatly reduces the computation time. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/computation_graph_dimm.png}
     \caption{Decoupled Computation Graph}
@@ -48,7 +48,7 @@ All decoding steps can now be performed in parrallel, rather than sequentially, 
 This new method also allows us to experiment with different amounts of rollout. We can once again decode the decoded sequence of $x'$'s to get $x''$, and so on and so forth. These extra sequences are all decoded with the same latent variables thus the updates to the latent variables will take into account the losses on all the decoded sequences. Graphically this can be seen in \figref{fig:dimm_decoded_sequences}, where each next line .
 \TODO{describe the figure better}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/Rollout_overlap.png}
     \caption{Decoded sequences}
@@ -76,7 +76,7 @@ For the comparison to the OpenPose predictions the OpenPose skeleton must be obt
 
 To begin with, we looked into the initial $z$'s that were obtained from projecting the Stage 2 results through the HuMoR encoder. We found that in occluded situations these $z$'s encode a sitting motion without any optimisation as seen in \figref{fig:humor_stage_2_rollout_sitting}, that simply the projection leads them to encode the necessary occluded motion. However we note that when autoregressively rolled out over a longer sequence the results, in \figref{fig:humor_stage_2_rollout_deviation}, deviate largely from the initial sequence of $x$'s seen in \figref{fig:humor_stage_2}. This shows us that though the initial $z$'s encode some sensible motion locally, and can be used to accurately recover the next frame, when they are chained together small deviations from the $x$ motion accumulate to create an overall deviation. For example if the arm is moved slightly too much by a single $z$, then all the future frames will have the arm in slightly the wrong position, and multiple $z$'s are wrong in the same direction, then the arm will raise up. This deviating sequence is the initial starting rollout in the Stage 3 of the HuMoR TestOps in which the rollout is optimised, though it seems unfortunate to us that from a sensible sequence of $x$'s obtained from Stage 2 we get such a bad sequence through the autoreggresive rollout. We do however note that though while this starting point represents a sequence that deviates largely, the $z$'s might not need to move so far to avoid the accumulation effect. The intuition in our case was that we are starting from some sensible $x$'s and $z$'s, and therefore that it should be possible to refine the $x$'s by take into account the HuMoR model through the $z$'s whilst updating the $z$'s. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout_sitting_example/frame_00000078.jpg}
     \caption{Stage2 $z$'s encode a sitting motion}
@@ -84,7 +84,7 @@ To begin with, we looked into the initial $z$'s that were obtained from projecti
 \end{figure}
 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/stage2/frame_00000099.jpg}} 
     \hfil
@@ -97,7 +97,7 @@ To begin with, we looked into the initial $z$'s that were obtained from projecti
     \label{fig:humor_stage_2}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
     \centering
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout/frame_00000010.jpg}} 
     \hfil
