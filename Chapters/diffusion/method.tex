@@ -57,6 +57,7 @@ which can still be interpreted as a form of Variational Lower Bound without the 
 % Our diffusion model
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Disney Motion Diffusion (DMD)}
+\label{sec:disney_motion_diffusion}
 Armed with this understanding of diffusion, we define our Disney Motion Diffusion (DMD) model, strongly inspired by the work of Tevet. et. al \cite{MDM}.
 
 
@@ -94,7 +95,9 @@ with $x_0^{(i)}$ representing the $i$th pose of the motion sequence $x_0$. The $
 
 
 \subsubsection{Inpainting}
-An important tool in the arsenal of the diffusion model literature is that of inpainting \cite{diffusion_inpainting }. Inpainting is the process of keeping a portion of the state constant throughout the diffusion process. An example of the use of this technique would be that of changing the motion of the lower body while mainting the motion of the upper body, though there are many other use cases that are explored in more detail in \secref{sec:experiments}. The inpainting procedure works as follows; at each denoising step we mix a portion of the latent variable state $\hat{x}_t$, indicated through the binary mask $m$, with the complementary portion of some known state $x^{(known)}$, indicated through $1-m$, 
+\label{sec:diffusion_method_inpainting}
+
+An important tool in the arsenal of the diffusion model literature is that of inpainting \cite{diffusion_inpainting}. Inpainting is the process of keeping a portion of the state constant throughout the diffusion process. An example of the use of this technique would be that of changing the motion of the lower body while mainting the motion of the upper body, though there are many other use cases that are explored in more detail in \secref{sec:experiments}. The inpainting procedure works as follows; at each denoising step we mix a portion of the latent variable state $\hat{x}_t$, indicated through the binary mask $m$, with the complementary portion of some known state $x^{(known)}$, indicated through $1-m$, 
 \begin{equation}
     \hat{x}_{t} = m \odot \hat{x}_t + (1-m) \odot q(x^{(known)}|t-1)
 \end{equation}
@@ -111,4 +114,4 @@ Graphically this process can be seen in \figref{fig:inpainting}. This procedure 
 \subsubsection{Data}
 At Disney Research|Studios we have access to professionally capture motion capture data that encompases a wide range of possible motion for a number of subjects. In total we have \TODO{X} motion sequences, varying in length from \TODO{X} to \TODO{X} seconds long, thus in total we have \TODO{X} minutes of motion capture data. This data is normalised elementwise and retargeted to a standard skeleton. A number of motion sequences are held out for testing.
 
-\TODO{Describe how I got the foot contacts etc.}
+\TODO{Describe dataset 1 (fixed root, not contacts, etc) and 2 (moving root, stuck root, contacts, how to get contacts, etc.)}
