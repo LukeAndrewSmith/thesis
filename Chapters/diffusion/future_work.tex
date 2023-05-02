@@ -5,13 +5,14 @@
 - conditioning
     - for Inpainting
     - for Autocomplete
+- Training
 
 
 \subsection{Model use}
 - Inpainting
-- We notice that the target changes often, even in the last steps
-- Maybe change the schedule to repeat the last steps a number of times to allow more time for the process to converge
-
+    - We notice that the target changes often, even in the last steps
+    - Maybe change the schedule to repeat the last steps a number of times to allow more time for the process to converge
+- Autocomplete
 
 \subsection{Model evaluation}
 - We presented an entirely qualitative evaluation of the models
@@ -25,6 +26,8 @@
             - Smoothness around the borders
         - Denoising/missing joints
             - Difference to the ground truth
+        - \cite{EDGE}
+            - Physical foot contact score
 - Model comparison
     - We should compare the models to some baseline models
         - For example the missing state evaluation where a new subset of the joints is removed each frame might well be accurately reconstructed by simple linear interpolation between the missing frames, so the models performance might not be so impressive afterall.
