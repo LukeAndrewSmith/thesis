@@ -49,6 +49,17 @@ Questions:
             - Inbetweening between separate motion clips (karate to sitting)
 
 ## TODO
+
+- Debugging
+- Visualise the 3d correctly, try to get the 3d_fk to match after unsticking root
+    - Currently seeing where they are different
+    - Seems to be the same if we set the root to some value before the body_to_world transformation
+    - Should check if the root is the same before the body to world transformation?
+    
+- Try stuck root only sticking position and not orientations
+    - Should be easier
+- Train without contacts as well to see if that is breaking it
+
 - refactor
     - rename {normalize/denormalize}_all to {}_all_features to make it more explicit
 

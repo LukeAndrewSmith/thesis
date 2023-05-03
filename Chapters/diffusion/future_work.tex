@@ -2,19 +2,20 @@
 \label{sec:future_work}
 
 \subsection{Model}
-- conditioning
-    - for Inpainting
-    - for Autocomplete
-- Training
+Some of the shortcomings of the model, seen in some of the Inpainting tasks and most notably in the Inbetweening task, is that of a inconsistency between the specified known motion and the motion subsequently generated during inpainting by the model. For inbetweening, if we avoid overwiting the generated motion with the known motion in the last denoising step, the motion is very smooth \TODO{image}, however does not quite match the known motion, as when we override the generated motion with the known motion, we find that there is a discontinuity between the generated and known motion, i.e the motion jumps. This effect might be mitigated with a number of strategies. Firslty we might condition the model with an indication of where a known area is specified and penalise it during training for deviating from this known motion, as described in \secref{sec:autocomplete}. Another method would simply be that of a postprocessing step, in which the known motion and the generated motion is mixed for a number of frames, thus achieving a smooth transition between the two.
 
+The model training could also be improved. The stopping criteria is currently taken as the point where the loss visually seems to have converged on the loss graphs. This however is not a robust method as it does not not take into account the possibility of overfitting or the possibility of decreasing performance. This can be mitigated through the use of validation metrics as described in \secref{sec:future_work_evaluation}, or by a method such as that presented in \cite{MDM}, in which they retrospectively choose the checkpoint that minimizes the FID score.
 
 \subsection{Model use}
+
+
 - Inpainting
     - We notice that the target changes often, even in the last steps
     - Maybe change the schedule to repeat the last steps a number of times to allow more time for the process to converge
 - Autocomplete
 
 \subsection{Model evaluation}
+\label{sec:future_work_evaluation}
 - We presented an entirely qualitative evaluation of the models
     - We should make more effort to report on the metrics
     - Metrics

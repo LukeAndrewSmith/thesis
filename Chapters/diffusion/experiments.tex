@@ -97,6 +97,7 @@ When removing a new random subset of the joints of each pose every frame in the 
 % Mode with foot contacts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Autocompletion}
+\label{sec:autocomplete}
 
 Another project that is running at Disney Research|Studios is that of pose autocompletion. This is the task of taking a set of \textit{handles}, a subset of joints, and predicting the position of the rest of the joints. The goal here is to again help to improve the animation pipeline, by reducing the amount of work an animator has to do to get a sensible pose. As a side note to the previous experiments, we train
 ed some diffusion models for the described task, where we enforce a sequence length of 1 so that we are only predicting  single pose, and where we modify the inpainting to allow for a specific set of joints to be deemed \textit{handles} and to be kept fixed.
