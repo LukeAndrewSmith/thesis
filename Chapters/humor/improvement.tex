@@ -1,24 +1,23 @@
 \section{Improving HuMoR TestOps}
 \label{sec:humor_improvement}
 
-This section presents the attempt that was made at modify the TestOps of the HuMoR paper \cite{humor} in such a way that we attain comparable results but in a significantly shorter timespan.
-
-\TODO{See if I have introduced the terms properly (decoded sequence, $x$'s, $x'$'s, etc.)}
+This section presents the attempt that was made at modify the TestOps procedure in such a way that we attain comparable results but in a significantly shorter timespan.
 
 \subsection{Speeding up the TestOps}
 
 Realising that the main speed limitations are due to the concept of rollout over the entire sequence, we decided to break this long range dependence. Through short overlapping rollouts, it is possible to acheive more parrallelisation and smaller computation graphs, and our intuition suggests that the need for such a large context window is not necessary, that only a small number of autoregressed frames are needed to be able to propagate information sensibly and to get meaningful gradients. Anecdotaly, it would seem intuitive that if a video contains sitting, then walking, then sitting again, the second act of sitting would not depend in on the early act of sitting, hence rolling out over the whole sequence seems unnecessary.
 
-The HuMoR TestOps rollout is presented graphically in \figref{fig:humor_rollout_graph}. $x$ is the state, and $z$ are the latent variables, the optimised variabels are highlighted in pink, and the losses are coloured, gray x's indicate they are calculated during the optimisation from the optimised variables. As can be seen, first all the states are autoregressed from the initial state and the latent variables, and then the losses are applied. This can be seen to result in very long range dependencies in the computation graph, thus making the gradients time consuming to calculate. 
+The HuMoR TestOps rollout is presented graphically in \figref{fig:humor_rollout_graph}. To begin with \textbf{all} the states are autoregressed from the initial state and the latent variables, and only then are the losses applied. This results in very long range dependencies in the computation graph, thus making the gradients time consuming to calculate. 
 
 \begin{figure}[!ht]
+    \label{fig:humor_rollout_graph}
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/computation_graph_humor.png}
-    \caption{TestOps Computation Graph}
-    \label{fig:humor_rollout_graph}
+    \caption{TestOps Stage 3 Computation Graph}
+    \medskip
+    \small
+    The optimised variables are highlighted in pink, $\mathbf{x}$ being the state (root, joint positions etc.), and $\mathbf{z}$ the latent transitions. The gray $\mathbf{x}$'s indicate the states that are calculated during the rollout (c.f \secref{sec:humor_test_ops}) and the losses that are applied after the rollout are color coded. $\textcolor{Goldenrod}{\epsilon_{motion}}$ is the loss due to the HuMoR prior (and initial state likelihood gaussian mixture model briefly mentioned in \secref{humor_testops_extra_notes}). $\textcolor{ForestGreen}{\epsilon_{data}}$ is the 
 \end{figure}
-
-\TODO{Update \figref{fig:dimm_rollout_graph} and remove the 'NEW' norm, labels on green loss, and potentially red loss?}
 
 The most obvious way to break this autogregression is to maintain and optimise a separate sequence of $x$'s, updating this seperate sequence with reference to the $x'$'s decoded from the latent variables as in \figref{fig:dimm_rollout_graph}. We can take into account the decoded $x'$'s in several manners:
 \begin{itemize}
