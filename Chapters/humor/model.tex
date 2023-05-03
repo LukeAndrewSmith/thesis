@@ -28,7 +28,7 @@ A global root translation and orientation (in 3d space) is optimised using a los
 
 \subsubsection{Stage 2}
 \label{sec:humor_stage_2}
-Next, the full pose parameters (joint positions and angles) are estimated (without the root) through the use of a projection loss to the 2d pose estimates, and of a number of regulariser losses, including smoothness and foot contact losses and an additional pose prior loss ensuring plausible poses using the \cite{VPoser} model. 
+Next, the full pose parameters (joint positions and angles) are estimated (without the root) through the use of a projection loss to the 2d pose estimates, and of a number of regulariser losses, including smoothness and foot contact losses and an additional pose prior loss ensuring plausible poses using the VPoser \cite{VPoser} model. 
 
 \subsubsection{Stage 3 (Initialisation)}
 Using the root translation and orientation from Stage 1, and the joint positions from stage 2, the velocities of each of these elements can be calculated through finite differences, and all the variables, alongside the joint angles, can be considered the initial estimate $\mathbf{x}_{0:T}$ for the sequence of states. The initial estimates $\mathbf{x}_{0:T}$ are then fed through the $\textbf{\textcolor{ForestGreen}{encoder}}$ network to obtain initial estimates of the state transitions $\textbf{z}_{1:T}$.
