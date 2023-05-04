@@ -5,21 +5,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Diffusion Models}
 \label{sec:diffusion_models}
-The diffusion framework that we use is defined theoretically as follows \cite{ddpm,improved_diffusion,EDGE}. Given $x_0 \sim p(x_0)$ some data distribution, diffusion is a Markov noising process over latent variables $x_t, t=1,...,T$, in which the process of adding noise (the 'forward noising process') is defined through the distributions
+The diffusion framework that we use is defined theoretically as follows \cite{ddpm,improved_diffusion,EDGE}. Given $x_0 \sim p(x_0)$ distributed according to some data distribution, diffusion is a Markov noising process over latent variables $x_t, t=1,...,T$. The process of adding noise (the 'forward noising process') is defined through the distributions
 \begin{equation}
     \begin{aligned}
         q(x_t|x_{t-1}) &:= \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I}) \\
         q(x_T | x_0) &:= \prod_{t=1}^T q(x_t | x_{t-1}) \\
     \end{aligned}
 \end{equation}
-where with a sensible $\beta$ schedule \TODO{Describe the beta schedule better} and a large T, we approximate a standard normal distribution as as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately gaussian noise. The 'reverse noising process' is non tractable without the full data distribution, which we don't have access to, hence we approximate it using some parametrized function
+where with a well chosen variance schedule $\beta_1, ..., \beta_T$ and a large T, we approximate a standard normal distribution as as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately gaussian noise. The 'reverse noising process' is unknown without th4 full data distribution, which we don't have access to, hence we approximate it using some parametrized function
 \begin{equation}
+    \label{eq:reverse_noising_mean_variance}
     p_{\theta}(x_{t-1} | x_t) = \mathcal{N}(\mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))
 \end{equation}
+
+The whole process can be visualized in \figref{fig:diffusion_process} borrowed from the DDPM paper \cite{ddpm}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/diffusion/diffusion_process.png}
+    \caption{Diffusion Process}
+    \label{fig:diffusion_process}
+\end{figure}
+
 We find with $p$ and $q$ that this system forms a VAE that can be trained through the Variational Lower Bound (VLB) \cite{kingma2022_VAE}.
-
-\TODO{Put the classic figure of the noising/denoising process from \cite{ddpm} in here}
-
 
 In practice however we note some modification to this definition to ease our implementation and to improve performance.
 Firstly we note that the forward noising process can be written as
@@ -27,7 +35,7 @@ Firstly we note that the forward noising process can be written as
     \label{eq:direct_noising_latents}
     q(x_t|x_0) \sim \mathcal{N}(\sqrt{\bar{\alpha_t}}x_0, (1-\bar{\alpha_t})\mathbf{I})
 \end{equation}
-with $\bar{\alpha_t} = \prod_{s=1}^t \alpha_s$ and $\alpha_t = 1 - \beta_t$. This is simply a mixing of the data with gaussian noise according to a monotonically decreasing schedule $\bar{\alpha_t}$ and allows us to sample any latent at any timestep directly from the clean signal, which will aid our training procedure. We note that we take the following definition for the $\bar{\alpha_t}$ schedule, as in \cite{improved_diffusion},
+with $\bar{\alpha_t} = \prod_{s=1}^t \alpha_s$ and $\alpha_t = 1 - \beta_t$. This is simply a mixing of the data with gaussian noise according to a monotonically decreasing schedule $\bar{\alpha_t}$ and allows us to sample any latent at any timestep directly from the clean signal, which will aid our training procedure. We note that we take the following definition for the $\bar{\alpha_t}$ schedule (rather than defining the $\beta$ schedule), as in \cite{improved_diffusion},
 \begin{equation}
     \begin{aligned}
     \bar{\alpha_t} &= \frac{f(t)}{f(0)} \\
@@ -36,16 +44,21 @@ with $\bar{\alpha_t} = \prod_{s=1}^t \alpha_s$ and $\alpha_t = 1 - \beta_t$. Thi
 \end{equation}
 with the a small offset $s$ (we take $s=0.008$ as in \cite{improved_diffusion}) to avoid $\beta_t$ from being too small near $t=0$ which can reduce performance according to the authors.
 
-We can also present a more simple reverse noising process, where rather than predicting the mean and variance of the noise for a single step, we directly try to predict the denoised signal \cite{ramesh2022hierarchical},
+We can also use a simplified reverse noising process, where rather than predicting the mean and variance of the noise for a single step as indicated in \eqref{eq:reverse_noising_mean_variance}, we directly try to predict the denoised signal \cite{ramesh2022hierarchical},
 \begin{equation}
     \hat{x}_{\theta}(x_t, t) \approx x_0 \\
 \end{equation}
-which allows us to describe the denoising process as follows
+which, alongside the choice of a fixed rather than learned variance as in \cite{ddpm}, allows us to describe the denoising process as
 \begin{equation}
-    p_{\theta}(x_{t-1} | x_t) = q(x_{t-1} | \hat{x}_{\theta}(x_t, t))
+    \begin{aligned}
+    p_{\theta}(x_{t-1} | x_t) &= \mathcal{N}(\mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t)) \\
+    \mu_{\theta}(x_t, t) &= q(x_{t-1} | x_t, \hat{x}_{\theta}(x_t, t), x_t) \\
+    \Sigma_{\theta}(x_t, t) &= \sigma_t^2 I    
+    \end{aligned}
 \end{equation}
+where we take $\sigma_t = \tilde{\beta}_t = \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \beta_t$ as in \cite{ddpm}.
 \TODO{check this definition of the denoising process against the code, I feel something is off}
-This direct prediction of the denoising signal allows us to use a the simplified MSE objective \cite{ddpm,ramesh2022hierarchical} during training
+This direct prediction of the denoised signal allows us to use a the simplified MSE objective \cite{ddpm,ramesh2022hierarchical} during training
 \begin{equation}
     \mathcal{L}_{simple} = \mathbb{E}_{x,t}\left[ \| x - \hat{x}_{\theta}(x_t, t) \|_2^2 \right]
 \end{equation}
@@ -63,7 +76,7 @@ Armed with this understanding of diffusion, we define our Disney Motion Diffusio
 
 
 \subsubsection{State Representation}
-Our state represents a motion sequence of length $N$, and includes primarily a root translation, $r \in \mathbb{R}^{N \cross 3}$, and 6d \cite{aa_6d_angles} joint orientations in body frame, $o \in \mathbb{R}^{N \cross 6}$. The state can be extended with some optional extras extras, depending on the data, of foot ground contacts $b \in \mathbb{R}^{N \cross 1}$, and explicit velocities for the root translation and joint orientations. Again, depending on the data, we can represent the root translation, and root orientations (a subset of the joint orientations) either in world space, where each motion sequence will have a distinct starting point and starting orientation, or as what we call a 'stuck root' reference frame, where the first pose is set to the positions $(0,0)$ and identity orientation and all subsequent poses are described with respect to this first frame, with the view being that this formulation leads to a more general and smaller space that the model needs to understand.
+Our state represents a motion sequence of length $N$, and includes primarily a root translation, $r \in \mathbb{R}^{N \cross 3}$, and 6d \cite{aa_6d_angles} joint orientations in body frame, $o \in \mathbb{R}^{N \cross 6}$. The state can be extended with some optional extras extras, depending on the data, of foot ground contacts $b \in \mathbb{R}^{N \cross 1}$, and explicit velocities for the root translation and joint orientations. Again, depending on the data, we can represent the root translation, and root orientations (a subset of the joint orientations) either in world space, where each motion sequence will have a distinct starting point and starting orientation, or as what we call a 'stuck root' reference frame, where the first pose is set to the positions $(0,0)$ and identity root orientation and all subsequent poses are described with respect to this first frame, with the idea being that this formulation leads to a smaller space for the model to learn.
 
 
 
