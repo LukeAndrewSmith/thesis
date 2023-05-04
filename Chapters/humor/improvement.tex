@@ -1,89 +1,106 @@
 \section{Improving HuMoR TestOps}
 \label{sec:humor_improvement}
 
-This section presents the attempt that was made at modify the TestOps procedure in such a way that we attain comparable results but in a significantly shorter timespan.
+This section presents the attempt that was made at modifying the TestOps procedure in such a way that we attain comparable results but in a significantly shorter timespan.
 
 \subsection{Speeding up the TestOps}
+\label{sec:humor_improvement_speed}
 
 Realising that the main speed limitations are due to the concept of rollout over the entire sequence, we decided to break this long range dependence. Through short overlapping rollouts, it is possible to acheive more parrallelisation and smaller computation graphs, and our intuition suggests that the need for such a large context window is not necessary, that only a small number of autoregressed frames are needed to be able to propagate information sensibly and to get meaningful gradients. Anecdotaly, it would seem intuitive that if a video contains sitting, then walking, then sitting again, the second act of sitting would not depend in on the early act of sitting, hence rolling out over the whole sequence seems unnecessary.
 
 The HuMoR TestOps rollout is presented graphically in \figref{fig:humor_rollout_graph}. To begin with \textbf{all} the states are autoregressed from the initial state and the latent variables, and only then are the losses applied. This results in very long range dependencies in the computation graph, thus making the gradients time consuming to calculate. 
 
-\begin{figure}[!ht]
+\begin{figure}
     \label{fig:humor_rollout_graph}
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/computation_graph_humor.png}
     \caption{TestOps Stage 3 Computation Graph}
     \medskip
     \small
-    The optimised variables are highlighted in pink, $\mathbf{x}$ being the state (root, joint positions etc.), and $\mathbf{z}$ the latent transitions. The gray $\mathbf{x}$'s indicate the states that are calculated during the rollout (c.f \secref{sec:humor_test_ops}) and the losses that are applied after the rollout are color coded. $\textcolor{Goldenrod}{\epsilon_{motion}}$ is the loss due to the HuMoR prior (and initial state likelihood gaussian mixture model briefly mentioned in \secref{humor_testops_extra_notes}). $\textcolor{ForestGreen}{\epsilon_{data}}$ is the 
+    The optimised variables are highlighted in pink, $\mathbf{x}$ being the state (root, joint positions etc.), and $\mathbf{z}$ the latent transitions. The gray $\mathbf{x}$'s indicate the states that are calculated during the rollout (c.f \secref{sec:humor_test_ops}) and the losses that are applied after the rollout are color coded. $\textcolor{Goldenrod}{\epsilon_{motion}}$ is the loss due to the HuMoR prior (and initial state likelihood GMM briefly mentioned in \secref{sec:humor_testops_extra_notes}). $\textcolor{ForestGreen}{\epsilon_{data}}$ is the projection loss comparing the projected state to the OpenPose predictions. $\textcolor{RoyalBlue}{\epsilon_{reg}}$ are the regularisation losses, smoothness, foot contacts, etc (and are also the losses responsible for the ground plane $g$ and the shape parameters $\beta$ briefly mentioned in \secref{sec:humor_testops_extra_notes}). The 'State Update' node represents the application of the HuMoR decoder to the previous state and latent transition to obtain a pose update, and the application of this pose update to obtain a new pose.
 \end{figure}
 
-The most obvious way to break this autogregression is to maintain and optimise a separate sequence of $x$'s, updating this seperate sequence with reference to the $x'$'s decoded from the latent variables as in \figref{fig:dimm_rollout_graph}. We can take into account the decoded $x'$'s in several manners:
-\begin{itemize}
+The most obvious way to break this autogregression is to maintain a separate persistent sequence of states, $\mathbf{x}_{1:T}$, updating these with reference to the states decoded from the latent variables. We can take into account the decoded states, $\mathbf{x'}_{1:T}$, in several manners (using optimisation techniques or direct updates):
+\begin{enumerate}
     \item Copy over
     \begin{itemize}
-        \item Directly replace the optimised sequence of $x$'s with the decoded $x'$'s.
+        \item Directly replace the persistent sequence of $\mathbf{x}_{1:T}$ with the decoded sequence $\mathbf{x'}_{1:T}$.
     \end{itemize}
     \item Blend
     \begin{itemize}
-        \item Perform a weighted addition of the optimised $x$'s and decoded $x'$'s.
+        \item Perform a weighted addition of the persistent $\mathbf{x}_{1:T}$ and decoded $\mathbf{x'}_{1:T}$.
     \end{itemize}
     \item Loss term
     \begin{itemize}
-        \item Add a loss term on the difference between the optimised $x$'s and decoded $x'$'s. 
+        \item Add a loss term on the difference between the persistent $\mathbf{x}_{1:T}$ and decoded $\mathbf{x'}_{1:T}$. 
     \end{itemize}
-\end{itemize}
+\end{enumerate}
 
-All decoding steps can now be performed in parrallel, rather than sequentially, which greatly reduces the computation time. 
+In \figref{fig:dimm_rollout_graph} we can see the example of adding a loss term on the difference between the persistent $\mathbf{x}_{1:T}$ and decoded $\mathbf{x'}_{1:T}$.
 
-\begin{figure}[!ht]
+The motivation behind this change is the idea that all decoding steps can now be performed in parrallel, rather than sequentially, which greatly reduces the compute time. The maintaining of a persistent sequence of states, $\mathbf{x}_{1:T}$, allows for the information to flow forwards through the short range rollouts, and over the iterations of the optimiser. Note however that the information flow will be slower than the HuMoR TestOps, as in the TestOps all subsequent $\mathbf{x}$'s are regressed from the initial $\mathbf{x}_0$ and thus the chain is unbroken from beginning to end of the sequence every single rollout (though as discussed in \secref{sec:humor_improvement_speed} we don't beleive this to be necessary). In the HuMoR TestOps information can flow backwards from any future frame $\mathbf{x}_t$, as the computation graph links all the states through the auto-regression, in the new method however, the information flow will be much more limited, as the rollouts will be significantly shorter, though the information can still flow through the iterations of the optimiser.
+
+\begin{figure}
+    \label{fig:dimm_rollout_graph}
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/computation_graph_dimm.png}
     \caption{Decoupled Computation Graph}
-    \label{fig:dimm_rollout_graph}
+    \medskip
+    \small
+    The computation graph is similar to that presented in \figref{fig:dimm_rollout_graph}. This time however we rollout one step, maintain a persistent sequence of states, $\textcolor{Mulberry}{\mathbf{x}_{1:T}}$, and add a loss term, $\textcolor{Red}{\epsilon_{consistency}}$ on the difference between the persistent $\textcolor{Mulberry}{\mathbf{x}_{1:T}}$ and decoded $\textcolor{Gray}{\mathbf{x'}_{1:T}}$. This theoretically allows for parrallelized decoding of the latent variables, and thus a much faster computation time, by avoiding the rollout and large computation graph.
 \end{figure}
 
-This new method also allows us to experiment with different amounts of rollout. We can once again decode the decoded sequence of $x'$'s to get $x''$, and so on and so forth. These extra sequences are all decoded with the same latent variables thus the updates to the latent variables will take into account the losses on all the decoded sequences. Graphically this can be seen in \figref{fig:dimm_decoded_sequences}, where each next line .
-\TODO{describe the figure better}
+This new formulation also allows us to experiment with different degrees of rollout. We can once again decode the decoded sequence of $\mathbf{x'}$'s to get $\mathbf{x''}$, and so on and so forth. These extra sequences are all decoded with the same latent variables thus the updates to the latent variables will take into account the losses on all the decoded sequences. Graphically this can be seen in \figref{fig:dimm_decoded_sequences}, where each next line is a newely decoded sequence derived from the previous.
 
-\begin{figure}[!ht]
+\begin{figure}
+    \label{fig:dimm_decoded_sequences}
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/Rollout_overlap.png}
     \caption{Decoded sequences}
-    \label{fig:dimm_decoded_sequences}
+    \medskip
+    \small
+    The formulation of the optimisation problem shown in \figref{fig:dimm_rollout_graph} can be extended by subsequent rollout. Each time we can reapply the latent variables $\mathbf{z}_{1:T}$ to obtain a new sequence. In applying losses to these sequences, we can update the latent variables taking into account all the decoded sequences, thus can more quickly propagate information backward through the introduction of a limited rollout. Note that the grayed out variables are redundant and hence ignored.
 \end{figure}
 
-The information contained in each $x$ can flow forwards through the short range rollouts, and over the iterations of the optimiser. Note however that the information flow will be slower than the HuMoR TestOps, as in the TestOps all subsequent $x$'s are regressed from the initial $x_0$.
-In the HuMoR TestOps information can flow backwards from any future frame's $x$ in one update through the gradients, as all $x$'s are linked in the computation graph through the auto-regression (though our intuition suggests that the information does not actually need to flow so far, as previously discussed). In the new method however, the information flow will be much more limited, as the rollouts will be significantly shorter, though again the information should flow through the iterations fo the optimiser.
+
+
+
 
 \subsection{Implementation notes}
 
 A number of issues were encountered during the implementation that are worth mentioning. After implementing the new method, attempts were made to get the optimiser to produce sensible results. The general approach was to use a small number of losses, so as to get a better intuition of each loss, with the goal of better understanding how to balance the losses in the optimiser, but some errors in individual losses were encountered.
 
-Firstly, as expected, the Axis-Angle representation became a problem. When running through functions to convert to root-local reference frame for the HuMoR model for decoding (as it operates on said reference frame), and then back to world reference frame for the opftimiser, the Axis-Angle vector flipped direction. Though the flipped vector still represented the same rotation, the angle representations of the same angle in the optimised sequence of $x$'s and the decoded sequence of $x'$'s were different, hence encorporating the information from decoded sequence cause the angle to move somewhere between the two flipped values which was no longer a sensible angle representation, thus resulting in root flips and other strange effects.
+Firstly, as expected, the Axis-Angle representation became a problem. When running through functions to convert to root-local reference frame for the HuMoR model decoder (as it operates on said reference frame), and then back to world reference frame for the optimiser, the Axis-Angle vector flipped direction. Though the flipped vector still represented the same rotation, the numerical values of the axis angle representations in the persisten sequence of $\mathbf{x}_{0:T}$ and the decoded sequence of $\mathbf{x}_{0:T}$ were now different, hence encorporating the information from the decoded sequence in the persistent sequence caused the angle to find a middle point between the flipped values which was no longer a sensible angle representation, thus resulting in strange rotations and artifacts in the final sequence. We mitigated this issue by optimising in 6d rotation representation.
 
-Secondly, an issue due to the SMPL model was found. When using a 2d reprojection loss (comparing the projected SMPL joints to the OpenPose 2d predictions) on a sequence where only the left arm and face had any OpenPose predictions, the legs were being moved by the optimiser. This was wrong as there were only losses on the arm and face joints, hence no gradients should flow to the legs. It was eventually found that the skinning weights of the SMPL model \cite{SMPL} contain spurious long range connections. 3\% of the LBS (linear blend skinning) weights in the SMPL model are non-zero but less than $1e-2$, which seems rather too low to have any meaningful effect on the skinning, but which allows for spurious gradients to flow. \\
-For the comparison to the OpenPose predictions the OpenPose skeleton must be obtained from the SMPL mesh. Certain joints are regressed, other are simply taken directly as vertices from the mesh, as in the case of the nose joint in the OpenPose skeleton which is taken to be vertex 332 \cite{SMPL_op_joints}. We noted that this vertex 332 is skinned $99.8\%$ by the 'head' joint, but also $0.2\%$ by the right hip, left knee and right knee. This issue was solved by pruning all weights below 1e-2. It is interesting to note that there are known spurious connections in the SMPL blend shapes \cite{STAR}, but that we have found no reference to spurious connections in the LBS weights.
+Secondly, an issue in the SMPL model was found. When using a 2d reprojection loss (comparing the projected joints to the OpenPose 2d predictions) on a sequence where only the left arm and face had any OpenPose predictions, the legs were being moved by the optimiser. This seemed dubious as the losses were only seeing the arm and face joints, hence no gradients should have flowed to the legs. It was eventually found that the skinning weights of the SMPL model \cite{SMPL} contain spurious long range connections. 3\% of the LBS (linear blend skinning) weights in the SMPL model are non-zero but less than $1e-2$, which seems rather too low to have any meaningful effect on the skinning, but which allows for spurious gradients to flow. For example the vertex 332 of the SMPL mesh \cite{SMPL_op_joints}, representing the nose joint which we need for a comparison to the OpenPose skeleton, is skinned $99.8\%$ by the 'head' joint, but also spuriously $0.2\%$ by the right hip, left knee and right knee. This issue was solved by pruning all weights below 1e-2. It is interesting to note that there are known spurious connections in the SMPL blend shapes \cite{STAR}, but that we have found no reference to spurious connections in the LBS weights. 
+\\
+% For the projection loss where a comparison to the OpenPose predictions is necessary, the OpenPose skeleton must be obtained from the SMPL mesh parametrized by the state $\mathbf{x}_{1:T}$. Certain joints are regressed from the SMPL mesh (see \cite{SMPL} for more details), other are simply taken directly as vertices from the mesh, as is the case for the nose joint in the OpenPose skeleton which is taken to be vertex 332 \cite{SMPL_op_joints}. We noted that this vertex 332 is skinned $99.8\%$ by the 'head' joint, but also spuriously $0.2\%$ by the right hip, left knee and right knee. This issue was solved by pruning all weights below 1e-2. It is interesting to note that there are known spurious connections in the SMPL blend shapes \cite{STAR}, but that we have found no reference to spurious connections in the LBS weights.
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Experiments}
 
-% c.f Current_experiments.md for more details
-\TODO{explain why the initial rollout was bad, and the compounding of errors forward}
-\TODO{maybe we should discuss more in the humor investagtion section about the bad initial rollout}
-\TODO{Check everything is explicitely named, e.g have a graphic clearly naming the optimised x's and the decoded x's, and what the z's are}
+To begin with, we looked into the initial $\mathbf{z}_{1:T}$ that was obtained from projecting the Stage 2 results through the HuMoR encoder. We found that in occluded situations $\mathbf{z}_{1:T}$ already encodes a sitting motion without any optimisation as seen in \figref{fig:humor_stage_2_rollout_sitting}, that simply the projection leads them to encode the necessary occluded motion, hence represent a meaningful starting point. However we note that when autoregressively rolled out over a longer sequence the results, in \figref{fig:humor_stage_2_rollout_deviation}, deviate largely from the initial sequence of $\mathbf{x}_{0:T}$ seen in \figref{fig:humor_stage_2}. This shows us that though the initial $\mathbf{z}_{1:T}$ encode some sensible motion locally, and can be used to accurately recover the next frame, when they are chained together small errors accumulate to create an overall divergence. For example if the arm is moved slightly too much by a single $\mathbf{z}_t$, then all the future frames will have the arm in slightly the wrong position, and if multiple latent variables $\mathbf{z}_{t:t'}$ are wrong in the same direction, then the arm will raise up. This diverging sequence is the initial starting rollout in the Stage 3 of the HuMoR TestOps in which the rollout is optimised, and it seems unfortunate to us that from a sensible starting sequence $\mathbf{x}_{0:T}$ obtained from Stage 2 we get such a bad sequence through the autoreggresive rollout. We do however note that while this starting point represents a sequence that diverges heavily, the $\mathbf{z}_{1:T}$ might not need to move so far to avoid such accumulation effects. The intuition that motivates our formulation is the fact that we are not completely throwing out the sensible starting point $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ obtained from Stage 2, and therefore that it should be possible to refine the $\mathbf{x}_{0:T}$ by take into account the HuMoR model through the $\mathbf{z}_{1:T}$ whilst updating the $\mathbf{z}_{1:T}$ in a more efficient manner that simply discarding these $\mathbf{x}_{0:T}$ through an initial rollout.
 
-To begin with, we looked into the initial $z$'s that were obtained from projecting the Stage 2 results through the HuMoR encoder. We found that in occluded situations these $z$'s encode a sitting motion without any optimisation as seen in \figref{fig:humor_stage_2_rollout_sitting}, that simply the projection leads them to encode the necessary occluded motion. However we note that when autoregressively rolled out over a longer sequence the results, in \figref{fig:humor_stage_2_rollout_deviation}, deviate largely from the initial sequence of $x$'s seen in \figref{fig:humor_stage_2}. This shows us that though the initial $z$'s encode some sensible motion locally, and can be used to accurately recover the next frame, when they are chained together small deviations from the $x$ motion accumulate to create an overall deviation. For example if the arm is moved slightly too much by a single $z$, then all the future frames will have the arm in slightly the wrong position, and multiple $z$'s are wrong in the same direction, then the arm will raise up. This deviating sequence is the initial starting rollout in the Stage 3 of the HuMoR TestOps in which the rollout is optimised, though it seems unfortunate to us that from a sensible sequence of $x$'s obtained from Stage 2 we get such a bad sequence through the autoreggresive rollout. We do however note that though while this starting point represents a sequence that deviates largely, the $z$'s might not need to move so far to avoid the accumulation effect. The intuition in our case was that we are starting from some sensible $x$'s and $z$'s, and therefore that it should be possible to refine the $x$'s by take into account the HuMoR model through the $z$'s whilst updating the $z$'s. 
-
-\begin{figure}[!ht]
+\begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout_sitting_example/frame_00000078.jpg}
-    \caption{Stage 2 $z$'s encode a sitting motion}
+    \caption{Stage 2 $\mathbf{z}_{1:T}$ encode a sitting motion}
     \label{fig:humor_stage_2_rollout_sitting}
 \end{figure}
 
 
-\begin{figure}[!ht]
+\begin{figure}
     \centering
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/stage2/frame_00000099.jpg}} 
     \hfil
@@ -92,11 +109,11 @@ To begin with, we looked into the initial $z$'s that were obtained from projecti
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/stage2/frame_00000219.jpg}}
     \hfil
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/stage2/frame_00000239.jpg}}
-    \caption{Stage 2 $x$'s}
+    \caption{Stage 2 $\mathbf{x}_{0:T}$}
     \label{fig:humor_stage_2}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}
     \centering
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout/frame_00000010.jpg}} 
     \hfil
@@ -105,38 +122,46 @@ To begin with, we looked into the initial $z$'s that were obtained from projecti
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout/frame_00000130.jpg}}
     \hfil
     \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/humor/improvement/Rollout_stage_2/sitting_clip/rollout/frame_00000150.jpg}}
-    \caption{Deviation due to rollout of Stage 2 $z$'s}
+    \caption{Deviation due to rollout of Stage 2 $\mathbf{z}_{1:T}$}
     \label{fig:humor_stage_2_rollout_deviation}
 \end{figure}
 
 
-With some preliminary experiments in which we began optimising $x$'s and $z$'s we found that the most successful approach to blending the decoded and optimised $x$'s was to have an L1 loss on the distance between them. We saw that when simply copying over, the propagation of small errors forward was too strong (as desribed in \figref{fig:humor_stage_2_rollout_deviation}) and the system failed to recover as the long range gradients present in the HuMoR TestOps method weren't present, and we found when blending rather than completely copying over that the weighting of the blending was another parameter that was difficult to choose, hence having a loss was the path of least resistence.
+With some preliminary experimentation in which we began optimising $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$, we found that the most successful approach to blending the decoded and persistent  $\mathbf{x}_{1:T}$, among those described in \secref{sec:humor_improvement_speed}, was to have an L1 loss on the difference between them. We saw that when simply copying over, the propagation of small errors forward was too strong (as desribed in \figref{fig:humor_stage_2_rollout_deviation}) and the system failed to recover as the long range gradients present in the HuMoR TestOps method that could tell early states that their errors resulted in a large divergence weren't present, and we found when blending rather than completely copying over that the weighting of the blending was another parameter that was difficult to choose, hence having a loss was the path of least resistence.
 
-Next we experimented with jointly optimising $x$ and $z$ with a larger variety of losses. It was noted that the sitting down motion was not acheived consistenly. However as previously mentioned, the initial $z$'s encode a sitting motion, thus we conject that the $x$'s and $z$'s were fighting and this sitting motion was lost, that is to say the $z$'s move to match the $x$'s motion in which the skeleton simply clips into the floor without bending legs, thus the $z$'s begin encoding less leg bending. To avoid this issue in future experiments, the $z$'s were detached from the consistency loss making the optimised $x$'s match the decoded $x$'s.
+Next we experimented with jointly optimising $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ with a larger variety of losses. It was noted that the sitting down motion was not acheived consistenly. However as previously mentioned, the initial $\mathbf{z}_{1:T}$ encode a sitting motion, thus we conject that the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ were fighting and this sitting motion was lost, that is to say the $\mathbf{z}_{1:T}$ move to match the initial $\mathbf{x}_{0:T}$ motion in which the skeleton simply clips into the floor without bending the legs, thus the $\mathbf{z}_{1:T}$ begin encoding less leg bending. To avoid this issue in future experiments, the $\mathbf{z}_{1:T}$ were detached from the consistency loss that encourages the persistent $\mathbf{x}_{0:T}$ match the decoded $\mathbf{x}_{0:T}$.
 
-This led us on to some experiments in which we either optimise $z$ whilst fixing $x$, or vice versa. With the $z$'s fixed at the stage 2 results, we managed to acheive a sensible sitting motion for a clip containing occluded sitting, but when we applied the same optimiser settings to a longer clip the results were no longer satisfactory. We also noted that when it did work, it required a large number of iterations, in the 1000s, which took 10mins or more, thus the speedup was not as evident as hoped (though our method would continue scaling better). In the inverse case, fixing $x$ to the final HuMoR optimised states and optimising $z$, we noted that we consistently converge in the direction of the final HuMoR $z$'s, which indicates that we are optimising in the right direction, with the best results acheived at a rollout of 5 decoding steps.
+This led us on to some experiments in which the goal was either to optimise $\mathbf{x}_{0:T}$ whilst keeping $\mathbf{z}_{1:T}$ fixed, or vice versa, to avoid the competing and see if information was passed between latent transitions and poses sensibly. With the $\mathbf{z}_{1:T}$ fixed at the stage 2 results, we managed to acheive a sensible sitting motion for a clip containing occluded sitting, but when we applied the same optimiser settings to a longer clip the results were no longer satisfactory. We also noted that when it did work, it required a large number of iterations, in the 1000s, which took 10mins or more, thus the speedup was not as evident as hoped (though our method would continue scaling better due to it's parallelizeable nature). In the inverse case consisting of fixing $\mathbf{x}_{0:T}$ to the final HuMoR optimised states and optimising $\mathbf{z}_{1:T}$, we noted that we consistently converge in the direction of the final HuMoR $\mathbf{z}_{1:T}$ states, which indicates that we are optimising in the right direction, note that his was acheived with a rollout of 5 decoding steps as described in \figref{fig:dimm_rollout_graph}.
 
-All these experiments were performed with varying numbers of decoding steps, 1, 2, 5, and 10. We found that the effect of more stable results but slower compute times with longer rollouts did manifest as intuition would suggest. 
+\begin{figure}
+    \label{fig:zs_converge_to_humor_zs}
+    \centering
+    \includegraphics[width=0.75\textwidth]{Figures/humor/experiments/avg_latent_motion_error.png}
+    \caption{Optimising $\mathbf{z}_{1:T}$ with fixed $\mathbf{x}_{0:T}$}
+    \medskip
+    \small
+    With $\mathbf{x}_{0:T}$ fixed to be the final HuMoR TestOps solution, we found that the $\mathbf{z}_{1:T}$ converges in the direction of the $\mathbf{z}_{1:T}^{(HuMoR)}$ found by the HuMoR TestOps ('latent\_motion error' is the average absolute difference between these quantities). This indicates that our method also considers the HuMoR solution to be sensible, and gives us hope that it is possible to arrive at the same solution with a faster method.
+\end{figure}
 
-These experiments suggest that the next direction to pursue would be an optimisation scheme in which we flip flop optimising $z$ then $x$. However considering our difficulty in achieving consistent results for the optimisation of the $x$'s with fixed $z$'s, our feeling that this might not be the optimal solution to the problem, my desire to try a new direction, and the time constraints, we deemed it time to move on and try a new method.
+All these experiments were performed with varying numbers of decoding steps, 1, 2, 5, and 10. We found that longer rollouts produced more stable results but slower compute times, as intuition would suggest. 
 
-\subsection{Conclusion}
+These experiments suggest that the next direction to pursue would be an optimisation scheme in which we flip flop optimising $\mathbf{z}_{1:T}$ then $\mathbf{x}_{0:T}$, as when jointly optimising we found competing goals and a difficult to balance optimiser, but when separated we found that the information was able to propagate as we desired. However considering our difficulty in achieving consistent results for the optimisation of the $\mathbf{x}_{0:T}$ with fixed $\mathbf{z}_{1:T}$, our feeling that this might not be the optimal solution to the problem, my desire to try a new direction, and the time constraints, we deemed it time to move on and try a new method.
 
-We found that jointly optimising the $x$'s and $z$'s did not prove an easy task to solve, which may indicate that
+\subsection{Improvement Conclusion}
+
+We found that jointly optimising the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ did not prove an easy task to solve, which may indicate that
 \begin{itemize}
-    \item it is a particularly difficult problem, and therefore that the optimiser struggles to satisfy the constraints and find a good minimum for both $x$ and $z$ at the same time
-    \item the coupling of the $x$'s and $z$'s in the HuMoR decoder is an important issue. We found it to be at least a minor issue as it was necessary to decouple the $z$'s from the consistency loss (matching the optimised $x$s to the decoded $x'$'s) to avoid the $z$'s being modified in such a way as to fit the unoptimised $x$'s at the beginning of the optimisation
+    \item it is a particularly difficult problem, and therefore that the optimiser struggles to satisfy the constraints and find a good minimum for both $\mathbf{x}$ and $\mathbf{z}$ at the same time
+    \item the coupling of the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ in the HuMoR decoder is an important issue. We found it to be at the very least a minor issue as it was necessary to decouple the $\mathbf{z}_{1:T}$ from the consistency loss (matching the persistent $\mathbf{x}_{1:T}$s to the decoded $\mathbf{x'}_{1:T}$) to avoid the $\mathbf{z}_{1:T}$ being modified in such a way as to fit the unoptimised $\mathbf{x}_{0:T}$ at the beginning of the optimisation schedule
     \item the optimiser is badly balanced
 \end{itemize}
-This at the very least suggests that a new decoder that does not couple $x$'s and $z$'s would be useful and worth investigating if a similar method is pursued.
+This suggests that a new decoder that does not couple $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ would be useful and worth investigating if a similar method is pursued in the future.
 
-In the investigations we found it possible to acheive sensible results on a given clip (for example fixing the unoptimised initial $z$'s, we can a plausible sitting motion in a small video of sitting in occlusion) but that the same settings for the optimiser failed to acheive a good result on an alternative clip. This may indicate that 
+In the investigations we found it possible to acheive sensible results on a given clip when optimising either the $\mathbf{x}_{0:T}$ or the $\mathbf{z}_{1:T}$ separately. For example fixing the unoptimised initial $\mathbf{z}_{1:T}$, we produce a plausible sitting motion in a short occluded sequence. However we find that same settings for the optimiser failed to acheive a good result on an alternative clip. This may indicate that 
 \begin{itemize}
     \item again, this is a difficult problem that the optimiser will struggle to solve
     \item the optimiser is badly balanced
 \end{itemize} as before.
 
-While many of the issues encountered may simply be due to a badly balanced optimiser, considerable effort was made to mitigate this potential issue, and therefore it is our impression that this problem is at the very least a difficult one. We have improved our intuition, fixed several issues, and understood more about the problem and our goals. We therefore can make a more informed decision with respect to which direction to pursue next. \\
-We found that taking a system that was designed with autogregression in mind, and trying to parrallelise it, proved more difficult than expected. The experiments lead us to beleive that jointly optimising a sequence of poses and latent variables obtained through a single frame decoder may be a more difficult formulation of the problem than others. We therefore conclude that a method in which we model longer motion sequences may be more fruitful.
-
-\TODO{Double check through Notes/Current\_experiments.md to see if there's anything else we can learn from the experiments}
+While many of the issues encountered may simply be due to a badly balanced optimiser, considerable effort was made to mitigate this potential issue, and therefore it is our impression that this problem is at the very least a tricky one in the formulation we were investigating. While no exiting concrete results were produced, we did manage to improve our intuition, understand and fix several issues, and gain more insight into the problem and our goals. We therefore can make a more informed decision with respect to which direction to pursue next. \\
+We found that taking a system that was designed with autogregression in mind, and trying to parrallelise it, proved more difficult than expected. The experiments lead us to beleive that jointly optimising a sequence of poses and latent variables obtained through a single frame decoder may be a more difficult formulation of the problem than necessary. We therefore conclude that a method in which we model longer motion sequences may be more fruitful.
