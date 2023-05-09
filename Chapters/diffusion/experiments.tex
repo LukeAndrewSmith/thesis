@@ -1,23 +1,23 @@
 \section{Experiments}
 \label{sec:diffusion_experiments}
 
-Or main goal in this investigation into diffusion models was to get a better understanding of their performance on a wide range of tasks. We keep in mind the original task of improving an existing motion sequence, but are aware of the other potentials of the model and so do not limit ourselves in scope.
+Or main goal during this investigation into diffusion models was to get a better understanding of their performance on a wide range of tasks. We keep in mind the original task of improving an existing motion sequence, but are aware of the other potentials of the model and so do not limit ourselves in scope.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % General test cases
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Test Cases}
-We present here a variety of different test cases on which the models performance can be evaluated. The general structure of the evaluation is to generate a sufficiently large number of sequences for each given task, then to import them into the Blender computer graphics software and visually inspect their quality and how well they acheive each task. We have decided to take a qualitative approach as we are attempting to get a better general understanding of the models capabilities, and so this was the path of least resistance to obtain good intuition in the short time that was left after the HuMoR investigation. We note that in the future, if a method is deemed worthy of further investigation, more rigorous evaluation metrics would be benefitial.
+We present here a variety of different test cases on which the models performance can be evaluated. The general structure of the evaluation is to generate a sufficiently large number of sequences for each given task, then import them into the Blender computer graphics software and visually inspect their quality and how well they achieve each task. We have decided to take a qualitative approach as we are attempting to get a better general understanding of the models capabilities, and so this was the path of least resistance to obtain good intuition in the short time that was left after the HuMoR investigation. We note that in the future if a method is deemed worthy of further investigation, more rigorous evaluation metrics would be beneficial.
 
 \subsubsection{Sequence Generation}
-To ensure that the model has learned a sensible variety of human motion, we generate a number of sequences from gaussian noise, and check that they contain sufficient diversity, considering that a main indicator of an overfit diffusion model is that of a lack of diversity.
+To ensure that the model has learned a sensible variety of human motion, we generate a number of sequences from Gaussian noise and check that they contain sufficient diversity, considering that a main indicator of an overfit diffusion model is that of a lack of diversity.
 
 \subsubsection{Denoising}
 \TODO{Come up with a better test for this}
 
 \subsubsection{Occluded Legs}
-An important situation in which the current Disney Research|Studious model does not perform optimally is that of occluded sequences. To test the ability of the diffusion models to handle this situation, we evaluate the models capabilities to generate the leg motion of an entire motion sequence. We acheive this using the inpainting framework described in \secref{sec:diffusion_method_inpainting}, keeping the upper body joint rotations and the root translation fixed, and allowing the model free reign over the rest of the state.
+An important situation in which the current Disney Research|Studious model does not perform optimally is that of occluded sequences. To test the ability of the diffusion models to handle this situation, we evaluate the models capabilities to generate the leg motion of an entire motion sequence. We achieve this using the inpainting framework described in \secref{sec:diffusion_method_inpainting}, keeping the upper body joint rotations and the root translation fixed, and allowing the model free reign over the rest of the state.
 
 \subsubsection{Missing State}
 To further test the models' ability to handle occlusions, a test case where we only keep a random percent of the state during inpainting is presented. This portion of the state to keep can either be 
@@ -25,10 +25,10 @@ To further test the models' ability to handle occlusions, a test case where we o
     \item a random subset of each frame in a motion sequence
     \item a random subset that is constant across the whole sequence
 \end{enumerate}
-with the first testing the models' ability to handle arbitrarily occuring missing data, and the second testing the models ability to recover from longer term occlusions.
+with the first testing the models' ability to handle arbitrarily occurring missing data, and the second testing the models ability to recover from longer-term occlusions.
 
 \subsubsection{Inbetweening}
-Another important area of motion generation research is that of Motion Inbetweening, in which the goal is to fill in a middle part of a motion sequence in which a number of frames at the beginning and end of the sequence are given. Again we can use the inpainting framework from \secref{sec:diffusion_method_inpainting} and keep the edges of the motion as static.
+Another important area of motion generation research is that of Motion Inbetweening, in which the goal is to fill in a middle part of a motion sequence in which a number of frames at the beginning and end of the sequence are given. Again we can use the inpainting framework from \secref{sec:diffusion_method_inpainting} and keep the edges of the motion static.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,7 +39,7 @@ Another important area of motion generation research is that of Motion Inbetween
 The baseline model was trained with the Disney Research|Studios dataset that does not, and cannot (due to a lossy rendering of the mocap), contain foot contacts. The state includes the root translation, joint orientations, and their respective velocities explicitly. It was trained for \TODO{X} epochs. \TODO{More details?}
 
 \subsubsection{Sequence Generation}
-We found that the model generates a diverse set of plausible motion, as can be seen in \figref{fig:baseline_generation}. A few shortcomings were however noted. We found that the model produces a fair bit of foot sliding, where the foot seems to be in contact with the ground but has a non zero velocity. This effect can be mitigated through the use of the foot sliding loss coupled with data with containing labeled foot contacts.
+We found that the model generates a diverse set of plausible motion, as can be seen in \figref{fig:baseline_generation}. A few shortcomings were however noted. We found that the model produces a fair bit of foot sliding, where the foot seems to be in contact with the ground but has a non-zero velocity. This effect can be mitigated through the use of the foot sliding loss coupled with data containing labeled foot contacts.
 
 \begin{figure}[!ht]
     \centering
@@ -62,13 +62,13 @@ The most notable failure case is that sometimes the model reverses the direction
     \label{fig:baseline_occluded_legs}
     \medskip
     \small
-    The character on the left has the original motion, in the middle the inpaintined motion which is derived from the rightmost character, whos leg features are simply gaussian noise
+    The character on the left has the original motion, in the middle the inpaintined motion which is derived from the rightmost character, whose leg features are simply Gaussian noise
 \end{figure}
 
 
 \subsubsection{Missing State}
 \textbf{Random each frame}
-When removing a new random subset of the joints of each pose every frame in the motion sequence, we find that the model can very accurately reconstruct the missing state, even when only 50\% of the state is given each frame, and surprisingly it still performs reasonably well when only 25\% of the state is given each frame. A few example frames are shown in \figref{fig:baseline_missing_state_random_frame}. This shows that the model has learned well the concept of temporal consistency, as in this experiment it is likely that a missing joint will be surrounded (temporally) by known joints, hence it simply needs to interpolate between these known joints.
+When removing a new random subset of the joints of each pose in every frame in the motion sequence, we find that the model can very accurately reconstruct the missing state, even when only 50\% of the state is given each frame, and surprisingly it still performs reasonably well when only 25\% of the state is given each frame. A few example frames are shown in \figref{fig:baseline_missing_state_random_frame}. This shows that the model has learned well the concept of temporal consistency, as in this experiment it is likely that a missing joint will be surrounded (temporally) by known joints, hence it simply needs to interpolate between these known joints.
 
 % \begin{figure}[!ht]
 %     \centering
@@ -91,7 +91,7 @@ When removing a new random subset of the joints of each pose every frame in the 
 \subsection{Model with Foot Contacts - World Space}
 \label{sec:diffusion_contacts_world_space}
 
-The second model was trained in a similar manner, but with a different dataset in which the foot contact labels were given, and therefore where an extra foot contacts loss was used. We first tested this model with the motion in world space, as described in \secref{sec:diffusion_state_representation}, meaning that the start point and orientation of each motion is different. We found generally that the model still learned some reasonable motion, however that the root motion was rather disconnected from the rest of the body, resulting in foot sliding. We postulate that this is due to the fact that we have no massively enlarged the state space, considering the extra dimensions of root motion added and the fact that this is non homogonised (i.e two identical motions that start in different positions are completely distinct to the model), and that combined with our limited dataset the model struggles to learn the correlation between root motion and the rest of the body.
+The second model was trained in a similar manner, but with a different dataset in which the foot contact labels were given, and therefore where an extra foot contacts loss was used. We first tested this model with the motion in world space, as described in \secref{sec:diffusion_state_representation}, meaning that the start point and orientation of each motion are different. We found generally that the model still learned some reasonable motion, however that the root motion was rather disconnected from the rest of the body, resulting in foot sliding. We postulate that this is because we have not massively enlarged the state space, considering the extra dimensions of root motion added and the fact that this is unhomogenised (i.e two identical motions that start in different positions are completely distinct from the models perspective), and that combined with our limited dataset the model struggles to learn the correlation between root motion and the rest of the body.
 
 % \subsubsection{Sequence Generation}
 % \subsubsection{Denoising}
@@ -113,7 +113,7 @@ To overcome the issue of \secref{sec:diffusion_contacts_world_space} we aligned 
 \subsection{Autocompletion}
 \label{sec:autocomplete}
 
-Another project that is running at Disney Research|Studios is that of pose autocompletion. This is the task of taking a set of \textit{handles}, a subset of joints, and predicting the position of the rest of the joints. The goal here is again to help to improve the animation pipeline, this time by reducing the amount of work an animator has to do to get a sensible pose. As a side note to the previous experiments to understand the generality of these diffusion models, we trained some diffusion models for the described task, where we enforce a sequence length of 1 so that we are only predicting  single pose, and where we modify the inpainting to allow for a specific set of joints to be deemed \textit{handles} and to be kept fixed.
+Another project that is running at Disney Research|Studios is that of pose autocompletion. This is the task of taking a set of \textit{handles}, a subset of joints, and predicting the position of the rest of the joints. The goal here is again to help to improve the animation pipeline, this time by reducing the amount of work an animator has to do to get a sensible pose. As a side note to the previous experiments to understand the generality of these diffusion models, we trained some diffusion models for the described task, where we enforce a sequence length of 1 so that we are only predicting a single pose, and where we modify the inpainting to allow for a specific set of joints to be deemed \textit{handles} and to be kept fixed.
 
 \subsubsection{Baseline}
 The model is as described in \secref{sec:baseline_evaluation} however with a sequence length of 1.
@@ -124,6 +124,15 @@ We find that while the model does present plausible poses, and that on average t
 
 
 \subsubsection{Handle Conditioning}
-To mitigate this issue of the handles being modified, we propose a handles conditioning, in which a one hot embedding of the handles is run through a linear layer, then concatenated to the input of the network. A loss is then applied to the output that penalises any deviation in position of the handles that are output as compared to those input. In theory this should force the network to learn to consider the handles as immutable, and to create a pose that satisfies the handles.
+To mitigate this issue of the handles being modified, we propose handles conditioning, in which a one hot embedding of the handles is run through a linear layer, then concatenated to the input of the network. A loss is then applied to the output that penalises any deviation in the position of the handles that are output as compared to those input. In theory, this should force the network to learn to consider the handles as immutable and to create a pose that satisfies the handles.
 
-Though the implementation was largely completed, we unfortunately did not have time to finish debugging some of the finer details, and so cannot provide concrete results. However we deemed the idea interesting enough to present in this thesis, and hope that it can be of use in future research directions.
+Though the implementation was largely completed, we unfortunately did not have time to finish debugging some of the finer details, so cannot provide concrete results. However we deemed the idea interesting enough to present in this thesis, and hope that it can be of use in future research directions.
+
+
+
+\subsection{Other Experiments}
+\subsubsection{Denoising steps}
+\TODO{Describe that 100 denoising steps seemed to perform similarly to 1000}
+
+\subsubsection{Inbetweening Blending}
+\TODO{}

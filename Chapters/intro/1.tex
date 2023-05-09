@@ -1,29 +1,29 @@
-Motion capture is an integral part of many modern animation pipelines. It can be defined simply as the act of recording, by automatic means, the motion of a person, animal or object. Throughout this this thesis we will primarily interest ourselves in the capturing of human motion. The advantages of motion capture, over traditional animation, are numerous and important in their scope. Motion capture allows for
+Motion capture is an integral part of many modern animation pipelines. It can be defined simply as the act of recording, by automatic means, the motion of a person, animal or object. Throughout this thesis, we will primarily interest ourselves in the capturing of human motion. The advantages of motion capture, over traditional animation, are numerous and important in their scope. Motion capture allows for
 \begin{itemize}
     \item quasi-real time results
-    \item high quality motion with realistic object interactions
+    \item high-quality motion with realistic object interactions
     \item often reduced costs as compared to hand animation
     \item complexity that is constant with respect to the motion being captured
 \end{itemize}
-however also has it's inherent costs, notably
+however also has its inherent costs, notably
 \begin{itemize}
-    \item uprfront costs for tailored software and hardware
+    \item upfront costs for tailored software and hardware
     \item cumbersome motion capture suits 
-    \item lengthy setup times and a non-trivial capture systems requiring expert knowledge
+    \item lengthy setup times and non-trivial capture systems requiring expert knowledge
     \item artifacts due to retargeting of skeletons.
 \end{itemize}
-These drawbacks mean that the technology is often prohibitive for small teams and individual artists/animators. It is clear though that overcoming these barries would provide huge benefits and open up the technology to a wide range of new users. For example individual artists could more efficiently prototype and develop animation sequences starting from a self captured motion, and small teams could readily make use of this technology to do more with less.
+These drawbacks mean that the technology is often prohibitive for small teams and individual artists/animators. It is clear though that overcoming these barriers would provide huge benefits and open up the technology to a wide range of new users. For example, individual artists could more efficiently prototype and develop animation sequences starting from a self-captured motion, and small teams could readily make use of this technology to do more with less.
 
-The important question therefore is simply; \textbf{how might we create a motion capture system without such upfront costs, specialized hardware and need for motion capture suits?}
+The important question, therefore, is simply; \textbf{how might we create a motion capture system without such upfront costs, specialized hardware and need for motion capture suits?}
 At Disney Research|Studios an approach is being investigated that aims to capture motion directly from RGB video. The system currently follows the following steps:
 \begin{enumerate}
     \item record a video of a human motion sequence (potentially from multiple angles)
     \item perform per frame pose estimation using a machine learning model
-    \item run the resultant motion sequence through an optimiser to improve the quality of the motion (and potentially lift to 3d)
+    \item run the resultant motion sequence through an optimiser to improve the quality of the motion (and potentially predict 3d positions from the 2d)
 \end{enumerate}
-and shows great promise, however has a number of drawbacks.
-The most notable drawback comes from the fact that the per frame pose estimation system does not produce temporally consistent results. The predictions are made independantly per frame, hence the result motion is jittery, and can contain other artifacts. This is the motivation for the introduction of an optimisation system at the end of the pipeline to counteract these artifacts. However is must be noted that, although smoothness is mostly acheived, it does not fix all issues. The optimiser struggles to handle occluded motion sequences, it does not always deal with limb flips (where the left/right leg/arm are predictions are horizontally flipped for a frame), and cannot always fix completely wrong but confident predictions. It is of interest therefore to try and improve this aspect of the pipeline.
+and shows great promise. However, it has several drawbacks,
+the most notable being that the per-frame pose estimation system does not produce temporally consistent results. The predictions are made independently per frame, hence the resultant motion is jittery and can contain other artifacts. This is the motivation for the introduction of an optimisation system at the end of the pipeline to counteract these artifacts. However, it must be noted that, although smoothness is mostly achieved, it does not fix all issues. The optimiser struggles to handle occluded motion sequences, does not always deal with limb flips (where the left/right leg/arm predictions are horizontally flipped between frames), and cannot always fix completely wrong but confident predictions. It is of interest therefore to try and improve this aspect of the pipeline.
 
-The data driven approach proposed in this thesis, in its most abstract form, is simpy that of learning a model that understands human motion. Depending on its conception, such a model could be employed in a number of manners; it could be directly applied to the task of rectifying a motion sequence, it could be used as a loss in the existing optimiser, or it could even simply be used to improve upon certain failings of the optimizer as an additional step to the pipeline, such as fixing occluded motion.
+The data-driven approach proposed in this thesis, in its most abstract form, is simply that of training a model that understands human motion. Depending on its conception, such a model could be employed in a number of manners; it could be directly applied to the task of rectifying a motion sequence, it could be used as a loss in the existing optimiser, or it could even simply be used to improve upon certain failings of the optimizer as an additional step to the pipeline, such as fixing occluded motion.
 
-This thesis tackles the task of exploring such motion models with a primary goal of shedding light on the most promising model architecture and the most effictive manner in which such a model might be used. We consider a state of the art approach in \chpref{chpt:humor}, evaluate it in \secref{sec:humor_investigation} and attempt to improve upon it in \secref{sec:humor_improvement}. This does not prove as fruitful as hoped and so we move on to a new class of powerful models called diffusion models in \chpref{chpt:diffusion}. We explore the use of these models in the context of motion modelling in \secref{sec:disney_motion_diffusion} and finally evaluate them on a variety of tasks with a view of better understanding their capabilities in \secref{sec:diffusion_experiments}.
+This thesis explores such motion models with the primary goal of establishing the most promising model architecture and the most effective manner in which such a model might be used. Initially, we take a state-of-the-art approach in \chpref{chpt:humor}, evaluate it in \secref{sec:humor_investigation} and attempt to improve upon it in \secref{sec:humor_improvement}. As this does not prove as fruitful as hoped we next try an emerging class of powerful models called diffusion models in \chpref{chpt:diffusion}. We explore the use of these models in the context of motion modeling in \secref{sec:disney_motion_diffusion} and finally evaluate them on a variety of tasks with a view to better understanding their capabilities in \secref{sec:diffusion_experiments}. Having demonstrated their potential, we then look ahead to indicate avenues in which this promise might be realised in \secref{sec:diffusion_conclusion} and \secref{sec:diffusion_future_work}, before concluding in \chpref{chpt:conclusion}.
