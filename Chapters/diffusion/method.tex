@@ -95,8 +95,6 @@ Our state represents a motion sequence of length $N$, and includes primarily a r
 \subsubsection{Architecture}
 We follow closely \cite{MDM} in our architecture, though without the text conditioning. We use a simple transformer \cite{vaswani2017attention} encoder as the denoising network, conditioned on the diffusion timestep so that the network can learn how much noise is present that needs removing. This is used with the described denoising process which can be seen in \figref{fig:dmd_architecture}.
 
-\TODO{Link to appendix with more details on the architecture choices, number of hidden layers, etc}
-
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/diffusion/Network_diagram.png}
