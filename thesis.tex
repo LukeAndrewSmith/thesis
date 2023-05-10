@@ -10,6 +10,7 @@
 \usepackage{booktabs} % publication quality tables for LaTeX
 %\usepackage{showkeys} % shows the labels above the references for easier development
 \usepackage{subfig}
+\usepackage{pdfpages}
 
 \Ifpdfoutput{%
 	\usepackage[pdftex]{graphicx}
@@ -199,5 +200,8 @@
 %\nocite{*}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
+
+% Declaration of originality
+\includepdf[pages=-]{declaration_of_originality.pdf}
 
 \end{document}

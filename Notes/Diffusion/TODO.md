@@ -1,16 +1,30 @@
 # TODO
 
-- Most important future work
-    - Evaluation on in the wild data
-    - Comparison of generated data to dataset (is it just replicating the data)
-    - Foot sliding for the contact data
-    - Metrics
+# Hand in
+[Guidelines](https://cgl.ethz.ch/Downloads/StudentProjects/BAMA_Guidelines_2021.pdf)
 
-- BEFORE THESIS END
+- Code
     - To ZIP
         - data folder
         - some models
         - some evaluations
+- Thesis
+    - Content
+        - Choose an image for the front of the thesis
+        - Include declaration of originality
+- Hand in
+    - Print 2 copies of the report [here](https://thesisbuddy.ch/studentendruckerei.html)
+        - Hardcover Bindung + Klebebindung mit Textilband
+    - Put the report + code on a usb stick
+
+
+# Code TODOs
+- Note in readme
+    - Most important future work
+        - Evaluation on in the wild data
+        - Comparison of generated data to dataset (is it just replicating the data)
+        - Foot sliding for the contact data
+        - Metrics
 - Morning
     - Collect results to put in the thesis/presentation
         - Inpainting a joint over the whole sequence
