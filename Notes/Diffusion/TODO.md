@@ -1,5 +1,11 @@
 # TODO
 
+- Most important future work
+    - Evaluation on in the wild data
+    - Comparison of generated data to dataset (is it just replicating the data)
+    - Foot sliding for the contact data
+    - Metrics
+
 - BEFORE THESIS END
     - To ZIP
         - data folder
