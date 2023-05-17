@@ -12,7 +12,7 @@ The diffusion framework that we use is defined theoretically as follows \cite{dd
         q(x_T | x_0) &:= \prod_{t=1}^T q(x_t | x_{t-1}) \\
     \end{aligned}
 \end{equation}
-where with a well-chosen variance schedule $\beta_1, ..., \beta_T$ and a large T, we approximate a standard normal distribution as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately Gaussian noise. The 'reverse noising process' is unknown without the full data distribution, which we don't have access to, hence we approximate it using some parametrized function
+. With a well-chosen variance schedule $\beta_1, ..., \beta_T$ and a large T, we approximate a standard normal distribution as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately Gaussian noise. The 'reverse noising process' is unknown without the full data distribution, which we don't have access to, hence we approximate it using some parametrized function
 \begin{equation}
     \label{eq:reverse_noising_mean_variance}
     p_{\theta}(x_{t-1} | x_t) = \mathcal{N}(\mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))
@@ -53,7 +53,7 @@ which, alongside the choice of a fixed rather than learned variance as in \cite{
 \begin{equation}
     \label{eq:direct_prediction_denoising}
     \begin{aligned}
-    p_{\theta}(x_{t-1} | x_t) &= q(x_{t-1} | x_t, \hat{x}_{\theta}(x_t, t))  \\
+    p_{\theta}(x_{t-1} | x_t) &= q\big(x_{t-1} | x_t, \hat{x}_{\theta}(x_t, t)\big)  \\
     &= \mathcal{N}(\mu_{\theta}(x_t, t), \tilde{\beta}_t I)
     \end{aligned}
 \end{equation}
@@ -65,7 +65,7 @@ with
     \mu_{\theta}(x_t, t) &= \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\hat{x}_{\theta}(x_t, t) + \frac{\sqrt{\alpha}_t(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha}_t}x_t
     \end{aligned}
 \end{equation}
-
+.
 This direct prediction of the denoised signal allows us to use the simplified MSE objective \cite{ddpm,ramesh2022hierarchical} during training
 \begin{equation}
     \label{eq:simple_loss}
@@ -80,16 +80,14 @@ The inference procedure involves sampling random Gaussian noise, then iterativel
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Our diffusion model
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Disney Motion Diffusion (DMD)}
+\subsection{Model Design}
 \label{sec:disney_motion_diffusion}
-Armed with this understanding of diffusion, we define our Disney Motion Diffusion (DMD) model, strongly inspired by the work of Tevet. et. al \cite{MDM}.
-
+Armed with this understanding of diffusion, we move on to the task of designing our model, strongly inspired by the work of Tevet. et. al \cite{MDM}.
 
 
 \subsubsection{State Representation}
 \label{sec:diffusion_state_representation}
 Our state represents a motion sequence of length $N$, and includes primarily a root translation, $r \in \mathbb{R}^{N \cross 3}$, and 6d \cite{aa_6d_angles} joint orientations in body frame, $o \in \mathbb{R}^{N \cross 6}$. The state can be extended with some optional extras, depending on the data, of foot ground contacts $b \in \mathbb{R}^{N \cross 1}$, and explicit velocities for the root translation and joint orientations. Again, depending on the data, we can represent the root translation, and root orientations (a subset of the joint orientations) either in world space, where each motion sequence will have a distinct starting point and starting orientation or as what we call a 'stuck root' reference frame, where the first pose is set to the positions $(0,0)$ and identity root orientation and all subsequent poses are described with respect to this first frame, with the idea being that this formulation leads to a smaller space for the model to learn.
-
 
 
 \subsubsection{Architecture}
@@ -98,7 +96,7 @@ We follow closely \cite{MDM} in our architecture, though without the text condit
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/diffusion/Network_diagram.png}
-    \caption{DMD Architecture \& Denoising Process}
+    \caption{Model Architecture \& Denoising Process}
     \label{fig:dmd_architecture}
 \end{figure}
 
@@ -126,16 +124,32 @@ An important tool in the arsenal of the diffusion model literature is that of in
 \begin{equation}
     \hat{x}_{t} = m \odot \hat{x}_t + (1-m) \odot q(x^{(known)}|t-1)
 \end{equation}
-Graphically this process can be seen in \figref{fig:inpainting}. This procedure is particularly attractive as it requires no special training procedure, and can be employed readily with any diffusion model.
+Graphically this process can be seen in the diagram presented in \figref{fig:inpainting_diagram}, and more intuitively in \figref{fig:inpainting_video} where the inpainting progression is shown for the example of replacing leg motion. This procedure is particularly attractive as it requires no special training procedure, and can be employed readily with any diffusion model.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{Figures/diffusion/Inpainting.png}
     \caption{Inpainting Procedure}
-    \label{fig:inpainting}
+    \label{fig:inpainting_diagram}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.2\textwidth]{Figures/diffusion/inpainting/1.png}
+    \includegraphics[width=0.2\textwidth]{Figures/diffusion/inpainting/2.png}
+    \includegraphics[width=0.2\textwidth]{Figures/diffusion/inpainting/3.png}
+    \includegraphics[width=0.2\textwidth]{Figures/diffusion/inpainting/4.png}
+    \caption{Inpainting: Replacing the legs of a motion sequence}
+    \label{fig:inpainting_video}
+    \medskip
+    \small
+    \raggedright
+    On the left we can see the first step of the inpainting procedure in which we have replaced the upper body and kept random noise for the lower body. As we proceed in the denoising process, we continually replace the upper body with the known fixed motion whilst denoising the legs.
+
+    Note that these images are illustrative and intended to help the reader's intuition. In reality, the upper body is also noised to the corresponding diffusion step but we have shown the denoised version here so that it is obvious what is kept constant.
 \end{figure}
 
 
 \subsubsection{Data}
-At Disney Research|Studios we have access to professional motion capture data that encompasses a wide range of possible motion for a number of subjects. In total we have 21 motion sequences on the order of 2 minutes each, thus in total we have around 45 minutes of motion capture data. This data is normalised elementwise and retargeted to a standard skeleton. Several motion sequences are held out for testing.
+We have access to professional motion capture data that encompasses a wide range of possible motion for a number of subjects. In total we have 21 motion sequences on the order of 2 minutes each, thus in total we have around 45 minutes of motion capture data. This data is normalised elementwise and retargeted to a standard skeleton. Several motion sequences are held out for testing.
 We have one dataset where the root of the skeleton is kept static in the y direction but can move freely in all others, and one version of the dataset that has a freely moving root and for which we have calculated foot contact labels.
