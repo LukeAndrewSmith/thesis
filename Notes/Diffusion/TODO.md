@@ -12,11 +12,26 @@
     - Content
         - Choose an image for the front of the thesis
         - Include declaration of originality
-- Hand in
+            - I stuck it in the actual document, is this wrong?
+        - Template says 50-100 pages, mine is currently 46 (38 preliminaries)
+- Hand in (to supervisor)
     - Print 2 copies of the report [here](https://thesisbuddy.ch/studentendruckerei.html)
-        - Hardcover Bindung + Klebebindung mit Textilband
-    - Put the report + code on a usb stick
+        - Hardcover Bindung (black) + Klebebindung mit Textilband
+        - Can request 40chf from the CGL secretary after hand in
+    - USB stick
+        - The stick is provided by the CGL administration
+        - Should include
+            - software (source code, executables, libraries)
+            - documentation (Latex or FrameMaker documents including pdf files and images)
+            - oral presentations (PowerPoint slides including all video material)
 
+# Thesis TODOs
+- Jakob question for HuMoR
+    - What would you have done differently?
+        - Model with decoupled x’s and z’s
+        - Direct next frame prediction rather than 
+        - Could write a bit about this in the thesis
+        - Jakob will ask this sort of question during the presentation
 
 # Code TODOs
 - Note in readme

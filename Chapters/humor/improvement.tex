@@ -143,6 +143,13 @@ This led us on to some experiments in which the goal was either to optimise $\ma
     With $\mathbf{x}_{0:T}$ fixed to be the final HuMoR TestOps solution, we found that the $\mathbf{z}_{1:T}$ converges in the direction of the $\mathbf{z}_{1:T}^{(HuMoR)}$ found by the HuMoR TestOps ('latent\_motion error' is the average absolute difference between these quantities). This indicates that our method also considers the HuMoR solution to be sensible, and gives us hope that it is possible to arrive at the same solution with a faster method.
 \end{figure}
 
+\TODO{
+    JAKOB comment:
+    Too many experiments explained in too little space. I get lost by reading trough this. Either try to focus on less experiments or expand a bit. It would also help if they are visuallze a litte bit more apart and perhaps you could even have a conclusion for them. Just a sentence that allows the reader to understand what we have learned from the experiment. Ideally this then motivsates the next experiment.
+
+    The conclusion below is good. 
+}
+
 All these experiments were performed with varying numbers of decoding steps, 1, 2, 5, and 10. We found that longer rollouts produced more stable results but slower compute times, as intuition would suggest. 
 
 These experiments suggest that the next direction to pursue would be an optimisation scheme in which we flip flop optimising $\mathbf{z}_{1:T}$ then $\mathbf{x}_{0:T}$, as when jointly optimising we found competing goals and a difficult to balance optimiser, but when separated we found that the information was able to propagate as we desired. However considering our difficulty in achieving consistent results for the optimisation of the $\mathbf{x}_{0:T}$ with fixed $\mathbf{z}_{1:T}$, our feeling that this might not be the optimal solution to the problem, my desire to try a new direction, and the time constraints, we deemed it time to move on and try a new method instead.
@@ -152,7 +159,7 @@ These experiments suggest that the next direction to pursue would be an optimisa
 We found that jointly optimising the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ did not prove an easy task to solve, which may indicate that
 \begin{itemize}
     \item it is a particularly difficult problem, and therefore that the optimiser struggles to satisfy the constraints and find a good minimum for both $\mathbf{x}$ and $\mathbf{z}$ at the same time
-    \item the coupling of the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ in the HuMoR decoder is an important issue. We found it to be at the very least a minor issue as it was necessary to decouple the $\mathbf{z}_{1:T}$ from the consistency loss (matching the persistent $\mathbf{x}_{1:T}$s to the decoded $\mathbf{x'}_{1:T}$) to avoid the $\mathbf{z}_{1:T}$ being modified in such a way as to fit the unoptimised $\mathbf{x}_{0:T}$ at the beginning of the optimisation schedule
+    \item the coupling of the $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ in the HuMoR decoder is an important issue. We found it to be at the very least a minor issue as it was necessary to decouple the $\mathbf{z}_{1:T}$ from the consistency loss (matching the persistent $\mathbf{x}_{1:T}$ to the decoded $\mathbf{x'}_{1:T}$) to avoid the $\mathbf{z}_{1:T}$ being modified in such a way as to fit the unoptimised $\mathbf{x}_{0:T}$ at the beginning of the optimisation schedule
     \item the optimiser is badly balanced
 \end{itemize}
 This suggests that a new decoder that does not couple $\mathbf{x}_{0:T}$ and $\mathbf{z}_{1:T}$ would be useful and worth investigating if a similar method is pursued in the future.
