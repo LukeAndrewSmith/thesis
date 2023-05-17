@@ -111,9 +111,6 @@ The second model was trained in a similar manner, but with a different dataset i
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \subsection{Model with Foot Contacts - 'Stuck' Space}
 
-% To overcome the issue of \secref{sec:diffusion_contacts_world_space} we aligned all the motion to begin at the same point and facing the same direction. The results are that...
-% \TODO{Finish debugging then conclude here}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Autocompletion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,11 +122,7 @@ Another potential use of such models is that of pose autocompletion. This is the
 \subsubsection{Baseline}
 The model is as described in \secref{sec:baseline_evaluation} however with a sequence length of 1.
 
-We find that while the model does present plausible poses, and that on average these poses have handle joints close to the desired positions of the handles (with a few exceptions), it does not satisfy the task properly.  An ideal solution would not move the handles at all, and would simply modify the rest of the joints.
-
-%  as can be seen in \TODO{include images of position of handles vs. position of actual joints}.
-% \TODO{include images}
-
+We find that while the model does present plausible poses, and that on average these poses have handle joints close to the desired positions of the handles (with a few exceptions), it does not satisfy the task properly.  An ideal solution would not move the handles at all, and would simply modify the rest of the joints. This again is a manifestation of the issue described in \secref{sec:diffusion_baseline_inbetweening} in which the inpainting procedure introduces discontinuities.
 
 \subsubsection{Handle Conditioning}
 To mitigate this issue of the handles being modified, we propose handles conditioning, in which a one hot embedding of the handles is run through a linear layer, then concatenated to the input of the network. A loss is then applied to the output that penalises any deviation in the position of the handles that are output as compared to those input. In theory, this should force the network to learn to consider the handles as immutable and to create a pose that satisfies the handles.
