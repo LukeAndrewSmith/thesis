@@ -1,7 +1,14 @@
 \documentclass[a4paper,twoside,12pt,chapterprefix=false]{scrbook}
 
+
 \usepackage{float}
 \usepackage[dvipsnames]{xcolor}
+\Ifpdfoutput{%
+	\usepackage[pdftex]{graphicx}
+	\usepackage[]{pdfpages} %for including full pdf pages
+}{%
+	\usepackage{graphicx}
+}
 \usepackage{amsmath,amssymb,amsthm}
 % \usepackage[footnotesize,sl,SL,hang,tight]{subfigure}  % helpful package for aligning figures next to each other
 \usepackage{longtable} % tables over several pages
@@ -12,12 +19,6 @@
 \usepackage{subfig}
 \usepackage{pdfpages}
 
-\Ifpdfoutput{%
-	\usepackage[pdftex]{graphicx}
-	\usepackage[]{pdfpages} %for including full pdf pages
-}{%
-	\usepackage{graphicx}
-}
 \usepackage{rotating} % rotate figures
 
 \usepackage{scrlayer-scrpage}
