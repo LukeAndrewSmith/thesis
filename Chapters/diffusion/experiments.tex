@@ -46,7 +46,7 @@ with the first testing the models' ability to handle arbitrarily occurring missi
 The baseline model was trained with a dataset that does not, and cannot (due to a lossy rendering of ground truth mocap), contain foot contacts. The state includes the root translation, joint orientations, and their respective velocities explicitly.
 
 \subsubsection{Sequence Generation}
-We found that the model generates a diverse set of plausible motion, as can be seen in \figref{fig:baseline_generation}. A few shortcomings were however noted. We found that the model produces a fair bit of foot sliding, where the foot is in contact with the ground and the pose is static, but the feet have a non-zero velocity and are sliding about. This effect usually can be mitigated through the use of the foot sliding loss during training which necessitates access to data containing labeled foot contacts.
+We found that the model generates a diverse set of plausible motions, as can be seen in \figref{fig:baseline_generation}. A few shortcomings were however noted. We found that the model produces a fair bit of foot sliding, where the foot is in contact with the ground and the pose is static, but the feet have a non-zero velocity and are sliding about. This effect usually can be mitigated through the use of the foot sliding loss during training which necessitates access to data containing labeled foot contacts.
 
 \begin{figure}[!ht]
     \centering
@@ -76,7 +76,24 @@ The most notable failure case is that sometimes the model reverses the direction
 \subsubsection{Inbetweening}
 \label{sec:diffusion_baseline_inbetweening}
 
-The performance on the motion inbetweening task is promising but has some flaws. The model successfully manages to interpolate between the two known motions at the extremities of the sequence and presents plausible motion in the middle, however the generated motion is not particularly related to the known motion, often meandering and looking quite distinct from the known motion. Here the text conditioning of \cite{MDM} could provide benefits by restricting the possible inbetweened motion. We also note that there is a jump between the known motion and the generated motion. We investigated and found that during the final step of the denoising procedure, the last operation is that of inpainting where the known and generated motions are mixed through a binary mask. This therefore overrides the beginning and end of the generated motion with known motion, as described graphically in \figref{fig:diffusion_inbetweening_blending}. If we simply look at the generated motion, it is smooth, however, the motion that is overwritten by the known motion does not exactly match the known motion, hence the overwriting introduces a jump. This could be mitigated by using a more sophisticated inpainting method as discussed in \secref{sec:diffusion_future_work} and attempted in \secref{sec:diffusion_inbetweening_blending}.
+The performance on the motion inbetweening task is promising but has some flaws. The model successfully manages to interpolate between the two known motions at the extremities of the sequence and presents plausible motion in the middle, however the generated motion is not particularly related to the known motion, often meandering and looking quite distinct from the known motion. Here the text conditioning of \cite{MDM} could provide benefits by restricting the possible inbetweened motion. We also note that there is a jump between the known motion and the generated motion. We investigated and found that during the final step of the denoising procedure, the last operation is that of inpainting where the known and generated motions are mixed through a binary mask. This therefore overrides the beginning and end of the generated motion with known motion. If we simply look at the generated motion, it is smooth, however the motion that is overwritten by the known motion does not exactly match the known motion, hence the overwriting introduces a jump, as described graphically in \figref{fig:diffusion_inbetweening_blending}. This could be mitigated by using a more sophisticated inpainting method as discussed in \secref{sec:diffusion_future_work} and attempted in \secref{sec:diffusion_inbetweening_blending}.
+
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_1.png}\label{inbetweening_blend_1}} 
+    \hfil
+    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_2.png}\label{inbetweening_blend_2}} 
+    \hfil
+    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_3.png}\label{inbetweening_blend_3}}
+    \caption{Stage 2 $\mathbf{x}_{0:T}$}
+    \label{fig:diffusion_inbetweening_blending}
+    \medskip
+    \small
+    \raggedright
+    The lines represent the trajectories of a motion sequence. The blue line corresponds to the denoised motion, whereas the green line to the ground truth. The black lines represent where the inbetweening begins and ends in the motion sequence. The green known motion line is solid outside the inbetweened part, and this is what we use to overwrite the output of the model at each denoising step.\\
+    In \protect\subref{inbetweening_blend_1}, the dotted section of the green known motion line represents what a smooth inbetweened sequence would look like. In reality, the denoised motion shown in blue does not perfectly match the known motion at the beginning and end where we will overwrite it. This means that when we do overwrite it we end up with discontinuities, as we can see in \protect\subref{inbetweening_blend_2}. The strategy we employ in \secref{sec:diffusion_inbetweening_blending} to try and mitigate this issue involves, at each denoising step, repeating the poses on the edges of the inbetweened motion and blending between the denoised and known motion for these frames, as show in \protect\subref{inbetweening_blend_3}.
+\end{figure}
+
 
 \subsubsection{Missing State}
 \textbf{Random each frame}
@@ -90,7 +107,7 @@ When removing a new random subset of the joints of each pose in every frame in t
 % \end{figure}
 
 \textbf{Random for the whole sequence}
-When choosing a random subset of joints to occlude and occluding them across the entire motion sequence, the model manages to predict a smooth motion sequence that is close to the original. However we note the same issue arises that we encountered during inbetweening in \secref{sec:diffusion_baseline_inbetweening} in which the inpainting procedure introduces discontinuities that are present even at the end of the denoising process. Again the denoised motion does not perfectly match the generated motion, hence when we overwrite part of the motion with the known motion, this results in discontinuities which produce in this case in very jittery motion. Further investigation is necessary to mitigate this issue if we desire that the known state be maintained perfectly.
+When choosing a random subset of joints to occlude and occluding them across the entire motion sequence, the model manages to predict a smooth motion sequence that is close to the original, even when only 25\% of the joint rotations are given. However we note the same issue arises that we encountered during inbetweening in \secref{sec:diffusion_baseline_inbetweening} in which the inpainting procedure introduces discontinuities that are present even at the end of the denoising process. Again the denoised motion does not perfectly match the generated motion, hence when we overwrite part of the motion with the known motion, this results in discontinuities which produce in this case very jittery motion. Further investigation is necessary to mitigate this issue if we desire that the known state be maintained perfectly.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Mode with foot contacts
@@ -98,7 +115,7 @@ When choosing a random subset of joints to occlude and occluding them across the
 \subsection{Model with Foot Contacts - World Space}
 \label{sec:diffusion_contacts_world_space}
 
-The second model was trained in a similar manner, but with a different dataset in which the foot contact labels were given, and therefore where an extra foot contacts loss was used. We first tested this model with the motion in world space, as described in \secref{sec:diffusion_state_representation}, meaning that the start point and orientation of each motion are different. We found generally that the model still learned some reasonable motion, however that the root motion was rather disconnected from the rest of the body, resulting in foot sliding. We postulate that this is because we have now massively enlarged the state space, considering the extra dimensions of root motion added and the fact that this is unhomogenised (i.e two identical motions that start in different positions are completely distinct from the models perspective), and that combined with our limited dataset the model struggles to learn the correlation between root motion and the rest of the body.
+The second model was trained in a similar manner, but with a different dataset in which the foot contact labels were given, and therefore where an extra foot contacts loss was used. We first tested this model with the motion in world space, as described in \secref{sec:diffusion_state_representation}, meaning that the start point and orientation of each motion are different. We found generally that the model still learned some reasonable motion, however that the root motion was rather disconnected from the rest of the body, resulting in foot sliding. We postulate that this is because we have now massively enlarged the state space, considering the extra dimensions of root motion added and the fact that this is unhomogenised (i.e two identical motions that start in different positions are completely distinct from the model's perspective), and that combined with our limited dataset the model struggles to learn the correlation between root motion and the rest of the body.
 
 % \subsubsection{Sequence Generation}
 % \subsubsection{Denoising}
@@ -125,7 +142,7 @@ The model is as described in \secref{sec:baseline_evaluation} however with a seq
 We find that while the model does present plausible poses, and that on average these poses have handle joints close to the desired positions of the handles (with a few exceptions), it does not satisfy the task properly.  An ideal solution would not move the handles at all, and would simply modify the rest of the joints. This again is a manifestation of the issue described in \secref{sec:diffusion_baseline_inbetweening} in which the inpainting procedure introduces discontinuities.
 
 \subsubsection{Handle Conditioning}
-To mitigate this issue of the handles being modified, we propose handles conditioning, in which a one hot embedding of the handles is run through a linear layer, then concatenated to the input of the network. A loss is then applied to the output that penalises any deviation in the position of the handles that are output as compared to those input. In theory, this should force the network to learn to consider the handles as immutable and to create a pose that satisfies the handles.
+To mitigate this issue of the handles being modified, we propose handles conditioning, in which a one-hot embedding of the handles is run through a linear layer, then concatenated to the input of the network. A loss is then applied to the output that penalises any deviation in the position of the handles that are output as compared to those input. In theory, this should force the network to learn to consider the handles as immutable and to create a pose that satisfies the handles.
 
 Though the implementation was largely completed, we unfortunately did not have time to finish debugging some of the finer details, so cannot provide concrete results. However we deemed the idea interesting enough to present in this thesis, and hope that it can be of use in future research.
 
@@ -139,20 +156,4 @@ We tested this latter strategy on our model, denoising with various numbers of s
 \subsubsection{Inbetweening Blending}
 \label{sec:diffusion_inbetweening_blending}
 
-In \secref{sec:diffusion_baseline_inbetweening} we noted a discontinuity between the known motion and the generated motion. We hypothesised that this was due to the inpainting procedure, and that a more sophisticated inpainting procedure could mitigate this issue. We therefore implemented a denoising procedure in which pad the edges of the known regions of motion with the last known pose, and rather than using a binary mask, we blend this padded region with the generated motion smoothly, as described in \figref{fig:diffusion_inbetweening_blending}. With this procedure we aim to encourage the model to generate a motion that is continuous with the known motion by more smoothly introducing the boundaries between this motions. We find that this procedure, when coupled with the model operating on motion with freely moving root presented in \secref{sec:diffusion_contacts_world_space}, looks rather like a simple linear interpolation between the two motion. We postulate that this is due to the shortcoming of the model, notably that the root motion is not well learned and so is often very far from the known root motion. However, for the model operating on motion with fixed root presented in \secref{sec:baseline_evaluation}, we find that this leads to a more correlation inbetweened motion.
-
-\begin{figure}
-    \centering
-    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_1.png}\label{inbetweening_blend_1}} 
-    \hfil
-    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_2.png}\label{inbetweening_blend_2}} 
-    \hfil
-    \subfloat[]{\includegraphics[width=0.3\textwidth]{Figures/diffusion/inbetweening_blending/Inbetweening_blend_3.png}\label{inbetweening_blend_3}}
-    \caption{Stage 2 $\mathbf{x}_{0:T}$}
-    \label{fig:diffusion_inbetweening_blending}
-    \medskip
-    \small
-    \raggedright
-    The lines represent the trajectories of a motion sequence. The blue line corresponds to the denoised motion, whereas the green line to the ground truth. The black lines represent where the inbetweening begins and ends in the motion sequence. The green known motion line is solid outside the inbetweened part, and this is what we use to overwrite the output of the model at each denoising step.\\
-    In \protect\subref{inbetweening_blend_1}, the dotted section of the green known motion line represents what a smooth inbetweened sequence would look like. In reality, the denoised motion shown in blue does not perfectly match the known motion at the beginning and end where we will overwrite it. This means that when we do overwrite it we end up with discontinuities, as we can see in \protect\subref{inbetweening_blend_2}. The strategy we employ to try and mitigate this issue involves, at each denoising step, repeating the poses on the edges of the inbetweened motion and blending between the denoised and known motion for these frames, as show in \protect\subref{inbetweening_blend_3}.
-\end{figure}
+In \secref{sec:diffusion_baseline_inbetweening} we noted a discontinuity between the known motion and the generated motion. We hypothesised that this was due to the inpainting procedure, and that a more sophisticated inpainting procedure could mitigate this issue. We therefore implemented a denoising procedure in which we pad the edges of the known regions of motion with the last known pose, and rather than using a binary mask we blend this padded region with the generated motion smoothly, as described in \figref{fig:diffusion_inbetweening_blending}. With this procedure we aim to encourage the model to generate a motion that is continuous with the known motion by more smoothly introducing the boundaries between these motions. We find that this procedure, when coupled with the model operating on motion with freely moving root presented in \secref{sec:diffusion_contacts_world_space}, looks rather like a simple linear interpolation between the two motion. We postulate that this is due to the shortcoming of the model, notably that the root motion is not well learned and so is often very far from the known root motion. However, for the model operating on motion with fixed root presented in \secref{sec:baseline_evaluation}, we find that this leads to a more correlated inbetweened motion.

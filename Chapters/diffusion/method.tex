@@ -9,13 +9,13 @@ The diffusion framework that we use is defined theoretically as follows \cite{dd
 \begin{equation}
     \begin{aligned}
         q(x_t|x_{t-1}) &:= \mathcal{N}(\sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I}) \\
-        q(x_T | x_0) &:= \prod_{t=1}^T q(x_t | x_{t-1}) \\
+        q(x_T | x_0) &:= \prod_{t=1}^T q(x_t | x_{t-1})\,. \\
     \end{aligned}
 \end{equation}
-. With a well-chosen variance schedule $\beta_1, ..., \beta_T$ and a large T, we approximate a standard normal distribution as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately Gaussian noise. The 'reverse noising process' is unknown without the full data distribution, which we don't have access to, hence we approximate it using some parametrized function
+With a well-chosen variance schedule $\beta_1, ..., \beta_T$ and a large T, we approximate a standard normal distribution as we approach $t=T$. This entails that the first latent variable $x_T$ is approximately Gaussian noise. The 'reverse noising process' is unknown without the full data distribution, which we don't have access to, hence we approximate it using some parametrized function
 \begin{equation}
     \label{eq:reverse_noising_mean_variance}
-    p_{\theta}(x_{t-1} | x_t) = \mathcal{N}(\mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))
+    p_{\theta}(x_{t-1} | x_t) = \mathcal{N}(\mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))\,.
 \end{equation}
 
 The whole process can be visualized in \figref{fig:diffusion_process} borrowed from the DDPM paper \cite{ddpm}.
@@ -62,10 +62,9 @@ with
     \label{eq:direct_prediction_denoising_details}
     \begin{aligned}
     \tilde{\beta}_t &= \frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \beta_t \\
-    \mu_{\theta}(x_t, t) &= \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\hat{x}_{\theta}(x_t, t) + \frac{\sqrt{\alpha}_t(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha}_t}x_t
+    \mu_{\theta}(x_t, t) &= \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\hat{x}_{\theta}(x_t, t) + \frac{\sqrt{\alpha}_t(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha}_t}x_t\,.
     \end{aligned}
 \end{equation}
-.
 This direct prediction of the denoised signal allows us to use the simplified MSE objective \cite{ddpm,ramesh2022hierarchical} during training
 \begin{equation}
     \label{eq:simple_loss}
