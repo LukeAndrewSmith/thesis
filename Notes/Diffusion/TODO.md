@@ -14,33 +14,21 @@
         - Can request 40chf from the CGL secretary after hand in
     - USB stick
         - software (source code, executables, libraries)
+            - PULL ALL REPOS IN HAND_IN DIR BEFORE COPYING TO DRIVE
         - documentation (Latex or FrameMaker documents including pdf files and images)
         - oral presentations (PowerPoint slides including all video material)
 
-# Code TODOs
-- Note in readme
-    - Most important future work
-        - Evaluation on in the wild data
-        - Comparison of generated data to dataset (is it just replicating the data)
-        - Foot sliding for the contact data
-        - Metrics
 - Morning
-    - Collect results to put in the thesis/presentation
-        - Inpainting a joint over the whole sequence
-        - inbetweening - coloration to show what's inbetweened
-        - etc...
-    - Inpainting with 1 frame on each side for Jakob
+    - Read thesis, send to printer
+    - Save this thesis repo to my github
+    - Check usb stick
+        - Split out.zip up into 3 files and store them, with a note on how to join them after
+        - FAT32 file system has a max filesize of 4GB
+    - Check main readme and data on jakobs hard drive
+    - Check all guidelines are fullfilled, and see what is left to do
+    - done?
 
-- Train models
-    - Without contacts
-    - Without sticking the orientations but sticking translation
-    - With stuck root and contacts
-    - No stuck root again, but with foot sliding loss in world frame...
-    - Try stuck root only sticking position and not orientations
-        - Should be easier
-    - Train without contacts as well to see if that is breaking it
-
-
+# Code TODOs
 - Note on a bug
     - There was a bug with the calculated velocity losses before, I was doing a finite difference along the batch dimensions
         - I'm surprised the model managed to learn something...
